@@ -3,25 +3,26 @@ compatibility_date = "2024-01-01"
 pages_build_output_dir = "public"
 
 # KV Namespaces
-[[kv_namespaces]]
-binding = "ASPRE_LICENSES"
-id = "YOUR_KV_NAMESPACE_ID_LICENSES"
-preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID_LICENSES"
+# KV Namespaces (Uncomment and add IDs when ready)
+# [[kv_namespaces]]
+# binding = "ASPRE_LICENSES"
+# id = "YOUR_KV_NAMESPACE_ID_LICENSES"
+# preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID_LICENSES"
 
-[[kv_namespaces]]
-binding = "ASPRE_ORDERS"
-id = "YOUR_KV_NAMESPACE_ID_ORDERS"
-preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID_ORDERS"
+# [[kv_namespaces]]
+# binding = "ASPRE_ORDERS"
+# id = "YOUR_KV_NAMESPACE_ID_ORDERS"
+# preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID_ORDERS"
 
-[[kv_namespaces]]
-binding = "ASPRE_CUSTOMERS"
-id = "YOUR_KV_NAMESPACE_ID_CUSTOMERS"
-preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID_CUSTOMERS"
+# [[kv_namespaces]]
+# binding = "ASPRE_CUSTOMERS"
+# id = "YOUR_KV_NAMESPACE_ID_CUSTOMERS"
+# preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID_CUSTOMERS"
 
-[[kv_namespaces]]
-binding = "ASPRE_SETTINGS"
-id = "YOUR_KV_NAMESPACE_ID_SETTINGS"
-preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID_SETTINGS"
+# [[kv_namespaces]]
+# binding = "ASPRE_SETTINGS"
+# id = "YOUR_KV_NAMESPACE_ID_SETTINGS"
+# preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID_SETTINGS"
 
 # Environment Variables (set in Cloudflare Dashboard)
 # STRIPE_SECRET_KEY
