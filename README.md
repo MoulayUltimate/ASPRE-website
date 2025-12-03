@@ -1,4 +1,6 @@
-# ASPRE - Vectric Aspire 12 E-Commerce Platform
+# ASPRE - Vectric Aspire 12 E-Commerce
+**Version 1.0.1** - Deployment Fix
+ - Vectric Aspire 12 E-Commerce Platform
 
 🚀 **Professional full-stack e-commerce website for selling Vectric Aspire 12 software licenses**
 
