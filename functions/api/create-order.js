@@ -24,7 +24,7 @@ export async function onRequestPost(context) {
         const timestamp = new Date().toISOString();
 
         // Assign license key
-        const license Key = await assignLicenseKey(env);
+        const licenseKey = await assignLicenseKey(env);
 
         if (!licenseKey) {
             return new Response(JSON.stringify({
