@@ -1,0 +1,1 @@
+This file exists to verify the public folder is being tracked by git.
