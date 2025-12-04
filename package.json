@@ -1,6 +1,6 @@
 {
   "name": "aspre",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Vectric Aspire 12 E-Commerce Platform",
   "scripts": {
     "deploy": "echo 'Static site - no build needed'"
