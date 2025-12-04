@@ -353,27 +353,38 @@ console.log('%c🚀 ASPRE - Vectric Aspire 12 E-Commerce Platform', 'font-size: 
 console.log('%cBuilt for professional CNC software sales', 'font-size: 12px; color: #666;');
 console.log('%cVersion 1.0.0', 'font-size: 10px; color: #999;');
 
-// ============================================// Video Modal Functions
+// ============================================
+// Video Modal Functions
+// ============================================
 function openVideoModal(videoId) {
     const modal = document.getElementById('videoModal');
-    const iframe = document.getElementById('videoFrame');
-    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    const iframe = document.getElementById('videoPlayer');
+    if (modal && iframe) {
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 function closeVideoModal() {
     const modal = document.getElementById('videoModal');
-    const iframe = document.getElementById('videoFrame');
-    iframe.src = '';
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
+    const iframe = document.getElementById('videoPlayer');
+    if (modal && iframe) {
+        iframe.src = '';
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
 }
 
 // Close video modal when clicking outside
-document.getElementById('videoModal')?.addEventListener('click', (e) => {
-    if (e.target.id === 'videoModal') {
-        closeVideoModal();
+document.addEventListener('DOMContentLoaded', function() {
+    const videoModal = document.getElementById('videoModal');
+    if (videoModal) {
+        videoModal.addEventListener('click', (e) => {
+            if (e.target.id === 'videoModal') {
+                closeVideoModal();
+            }
+        });
     }
 });
 
