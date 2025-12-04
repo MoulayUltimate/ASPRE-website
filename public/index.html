@@ -82,7 +82,8 @@
          ============================================ -->
     <div style="background: #d32f2f; color: white; text-align: center; padding: 0.75rem 1rem; font-weight: 600;">
         <span style="font-size: 0.9375rem;">
-            🔥 FLASH SALE ENDS IN 48 HOURS: Get Aspire for <strong style="font-weight: 800;">$1,876 OFF</strong> Before
+            🔥 FLASH SALE ENDS IN 48 HOURS: Get Aspire for <strong class="flash-sale-discount"
+                style="font-weight: 800;">$1,876 OFF</strong> Before
             Price Returns to Normal
         </span>
     </div>
@@ -137,14 +138,15 @@
                     <h1>Vectric Aspire 12 – Full 3D CNC Design & Carving Software</h1>
                     <p class="hero-subtitle">
                         Get professional-grade 3D CNC design software with a <strong>full lifetime license</strong>.
-                        Save <strong>$1,876</strong> compared to retail price. Instant email delivery within minutes.
+                        Save <strong class="price-discount">$1,876</strong> compared to retail price. Instant email
+                        delivery within minutes.
                     </p>
 
                     <!-- Hero CTA Buttons -->
                     <div class="hero-cta">
                         <a href="https://buy.stripe.com/bJecN7frL2v38C3an5aAw01" class="btn btn-primary btn-large"
                             onclick="return gtag_report_conversion('https://buy.stripe.com/bJecN7frL2v38C3an5aAw01')">
-                            Get Aspire 12 Now – Only $119
+                            Get Aspire 12 Now – Only <span class="price-main">$119</span>
                         </a>
                         <a href="#features" class="btn btn-secondary btn-large">
                             <i class="fas fa-list-ul"></i>
@@ -187,7 +189,7 @@
     </section>
 
     <!-- ============================================
-         OFFER & VALUE SECTION
+         OFFER & VALUE SECTION - REDESIGNED
          ============================================ -->
     <section class="section">
         <div class="container text-center">
@@ -202,185 +204,174 @@
                 sacrificing a single feature.
             </p>
 
-            <!-- Product Box with Image Carousel -->
+            <!-- Product Showcase Box - New Layout -->
             <div
-                style="max-width: 800px; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.12);">
+                style="max-width: 900px; margin: 0 auto; background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 50px rgba(0,0,0,0.12);">
 
-                <!-- Image Carousel Section - Full Size Top -->
-                <div style="position: relative; width: 100%; background: #f5f5f5;">
-                    <div id="priceCarousel" style="position: relative; width: 100%; height: 500px;">
+                <!-- 3 Product Images in Horizontal Line -->
+                <div
+                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: #f8f9fa; border-bottom: 3px solid #e9ecef;">
+                    <!-- Image 1 -->
+                    <div style="position: relative; padding: 2rem 1rem; display: flex; align-items: center; justify-content: center; border-right: 1px solid #e9ecef; transition: transform 0.3s, background 0.3s; cursor: pointer;"
+                        onmouseover="this.style.transform='scale(1.05)'; this.style.background='white';"
+                        onmouseout="this.style.transform='scale(1)'; this.style.background='#f8f9fa';">
                         <img src="https://sienci.com/wp-content/uploads/2024/08/Aspire_TextureArea-324x243.png"
-                            class="carousel-image active"
-                            style="position: absolute; width: 100%; height: 100%; object-fit: contain; opacity: 1; transition: opacity 1s ease-in-out;"
-                            alt="Aspire Texture Area">
-                        <img src="https://sienci.com/wp-content/uploads/2024/08/Aspire-3D-Segmenting.png"
-                            class="carousel-image"
-                            style="position: absolute; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 1s ease-in-out;"
-                            alt="Aspire 3D Segmenting">
-                        <img src="https://sienci.com/wp-content/uploads/2024/08/Aspire-3D-Textures-from-Images.png"
-                            class="carousel-image"
-                            style="position: absolute; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 1s ease-in-out;"
-                            alt="Aspire 3D Textures">
-                        <img src="https://sienci.com/wp-content/uploads/2024/08/Aspire-Create-an-Angular-Shape-Component.png"
-                            class="carousel-image"
-                            style="position: absolute; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 1s ease-in-out;"
-                            alt="Aspire Angular Shape">
-                        <img src="https://sienci.com/wp-content/uploads/2024/08/Aspire-Create-Shapes-with-Custom-Profiles.png"
-                            class="carousel-image"
-                            style="position: absolute; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 1s ease-in-out;"
-                            alt="Aspire Custom Profiles">
+                            alt="3D Texture Area"
+                            style="width: 100%; height: auto; max-height: 180px; object-fit: contain; border-radius: 8px;">
                     </div>
 
-                    <!-- Carousel Indicators -->
-                    <div
-                        style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10;">
-                        <span class="carousel-dot active"
-                            style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-blue); opacity: 1; transition: opacity 0.3s; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></span>
-                        <span class="carousel-dot"
-                            style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-blue); opacity: 0.4; transition: opacity 0.3s; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></span>
-                        <span class="carousel-dot"
-                            style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-blue); opacity: 0.4; transition: opacity 0.3s; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></span>
-                        <span class="carousel-dot"
-                            style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-blue); opacity: 0.4; transition: opacity 0.3s; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></span>
-                        <span class="carousel-dot"
-                            style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-blue); opacity: 0.4; transition: opacity 0.3s; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></span>
+                    <!-- Image 2 -->
+                    <div style="position: relative; padding: 2rem 1rem; display: flex; align-items: center; justify-content: center; border-right: 1px solid #e9ecef; transition: transform 0.3s, background 0.3s; cursor: pointer;"
+                        onmouseover="this.style.transform='scale(1.05)'; this.style.background='white';"
+                        onmouseout="this.style.transform='scale(1)'; this.style.background='#f8f9fa';">
+                        <img src="https://sienci.com/wp-content/uploads/2024/08/Aspire-3D-Segmenting.png"
+                            alt="3D Segmenting"
+                            style="width: 100%; height: auto; max-height: 180px; object-fit: contain; border-radius: 8px;">
+                    </div>
+
+                    <!-- Image 3 -->
+                    <div style="position: relative; padding: 2rem 1rem; display: flex; align-items: center; justify-content: center; transition: transform 0.3s, background 0.3s; cursor: pointer;"
+                        onmouseover="this.style.transform='scale(1.05)'; this.style.background='white';"
+                        onmouseout="this.style.transform='scale(1)'; this.style.background='#f8f9fa';">
+                        <img src="https://sienci.com/wp-content/uploads/2024/08/Aspire-3D-Textures-from-Images.png"
+                            alt="3D Textures"
+                            style="width: 100%; height: auto; max-height: 180px; object-fit: contain; border-radius: 8px;">
                     </div>
                 </div>
 
-                <!-- Pricing Information Section - Below Images -->
-                <div style="padding: 3rem;">
-                    <!-- Product Title -->
-                    <h2 style="font-size: 2rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem;">
-                        Vectric Aspire 12</h2>
-                    <p style="color: var(--gray-600); font-size: 1.125rem; margin-bottom: 2rem;">Professional 3D CNC
-                        Design & Carving Software</p>
+                <!-- Product Info Section -->
+                <div style="padding: 2.5rem 3rem;">
+                    <!-- Product Title & Subtitle -->
+                    <div style="margin-bottom: 2rem;">
+                        <h2
+                            style="font-size: 2.25rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem;">
+                            Vectric Aspire 12
+                        </h2>
+                        <p style="color: var(--gray-600); font-size: 1.125rem; margin: 0;">
+                            Professional 3D CNC Design & Carving Software
+                        </p>
+                    </div>
+
+                    <!-- Compact Features Grid - 3 Columns -->
+                    <div
+                        style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 12px;">
+                        <!-- Feature 1 -->
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;">
+                            <i class="fas fa-infinity" style="color: #0066cc; font-size: 2rem;"></i>
+                            <span style="font-size: 0.875rem; font-weight: 600; color: var(--gray-900);">Lifetime
+                                License</span>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;">
+                            <i class="fas fa-bolt" style="color: #00b67a; font-size: 2rem;"></i>
+                            <span style="font-size: 0.875rem; font-weight: 600; color: var(--gray-900);">Instant
+                                Delivery</span>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;">
+                            <i class="fas fa-video" style="color: #0066cc; font-size: 2rem;"></i>
+                            <span style="font-size: 0.875rem; font-weight: 600; color: var(--gray-900);">Video
+                                Guide</span>
+                        </div>
+
+                        <!-- Feature 4 -->
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;">
+                            <i class="fas fa-check-circle" style="color: #00b67a; font-size: 2rem;"></i>
+                            <span style="font-size: 0.875rem; font-weight: 600; color: var(--gray-900);">Verified
+                                Software</span>
+                        </div>
+
+                        <!-- Feature 5 -->
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;">
+                            <i class="fas fa-undo" style="color: #00b67a; font-size: 2rem;"></i>
+                            <span style="font-size: 0.875rem; font-weight: 600; color: var(--gray-900);">30-Day
+                                Guarantee</span>
+                        </div>
+
+                        <!-- Feature 6 -->
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;">
+                            <i class="fas fa-headset" style="color: #0066cc; font-size: 2rem;"></i>
+                            <span style="font-size: 0.875rem; font-weight: 600; color: var(--gray-900);">24/7
+                                Support</span>
+                        </div>
+                    </div>
 
                     <!-- Limited Time Offer Badge -->
                     <div
-                        style="display: inline-block; background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%); color: white; padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 600; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                        style="display: inline-block; background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%); color: white; padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 600; margin-bottom: 1.5rem; font-size: 0.9375rem; box-shadow: 0 4px 12px rgba(255,107,53,0.3);">
                         ⚡ LIMITED TIME OFFER
                     </div>
 
-                    <!-- Price Section -->
-                    <div style="margin-bottom: 2rem;">
-                        <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1rem;">
-                            <span
-                                style="font-size: 2rem; color: var(--gray-400); text-decoration: line-through; font-weight: 500;">$1,995</span>
-                            <span style="font-size: 3.5rem; font-weight: 900; color: var(--accent-blue);">$119</span>
-                        </div>
+                    <!-- Pricing Section -->
+                    <div
+                        style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 16px; margin-bottom: 2rem;">
+                        <!-- Price Display -->
                         <div
-                            style="background: linear-gradient(135deg, #00b67a 0%, #00d68f 100%); color: white; display: inline-block; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 1.125rem;">
-                            Save $1,876 (94% OFF)
+                            style="display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 1.5rem;">
+                            <span class="price-retail"
+                                style="font-size: 2rem; color: var(--gray-400); text-decoration: line-through; font-weight: 500;">
+                                $1,995
+                            </span>
+                            <span class="price-main"
+                                style="font-size: 4rem; font-weight: 900; color: var(--accent-blue); line-height: 1;">
+                                $119
+                            </span>
                         </div>
-                    </div>
 
-                    <!-- Features List -->
-                    <div style="border-top: 2px solid var(--gray-100); padding-top: 2rem; margin-bottom: 2rem;">
-                        <ul style="list-style: none; margin: 0; padding: 0;">
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
-                                <i class="fas fa-check-circle"
-                                    style="color: #00b67a; font-size: 1.5rem; flex-shrink: 0;"></i>
-                                <span style="font-size: 1.0625rem; color: var(--gray-700);">Lifetime License – Never Pay
-                                    Again</span>
-                            </li>
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
-                                <i class="fas fa-check-circle"
-                                    style="color: #00b67a; font-size: 1.5rem; flex-shrink: 0;"></i>
-                                <span style="font-size: 1.0625rem; color: var(--gray-700);">Instant Email Delivery (1-2
-                                    Minutes)</span>
-                            </li>
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
-                                <i class="fas fa-check-circle"
-                                    style="color: #00b67a; font-size: 1.5rem; flex-shrink: 0;"></i>
-                                <span style="font-size: 1.0625rem; color: var(--gray-700);">Step-by-Step Installation
-                                    Guide</span>
-                            </li>
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
-                                <i class="fas fa-check-circle"
-                                    style="color: #00b67a; font-size: 1.5rem; flex-shrink: 0;"></i>
-                                <span style="font-size: 1.0625rem; color: var(--gray-700);">Verified & Tested
-                                    Software</span>
-                            </li>
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
-                                <i class="fas fa-check-circle"
-                                    style="color: #00b67a; font-size: 1.5rem; flex-shrink: 0;"></i>
-                                <span style="font-size: 1.0625rem; color: var(--gray-700);">30-Day Money-Back
-                                    Guarantee</span>
-                            </li>
-                        </ul>
+                        <!-- Savings Badge -->
+                        <div
+                            style="background: linear-gradient(135deg, #00b67a 0%, #00d68f 100%); color: white; display: inline-block; padding: 0.875rem 2rem; border-radius: 12px; font-weight: 700; font-size: 1.25rem; box-shadow: 0 4px 16px rgba(0,182,122,0.3);">
+                            Save <span class="price-discount">$1,876</span> (94% OFF)
+                        </div>
                     </div>
 
                     <!-- Buy Button -->
                     <a href="https://buy.stripe.com/bJecN7frL2v38C3an5aAw01" class="btn btn-primary btn-large"
-                        style="width: 100%; font-size: 1.25rem; padding: 1.25rem 2rem;"
+                        style="width: 100%; font-size: 1.375rem; padding: 1.5rem 2rem; margin-bottom: 1.5rem; box-shadow: 0 6px 20px rgba(0,102,204,0.3); transition: all 0.3s;"
                         onclick="return gtag_report_conversion('https://buy.stripe.com/bJecN7frL2v38C3an5aAw01')">
                         <i class="fas fa-shopping-cart"></i>
-                        Claim Your License Now – Only $119
+                        Claim Your License Now – Only <span class="price-main">$119</span>
                     </a>
 
-                    <!-- Trust & Delivery Info -->
-                    <div
-                        style="margin-top: 1.5rem; text-align: center; padding-top: 1.5rem; border-top: 1px solid var(--gray-200);">
-                        <p style="font-size: 0.9375rem; color: var(--gray-600); margin: 0;">
-                            <i class="fas fa-shield-alt" style="color: #00b67a;"></i> Secure Payment •
-                            <i class="fas fa-bolt" style="color: #00b67a;"></i> Instant Delivery •
-                            <i class="fas fa-clock" style="color: #00b67a;"></i> Delivered in 1-2 Minutes
+                    <!-- Trust Badges -->
+                    <div style="text-align: center; padding-top: 1.5rem; border-top: 2px solid var(--gray-200);">
+                        <p
+                            style="font-size: 0.9375rem; color: var(--gray-600); margin: 0; display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+                            <span><i class="fas fa-shield-alt" style="color: #00b67a;"></i> Secure Payment</span>
+                            <span><i class="fas fa-bolt" style="color: #00b67a;"></i> Instant Delivery</span>
+                            <span><i class="fas fa-clock" style="color: #00b67a;"></i> 1-2 Minutes</span>
                         </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Carousel Auto-Rotation Script -->
-            <script>
-                (function () {
-                    let currentSlide = 0;
-                    const images = document.querySelectorAll('#priceCarousel .carousel-image');
-                    const dots = document.querySelectorAll('.carousel-dot');
-                    const totalSlides = images.length;
-
-                    function showSlide(index) {
-                        images.forEach((img, i) => {
-                            img.style.opacity = i === index ? '1' : '0';
-                        });
-                        dots.forEach((dot, i) => {
-                            dot.style.opacity = i === index ? '1' : '0.4';
-                        });
-                    }
-
-                    function nextSlide() {
-                        currentSlide = (currentSlide + 1) % totalSlides;
-                        showSlide(currentSlide);
-                    }
-
-                    // Auto-rotate every 3 seconds
-                    setInterval(nextSlide, 3000);
-
-                    // Manual dot navigation
-                    dots.forEach((dot, index) => {
-                        dot.addEventListener('click', () => {
-                            currentSlide = index;
-                            showSlide(currentSlide);
-                        });
-                    });
-                })();
-            </script>
-
             <!-- Stats Counter -->
             <div class="grid-3" style="margin-top: 4rem; gap: 2rem;">
-                <div
-                    style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                    <h3 style="color: #00b67a; font-size: 3rem; margin-bottom: 0.5rem;">8,347+</h3>
-                    <p style="color: var(--gray-600); margin: 0;">Licenses Delivered</p>
+                <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.3s;"
+                    onmouseover="this.style.transform='translateY(-8px)'"
+                    onmouseout="this.style.transform='translateY(0)'">
+                    <h3 style="color: #00b67a; font-size: 3rem; margin-bottom: 0.5rem; font-weight: 800;">8,347+</h3>
+                    <p style="color: var(--gray-600); margin: 0; font-weight: 500;">Licenses Delivered</p>
                 </div>
-                <div
-                    style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                    <h3 style="color: #00b67a; font-size: 3rem; margin-bottom: 0.5rem;">98%</h3>
-                    <p style="color: var(--gray-600); margin: 0;">Satisfaction Rate</p>
+                <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.3s;"
+                    onmouseover="this.style.transform='translateY(-8px)'"
+                    onmouseout="this.style.transform='translateY(0)'">
+                    <h3 style="color: #00b67a; font-size: 3rem; margin-bottom: 0.5rem; font-weight: 800;">98%</h3>
+                    <p style="color: var(--gray-600); margin: 0; font-weight: 500;">Satisfaction Rate</p>
                 </div>
-                <div
-                    style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                    <h3 style="color: #00b67a; font-size: 3rem; margin-bottom: 0.5rem;">2019</h3>
-                    <p style="color: var(--gray-600); margin: 0;">Trusted Since</p>
+                <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.3s;"
+                    onmouseover="this.style.transform='translateY(-8px)'"
+                    onmouseout="this.style.transform='translateY(0)'">
+                    <h3 style="color: #00b67a; font-size: 3rem; margin-bottom: 0.5rem; font-weight: 800;">2019</h3>
+                    <p style="color: var(--gray-600); margin: 0; font-weight: 500;">Trusted Since</p>
                 </div>
             </div>
         </div>
@@ -556,32 +547,33 @@
                         <div
                             style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--gray-200);">
                             <span style="color: var(--gray-700); font-weight: 500;">Vectric Aspire 12 (Retail)</span>
-                            <span
+                            <span class="price-retail"
                                 style="color: var(--gray-700); text-decoration: line-through; font-weight: 600;">$1,995</span>
                         </div>
                         <div
                             style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--gray-200);">
                             <span style="color: var(--gray-700); font-weight: 500;">Video Training Library</span>
-                            <span
+                            <span class="price-training-library"
                                 style="color: var(--gray-700); text-decoration: line-through; font-weight: 600;">$427</span>
                         </div>
                         <div
                             style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--gray-200);">
                             <span style="color: var(--gray-700); font-weight: 500;">Premium Design Files & Clipart
                                 Library</span>
-                            <span
+                            <span class="price-design-files"
                                 style="color: var(--gray-700); text-decoration: line-through; font-weight: 600;">$259</span>
                         </div>
                         <div
                             style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--gray-200);">
                             <span style="color: var(--gray-700); font-weight: 500;">Installation Support</span>
-                            <span
+                            <span class="price-installation-support"
                                 style="color: var(--gray-700); text-decoration: line-through; font-weight: 600;">$149</span>
                         </div>
                         <div
                             style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 2px solid var(--gray-300);">
                             <span style="color: var(--gray-700); font-weight: 500;">Lifetime Updates</span>
-                            <span style="color: var(--gray-700); font-weight: 600;">$3,337</span>
+                            <span class="price-lifetime-updates"
+                                style="color: var(--gray-700); font-weight: 600;">$3,337</span>
                         </div>
 
                         <!-- Discount -->
@@ -589,7 +581,8 @@
                             style="background: #ffe6e6; padding: 1.25rem; margin: 1.5rem 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
                             <span style="font-weight: 700; color: var(--gray-900); font-size: 1.125rem;">Your
                                 Discount</span>
-                            <span style="font-weight: 800; color: #d00; font-size: 1.75rem;">-$3,218</span>
+                            <span class="price-total-discount"
+                                style="font-weight: 800; color: #d00; font-size: 1.75rem;">-$3,218</span>
                         </div>
 
                         <!-- Final Price -->
@@ -597,7 +590,8 @@
                             style="background: #e3f2fd; padding: 1.5rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
                             <span style="font-weight: 700; font-size: 1.25rem; color: var(--gray-900);">Your Price
                                 Today</span>
-                            <span style="font-weight: 900; font-size: 2.5rem; color: var(--accent-blue);">$119</span>
+                            <span class="price-main"
+                                style="font-weight: 900; font-size: 2.5rem; color: var(--accent-blue);">$119</span>
                         </div>
                     </div>
 
@@ -605,7 +599,7 @@
                     <a href="https://buy.stripe.com/bJecN7frL2v38C3an5aAw01"
                         style="display: block; background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-dark) 100%); color: white; text-align: center; padding: 1.5rem 2rem; border-radius: 12px; font-size: 1.25rem; font-weight: 700; text-decoration: none; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,102,204,0.3); transition: transform 0.3s;"
                         onclick="return gtag_report_conversion('https://buy.stripe.com/bJecN7frL2v38C3an5aAw01')">
-                        Get Aspire 12 Now – Only $119
+                        Get Aspire 12 Now – Only <span class="price-main">$119</span>
                     </a>
 
                     <!-- Trust Badges -->
@@ -803,7 +797,8 @@
                     <h3 style="font-size: 1.375rem; margin-bottom: 1rem; color: var(--gray-900);">Huge Savings – 94% OFF
                     </h3>
                     <p style="color: var(--gray-600); line-height: 1.7; margin: 0;">
-                        Save $1,876 compared to retail price. Same software, same features, incredible value.
+                        Save <span class="price-discount">$1,876</span> compared to retail price. Same software, same
+                        features, incredible value.
                     </p>
                 </div>
 
@@ -1101,6 +1096,7 @@
     </div>
 
     <!-- JavaScript -->
+    <script src="js/geo-currency.js"></script>
     <script src="js/main.js"></script>
 </body>
 
