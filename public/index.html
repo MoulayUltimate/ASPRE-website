@@ -33,6 +33,24 @@
         });
     </script>
 
+    <!-- Event snippet for Add to basket (1) conversion page -->
+    <script>
+        function gtag_report_conversion(url) {
+            var callback = function () {
+                if (typeof (url) != 'undefined') {
+                    window.location = url;
+                }
+            };
+            gtag('event', 'conversion', {
+                'send_to': 'AW-17761712074/6xkRCPqdxMsbEMrvuJVC',
+                'value': 1.0,
+                'currency': 'USD',
+                'event_callback': callback
+            });
+            return false;
+        }
+    </script>
+
     <!-- SEO Meta Tags -->
     <title>Vectric Aspire 12 - Full Lifetime License | Save $1,876 Today</title>
     <meta name="description"
@@ -91,7 +109,8 @@
 
                 <!-- CTA Buttons -->
                 <div class="nav-cta">
-                    <a href="https://buy.stripe.com/bJecN7frL2v38C3an5aAw01" class="btn btn-primary">
+                    <a href="https://buy.stripe.com/bJecN7frL2v38C3an5aAw01" class="btn btn-primary"
+                        onclick="return gtag_report_conversion('https://buy.stripe.com/bJecN7frL2v38C3an5aAw01')">
                         <i class="fas fa-shopping-cart"></i>
                         Take offer
                     </a>
@@ -123,7 +142,8 @@
 
                     <!-- Hero CTA Buttons -->
                     <div class="hero-cta">
-                        <a href="https://buy.stripe.com/bJecN7frL2v38C3an5aAw01" class="btn btn-primary btn-large">
+                        <a href="https://buy.stripe.com/bJecN7frL2v38C3an5aAw01" class="btn btn-primary btn-large"
+                            onclick="return gtag_report_conversion('https://buy.stripe.com/bJecN7frL2v38C3an5aAw01')">
                             Get Aspire 12 Now – Only $119
                         </a>
                         <a href="#features" class="btn btn-secondary btn-large">
@@ -220,7 +240,8 @@
                 </ul>
 
                 <a href="https://buy.stripe.com/bJecN7frL2v38C3an5aAw01" class="btn btn-primary btn-large"
-                    style="margin-top: 2rem; width: 100%;">
+                    style="margin-top: 2rem; width: 100%;"
+                    onclick="return gtag_report_conversion('https://buy.stripe.com/bJecN7frL2v38C3an5aAw01')">
                     <i class="fas fa-shopping-cart"></i>
                     Claim Your License Now
                 </a>
@@ -468,7 +489,8 @@
 
                     <!-- CTA Button -->
                     <a href="https://buy.stripe.com/bJecN7frL2v38C3an5aAw01"
-                        style="display: block; background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-dark) 100%); color: white; text-align: center; padding: 1.5rem 2rem; border-radius: 12px; font-size: 1.25rem; font-weight: 700; text-decoration: none; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,102,204,0.3); transition: transform 0.3s;">
+                        style="display: block; background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-dark) 100%); color: white; text-align: center; padding: 1.5rem 2rem; border-radius: 12px; font-size: 1.25rem; font-weight: 700; text-decoration: none; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,102,204,0.3); transition: transform 0.3s;"
+                        onclick="return gtag_report_conversion('https://buy.stripe.com/bJecN7frL2v38C3an5aAw01')">
                         Get Aspire 12 Now – Only $119
                     </a>
 
