@@ -143,7 +143,7 @@
     max-width: 500px;
     border-radius: 20px;
     padding: 2.5rem;
-    
+
     position: relative;
     transform: translateY(20px);
     transition: transform 0.3s ease;
@@ -193,7 +193,7 @@
 .form-input:focus {
     outline: none;
     border-color: var(--accent-blue);
-    
+
 }
 
 .form-textarea {
@@ -347,13 +347,16 @@ a:hover {
     transition: all var(--transition-base);
     text-decoration: none;
     white-space: nowrap;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .btn-primary {
     background: var(--accent-blue);
     border-color: var(--accent-blue);
     color: var(--white);
-    
+
     font-weight: 600;
 }
 
@@ -361,7 +364,7 @@ a:hover {
     background: var(--accent-blue-dark);
     border-color: var(--accent-blue-dark);
     transform: translateY(-1px);
-    
+
     color: var(--white);
 }
 
@@ -398,7 +401,7 @@ a:hover {
 
 .btn-success:hover {
     transform: translateY(-2px);
-    
+
     color: var(--white);
 }
 
@@ -420,13 +423,13 @@ a:hover {
     background: var(--white);
     border-radius: var(--radius-xl);
     padding: var(--space-8);
-    
+
     transition: all var(--transition-base);
 }
 
 .card:hover {
     transform: translateY(-4px);
-    
+
 }
 
 .card-header {
@@ -596,7 +599,7 @@ a:hover {
     width: 100%;
     height: auto;
     border-radius: var(--radius-2xl);
-    
+
 }
 
 /* ============================================
@@ -638,7 +641,7 @@ a:hover {
     text-align: center;
     position: relative;
     overflow: hidden;
-    
+
     border: 1px solid var(--gray-200);
 }
 
@@ -696,7 +699,7 @@ a:hover {
     background: var(--white);
     padding: var(--space-8);
     border-radius: var(--radius-xl);
-    
+
     transition: all var(--transition-base);
     border: 2px solid transparent;
 }
@@ -704,7 +707,7 @@ a:hover {
 .feature-card:hover {
     border-color: var(--primary-blue);
     transform: translateY(-4px);
-    
+
 }
 
 .feature-icon {
@@ -746,7 +749,7 @@ a:hover {
     background: var(--white);
     padding: var(--space-8);
     border-radius: var(--radius-xl);
-    
+
 }
 
 .testimonial-header {
@@ -797,7 +800,7 @@ a:hover {
     background: var(--white);
     border-radius: var(--radius-lg);
     margin-bottom: var(--space-4);
-    
+
     overflow: hidden;
 }
 
@@ -847,7 +850,7 @@ a:hover {
     background: var(--bg-footer);
     color: var(--gray-600);
     padding: var(--space-16) 0 var(--space-8);
-    
+
     border-top: 4px solid var(--accent-blue);
 }
 
@@ -997,7 +1000,7 @@ a:hover {
         width: 100%;
         background: var(--white);
         padding: var(--space-4);
-        
+
         flex-direction: column;
         align-items: center;
         gap: var(--space-4);
