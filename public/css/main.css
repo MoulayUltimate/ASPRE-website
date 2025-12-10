@@ -541,7 +541,7 @@ a:hover {
    ============================================ */
 .hero {
     position: relative;
-    background: #F2F2F2;
+    background: #F5F5F5;
     padding: var(--space-24) 0;
     overflow: hidden;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
