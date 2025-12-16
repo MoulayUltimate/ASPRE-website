@@ -1157,12 +1157,38 @@ a:hover {
     }
 
     .product-image-container {
-        min-height: auto !important;
-        padding: 1.5rem 1rem !important;
+        min-height: 250px !important;
+        padding: 1.25rem 1rem !important;
     }
 
     .product-image-container img {
         max-width: 100% !important;
+        max-height: 220px !important;
+    }
+
+    /* Adjust product info section on mobile */
+    .product-showcase-box>div:last-child {
+        padding: 1.5rem !important;
+    }
+
+    /* Adjust product title on mobile */
+    .product-showcase-box h2 {
+        font-size: 1.5rem !important;
+    }
+
+    /* Adjust features grid on mobile */
+    [style*="grid-template-columns: 1fr 1fr"] {
+        gap: 0.5rem !important;
+        font-size: 0.8125rem !important;
+    }
+
+    /* Adjust pricing on mobile */
+    [style*="font-size: 2.5rem"] {
+        font-size: 2rem !important;
+    }
+
+    [style*="font-size: 1.25rem"][style*="text-decoration: line-through"] {
+        font-size: 1.125rem !important;
     }
 }
 
