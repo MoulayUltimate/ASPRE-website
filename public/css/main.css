@@ -1190,6 +1190,22 @@ a:hover {
     [style*="font-size: 1.25rem"][style*="text-decoration: line-through"] {
         font-size: 1.125rem !important;
     }
+
+    /* Video showcase mobile optimization */
+    .video-showcase-container {
+        margin: 0 0.5rem !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .video-showcase-container+div {
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* Adjust video section heading on mobile */
+    [style*="See Aspire 12 in Action"] {
+        font-size: 1.75rem !important;
+    }
 }
 
 /* ============================================
