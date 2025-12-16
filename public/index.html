@@ -464,7 +464,7 @@
                 <div style="background: white; padding: 2rem; border-radius: 1rem;  transition: transform 0.3s;"
                     onmouseover="this.style.transform='translateY(-8px)'"
                     onmouseout="this.style.transform='translateY(0)'">
-                    <h3
+                    <h3 id="yearStat"
                         style="color: #00b67a; font-size: 3rem; margin-bottom: 0.5rem; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; font-feature-settings: 'tnum' 1;">
                         2019</h3>
                     <p style="color: var(--gray-600); margin: 0; font-weight: 500;">Trusted Since</p>
@@ -472,6 +472,35 @@
             </div>
         </div>
     </section>
+
+    <script>
+        // Fix the 2019 year display - prevent comma formatting
+        document.addEventListener('DOMContentLoaded', function () {
+            const yearElement = document.getElementById('yearStat');
+            if (yearElement) {
+                // Create a MutationObserver to watch for changes
+                const observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        if (yearElement.textContent.includes(',')) {
+                            yearElement.textContent = '2019';
+                        }
+                    });
+                });
+
+                // Start observing
+                observer.observe(yearElement, {
+                    characterData: true,
+                    childList: true,
+                    subtree: true
+                });
+
+                // Also fix it immediately and after a delay
+                yearElement.textContent = '2019';
+                setTimeout(() => yearElement.textContent = '2019', 100);
+                setTimeout(() => yearElement.textContent = '2019', 2500);
+            }
+        });
+    </script>
 
     <div class="section-divider"></div>
 
