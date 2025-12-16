@@ -1378,6 +1378,149 @@
         })();
     </script>
 
+
+    <!-- Checkout Popup Modal -->
+    <div id="checkoutModal" class="checkout-modal-backdrop"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 10000; align-items: center; justify-content: center;">
+        <div class="checkout-modal"
+            style="background: white; border-radius: 20px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; animation: slideIn 0.3s ease-out;">
+            <!-- Header -->
+            <div
+                style="padding: 1.5rem 2rem; border-bottom: 1px solid #e9ecef; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fas fa-shield-alt" style="color: #00b67a; font-size: 1.5rem;"></i>
+                    <h3 style="margin: 0; font-size: 1.375rem; font-weight: 700; color: var(--gray-900);">Secure
+                        Checkout</h3>
+                </div>
+                <button onclick="closeCheckoutModal()"
+                    style="background: none; border: none; color: var(--gray-400); font-size: 1.75rem; cursor: pointer; line-height: 1; padding: 0; transition: color 0.2s;"
+                    onmouseover="this.style.color='var(--gray-900)'" onmouseout="this.style.color='var(--gray-400)'">
+                    ×
+                </button>
+            </div>
+
+            <!-- Product Info -->
+            <div style="padding: 2rem;">
+                <div
+                    style="display: flex; gap: 1.25rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid #e9ecef;">
+                    <!-- Product Image -->
+                    <div
+                        style="flex-shrink: 0; width: 100px; height: 100px; background: #f8f9fa; border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+                        <img src="assets/images/logo.png" alt="Vectric Aspire 12"
+                            style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    </div>
+
+                    <!-- Product Details -->
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0 0 0.5rem 0; font-size: 1.25rem; font-weight: 700; color: var(--gray-900);">
+                            Vectric Aspire 12</h4>
+                        <p style="margin: 0 0 0.75rem 0; color: var(--gray-600); font-size: 0.9375rem;">Lifetime License
+                            • Instant Delivery</p>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span style="color: var(--gray-600); font-size: 0.9375rem;">Qty: 1</span>
+                            <span style="font-size: 1.5rem; font-weight: 800; color: var(--gray-900);">$119</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Breakdown -->
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                        <span style="color: var(--gray-600); font-size: 1rem;">Subtotal</span>
+                        <span style="color: var(--gray-900); font-size: 1rem; font-weight: 600;">$119.00</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1.25rem;">
+                        <span style="color: var(--gray-600); font-size: 1rem;">Discount</span>
+                        <span style="color: #00b67a; font-size: 1rem; font-weight: 600;">-$0.00</span>
+                    </div>
+                    <div style="height: 1px; background: #e9ecef; margin-bottom: 1.25rem;"></div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: var(--gray-900); font-size: 1.375rem; font-weight: 800;">Total</span>
+                        <span style="color: var(--gray-900); font-size: 2rem; font-weight: 900;">$119.00</span>
+                    </div>
+                </div>
+
+                <!-- Complete Payment Button -->
+                <button id="completePaymentBtn" onclick="proceedToStripe()"
+                    style="width: 100%; background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%); color: white; border: none; padding: 1.25rem; border-radius: 12px; font-size: 1.125rem; font-weight: 700; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    COMPLETE SECURE PAYMENT
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
+                <!-- SSL Badge -->
+                <div
+                    style="text-align: center; color: var(--gray-500); font-size: 0.875rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i class="fas fa-lock" style="color: var(--gray-400);"></i>
+                    SSL Encrypted Payment
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .checkout-modal-backdrop.active {
+            display: flex !important;
+        }
+
+        #completePaymentBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(132, 204, 22, 0.3);
+        }
+    </style>
+
+    <script>
+        const stripeUrl = 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01';
+
+        function openCheckoutModal() {
+            document.getElementById('checkoutModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function proceedToStripe() {
+            // Track conversion before redirect
+            if (typeof gtag_report_conversion === 'function') {
+                gtag_report_conversion(stripeUrl);
+            }
+            // Redirect to Stripe
+            window.location.href = stripeUrl;
+        }
+
+        // Update all buy buttons to open modal instead of direct link
+        document.addEventListener('DOMContentLoaded', function () {
+            const buyButtons = document.querySelectorAll('a[href*="stripe.com"]');
+            buyButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    openCheckoutModal();
+                });
+            });
+        });
+
+        // Close modal on backdrop click
+        document.getElementById('checkoutModal')?.addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeCheckoutModal();
+            }
+        });
+    </script>
+
     <script src="js/geo-currency.js"></script>
     <script src="js/main.js"></script>
 </body>
