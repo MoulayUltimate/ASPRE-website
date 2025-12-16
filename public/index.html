@@ -107,15 +107,45 @@
             .product-image-container {
                 min-height: auto !important;
                 padding: 1.5rem 1rem !important;
+                position: relative !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
             }
 
-            .product-image-container img {
-                max-width: 85% !important;
-                max-height: 180px !important;
-                position: static !important;
+            /* Fix both images on mobile - remove absolute positioning */
+            #productImg1,
+            #productImg2 {
+                max-width: 100% !important;
+                max-height: 200px !important;
+                width: auto !important;
+                height: auto !important;
+                position: relative !important;
                 transform: none !important;
+                top: auto !important;
+                left: auto !important;
                 margin: 0 auto !important;
                 display: block !important;
+                box-shadow: none !important;
+            }
+
+            /* Ensure only one image shows at a time on mobile */
+            #productImg1 {
+                position: absolute !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+            }
+
+            #productImg2 {
+                position: absolute !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+            }
+
+            .product-image-container {
+                min-height: 220px !important;
             }
 
             /* Product info section */
