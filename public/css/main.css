@@ -7,6 +7,9 @@
    CSS VARIABLES - DESIGN TOKENS
    ============================================ */
 :root {
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+
     /* Primary Colors - Simplified 2-color palette */
     --primary-dark: #1a1a1a;
     --primary-light: #ffffff;
