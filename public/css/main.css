@@ -1139,6 +1139,31 @@ a:hover {
         max-width: 100%;
         height: auto;
     }
+
+    /* Fix hero video cutoff on mobile */
+    .hero-media img,
+    .hero-media video {
+        object-fit: contain !important;
+        min-height: auto !important;
+        max-height: 300px !important;
+        width: 100% !important;
+    }
+
+    /* Fix product showcase box on mobile - stack vertically */
+    .product-showcase-box {
+        grid-template-columns: 1fr !important;
+        max-width: 100% !important;
+        margin: 0 1rem !important;
+    }
+
+    .product-image-container {
+        min-height: auto !important;
+        padding: 1.5rem 1rem !important;
+    }
+
+    .product-image-container img {
+        max-width: 100% !important;
+    }
 }
 
 /* ============================================
