@@ -588,7 +588,15 @@ a:hover {
     width: 100%;
     height: auto;
     border-radius: var(--radius-2xl);
-
+    /* Enhanced video quality rendering */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+    /* Ensure video scales up smoothly */
+    object-fit: cover;
+    min-height: 400px;
 }
 
 /* ============================================

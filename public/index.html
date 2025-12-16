@@ -292,7 +292,11 @@
                 <!-- Hero Media -->
                 <div class="hero-media">
                     <!-- Aspire Demo Video -->
-                    <video autoplay muted loop playsinline>
+                    <video autoplay muted loop playsinline preload="auto">
+                        <source
+                            src="https://a.storyblok.com/f/274451/x/ab1ba20ab1/acceleration-aware-time-estimation-420x236.mp4/m/1280x0"
+                            type="video/mp4">
+                        <!-- Fallback to original if CDN doesn't support video resizing -->
                         <source
                             src="https://a.storyblok.com/f/274451/x/ab1ba20ab1/acceleration-aware-time-estimation-420x236.mp4"
                             type="video/mp4">
