@@ -1705,6 +1705,45 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(0, 102, 204, 0.3);
         }
+
+        /* Mobile: Product Benefits Section */
+        @media (max-width: 768px) {
+
+            /* Benefits grid - stack vertically on mobile */
+            section div[style*="grid-template-columns: repeat(2, 1fr)"] {
+                grid-template-columns: 1fr !important;
+                gap: 1.25rem !important;
+            }
+
+            /* Benefit cards - reduce padding for mobile */
+            section div[style*="grid-template-columns: repeat(2, 1fr)"]>div {
+                padding: 1.5rem !important;
+            }
+
+            /* Icon containers - smaller on mobile */
+            section div[style*="grid-template-columns: repeat(2, 1fr)"]>div>div[style*="width: 64px"] {
+                width: 52px !important;
+                height: 52px !important;
+                margin-bottom: 1rem !important;
+            }
+
+            /* Icons - smaller size */
+            section div[style*="grid-template-columns: repeat(2, 1fr)"]>div>div[style*="width: 64px"] i.fas {
+                font-size: 1.5rem !important;
+            }
+
+            /* Card titles - smaller font */
+            section div[style*="grid-template-columns: repeat(2, 1fr)"]>div h3 {
+                font-size: 1.125rem !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            /* Card text - optimize readability */
+            section div[style*="grid-template-columns: repeat(2, 1fr)"]>div p {
+                font-size: 0.875rem !important;
+                line-height: 1.5 !important;
+            }
+        }
     </style>
 
     <script>
@@ -1789,7 +1828,10 @@
             }
 
             try {
-                // Send data to Google Sheets
+                // Build Stripe URL immediately
+                const stripeCheckoutUrl = `${CHECKOUT_CONFIG.stripeUrl}?prefilled_email=${encodeURIComponent(email)}`;
+
+                // Send data to Google Sheets in background (fire-and-forget)
                 if (CHECKOUT_CONFIG.googleSheetsUrl !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
                     const data = {
                         email: email,
@@ -1798,35 +1840,32 @@
                         source: window.location.href
                     };
 
-                    await fetch(CHECKOUT_CONFIG.googleSheetsUrl, {
+                    // Fire-and-forget - don't wait for response
+                    fetch(CHECKOUT_CONFIG.googleSheetsUrl, {
                         method: 'POST',
                         mode: 'no-cors',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(data)
-                    });
+                    }).catch(err => console.log('Google Sheets log failed (non-critical):', err));
 
                     console.log('✅ Email sent to Google Sheets:', email);
                 }
-
-                // Small delay to ensure data is sent
-                await new Promise(resolve => setTimeout(resolve, 500));
 
                 // Track purchase conversion
                 if (typeof gtag_report_conversion === 'function') {
                     gtag_report_conversion(CHECKOUT_CONFIG.stripeUrl);
                 }
 
-                // Redirect to Stripe with prefilled email
-                const stripeCheckoutUrl = `${CHECKOUT_CONFIG.stripeUrl}?prefilled_email=${encodeURIComponent(email)}`;
+                // INSTANT redirect to Stripe - no waiting!
                 console.log('🔄 Redirecting to Stripe:', stripeCheckoutUrl);
                 window.location.href = stripeCheckoutUrl;
 
             } catch (error) {
                 console.error('❌ Error:', error);
 
-                // Still redirect to Stripe even if Google Sheets fails
+                // Redirect to Stripe anyway
                 const stripeCheckoutUrl = `${CHECKOUT_CONFIG.stripeUrl}?prefilled_email=${encodeURIComponent(email)}`;
                 window.location.href = stripeCheckoutUrl;
             }
