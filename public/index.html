@@ -953,7 +953,7 @@
             </div>
 
             <!-- Benefits Grid - 2 Columns -->
-            <div
+            <div id="benefits-grid"
                 style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto;">
 
                 <!-- Benefit Card 1 -->
@@ -1710,36 +1710,36 @@
         @media (max-width: 768px) {
 
             /* Benefits grid - stack vertically on mobile */
-            section div[style*="grid-template-columns: repeat(2, 1fr)"] {
+            #benefits-grid {
                 grid-template-columns: 1fr !important;
                 gap: 1.25rem !important;
             }
 
             /* Benefit cards - reduce padding for mobile */
-            section div[style*="grid-template-columns: repeat(2, 1fr)"]>div {
+            #benefits-grid>div {
                 padding: 1.5rem !important;
             }
 
             /* Icon containers - smaller on mobile */
-            section div[style*="grid-template-columns: repeat(2, 1fr)"]>div>div[style*="width: 64px"] {
+            #benefits-grid>div>div:first-child {
                 width: 52px !important;
                 height: 52px !important;
                 margin-bottom: 1rem !important;
             }
 
             /* Icons - smaller size */
-            section div[style*="grid-template-columns: repeat(2, 1fr)"]>div>div[style*="width: 64px"] i.fas {
+            #benefits-grid>div>div:first-child i {
                 font-size: 1.5rem !important;
             }
 
             /* Card titles - smaller font */
-            section div[style*="grid-template-columns: repeat(2, 1fr)"]>div h3 {
+            #benefits-grid>div h3 {
                 font-size: 1.125rem !important;
                 margin-bottom: 0.75rem !important;
             }
 
             /* Card text - optimize readability */
-            section div[style*="grid-template-columns: repeat(2, 1fr)"]>div p {
+            #benefits-grid>div p {
                 font-size: 0.875rem !important;
                 line-height: 1.5 !important;
             }
