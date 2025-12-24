@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Checkout Modal - Two Column Design</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body
+    style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #f3f4f6; padding: 2rem;">
+
+    <!--  
+    ========================================
+    COPY FROM HERE ↓↓↓
+    ========================================
+    -->
+
+    <!-- Checkout Popup Modal - Two Column Hybrid Design -->
+    <div id="checkoutModal" class="checkout-modal-backdrop"
+        style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 10000; align-items: center; justify-content: center;">
+        <div class="checkout-modal"
+            style="background: white; border-radius: 20px; max-width: 900px; width: 90%; position: relative; animation: slideIn 0.3s ease-out; overflow: hidden;">
+
+            <!-- Close Button -->
+            <button onclick="closeCheckoutModal()"
+                style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: #9ca3af; font-size: 1.75rem; cursor: pointer; line-height: 1; padding: 0; transition: color 0.2s; z-index: 10;"
+                onmouseover="this.style.color='#374151'" onmouseout="this.style.color='#9ca3af'">
+                ×
+            </button>
+
+            <!-- Two Column Layout -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; min-height: 500px;">
+
+                <!-- LEFT COLUMN - Email Form & Order Summary -->
+                <div
+                    style="padding: 2.5rem 2rem; background: #f9fafb; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column;">
+
+                    <!-- Email Address Section -->
+                    <div style="margin-bottom: 2rem;">
+                        <label for="checkoutEmail"
+                            style="display: block; margin-bottom: 0.75rem; color: #374151; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                            Email Address *
+                        </label>
+                        <input type="email" id="checkoutEmail" name="email" required placeholder="your@email.com"
+                            style="width: 100%; padding: 0.875rem 1rem; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 1rem; transition: all 0.2s; background: white;"
+                            onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59, 130, 246, 0.1)';"
+                            onblur="this.style.borderColor='#d1d5db'; this.style.boxShadow='none';">
+                    </div>
+
+                    <!-- Proceed Button -->
+                    <button type="button" id="proceedCheckoutBtn" onclick="handleCheckoutSubmit(event)"
+                        style="width: 100%; background: #1f2937; color: white; border: none; padding: 1rem 1.5rem; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-bottom: 2rem;">
+                        PROCEED TO PAYMENT
+                    </button>
+
+                    <!-- Order Summary -->
+                    <div style="flex: 1;">
+                        <h3
+                            style="color: #374151; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 1rem 0;">
+                            Order Summary
+                        </h3>
+
+                        <div
+                            style="background: white; border-radius: 8px; padding: 1.25rem; border: 1px solid #e5e7eb;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                <span style="color: #6b7280; font-size: 0.9375rem;">Aspire 12 Lifetime</span>
+                                <span style="color: #111827; font-size: 0.9375rem; font-weight: 600;">$119.00</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                <span style="color: #6b7280; font-size: 0.9375rem;">Tax</span>
+                                <span style="color: #111827; font-size: 0.9375rem; font-weight: 600;">$0.00</span>
+                            </div>
+                            <div style="height: 1px; background: #e5e7eb; margin: 1rem 0;"></div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: #111827; font-size: 1rem; font-weight: 700;">Total</span>
+                                <span style="color: #111827; font-size: 1.5rem; font-weight: 800;">$119.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Trust Badges -->
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;">
+                        <div
+                            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;">
+                            <i class="fas fa-lock" style="color: #10b981; font-size: 0.875rem;"></i>
+                            <p
+                                style="text-align: center; color: #6b7280; font-size: 0.75rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Guaranteed Safe Checkout
+                            </p>
+                        </div>
+
+                        <div
+                            style="display: flex; align-items: center; justify-content: center; gap: 0.625rem; flex-wrap: wrap;">
+                            <i class="fab fa-cc-visa" style="font-size: 1.5rem; color: #1A1F71;"></i>
+                            <i class="fab fa-cc-mastercard" style="font-size: 1.5rem; color: #EB001B;"></i>
+                            <i class="fab fa-cc-amex" style="font-size: 1.5rem; color: #006FCF;"></i>
+                            <i class="fab fa-apple-pay" style="font-size: 1.5rem; color: #000000;"></i>
+                            <i class="fab fa-stripe" style="font-size: 1.5rem; color: #635BFF;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN - Product Details -->
+                <div
+                    style="padding: 2.5rem 2rem; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+
+                    <!-- Product Logo/Icon -->
+                    <div
+                        style="width: 100px; height: 100px; background: #3b82f6; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <svg style="width: 60px; height: 60px; color: white;" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zm0 16a3 3 0 01-3-3h6a3 3 0 01-3 3z">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <!-- Product Title -->
+                    <h2
+                        style="color: #111827; font-size: 1.75rem; font-weight: 800; margin: 0 0 0.5rem 0; text-align: center;">
+                        Vectric Aspire 12
+                    </h2>
+
+                    <!-- Product Subtitle -->
+                    <p
+                        style="color: #6b7280; font-size: 1rem; font-weight: 600; margin: 0 0 1.5rem 0; text-align: center;">
+                        Lifetime License - Windows
+                    </p>
+
+                    <!-- Pricing -->
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <p style="color: #6b7280; font-size: 0.875rem; margin: 0 0 0.5rem 0; font-weight: 600;">Your
+                            Price</p>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+                            <span style="color: #111827; font-size: 3rem; font-weight: 900; line-height: 1;">$119</span>
+                            <span
+                                style="color: #9ca3af; font-size: 1.25rem; text-decoration: line-through;">$1,995</span>
+                        </div>
+                        <p style="color: #10b981; font-size: 0.875rem; font-weight: 700; margin: 0.5rem 0 0 0;">
+                            Save $1,876 (94% OFF)
+                        </p>
+                    </div>
+
+                    <!-- Features List -->
+                    <div style="width: 100%; max-width: 320px;">
+                        <div style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.875rem;">
+                            <i class="fas fa-check-circle"
+                                style="color: #10b981; font-size: 1rem; margin-top: 0.125rem; flex-shrink: 0;"></i>
+                            <span style="color: #374151; font-size: 0.9375rem; line-height: 1.5;">Lifetime activation -
+                                No subscriptions</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.875rem;">
+                            <i class="fas fa-check-circle"
+                                style="color: #10b981; font-size: 1rem; margin-top: 0.125rem; flex-shrink: 0;"></i>
+                            <span style="color: #374151; font-size: 0.9375rem; line-height: 1.5;">Instant email
+                                delivery</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.875rem;">
+                            <i class="fas fa-check-circle"
+                                style="color: #10b981; font-size: 1rem; margin-top: 0.125rem; flex-shrink: 0;"></i>
+                            <span style="color: #374151; font-size: 0.9375rem; line-height: 1.5;">24/7 customer
+                                support</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <i class="fas fa-check-circle"
+                                style="color: #10b981; font-size: 1rem; margin-top: 0.125rem; flex-shrink: 0;"></i>
+                            <span style="color: #374151; font-size: 0.9375rem; line-height: 1.5;">Step-by-step
+                                installation guide</span>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Note -->
+                    <div style="margin-top: auto; padding-top: 2rem;">
+                        <label
+                            style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; user-select: none;">
+                            <input type="checkbox" id="privacyCheck" required
+                                style="margin-top: 0.25rem; width: 16px; height: 16px; cursor: pointer; accent-color: #3b82f6; flex-shrink: 0;">
+                            <span style="color: #6b7280; font-size: 0.8125rem; line-height: 1.4;">
+                                I agree to the
+                                <a href="privacy.html" target="_blank"
+                                    style="color: #3b82f6; text-decoration: none; font-weight: 600;">Privacy Policy</a>
+                                and
+                                <a href="terms.html" target="_blank"
+                                    style="color: #3b82f6; text-decoration: none; font-weight: 600;">Terms of
+                                    Service</a>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mobile Responsive Styles -->
+            <style>
+                @media (max-width: 768px) {
+                    #checkoutModal .checkout-modal>div:nth-child(2) {
+                        grid-template-columns: 1fr !important;
+                    }
+
+                    #checkoutModal .checkout-modal>div>div:first-child {
+                        border-right: none !important;
+                        border-bottom: 1px solid #e5e7eb !important;
+                    }
+                }
+            </style>
+        </div>
+    </div>
+
+    <!-- Animation CSS -->
+    <style>
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .checkout-modal-backdrop.active {
+            display: flex !important;
+        }
+
+        #proceedCheckoutBtn:hover {
+            background: #111827 !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(31, 41, 55, 0.3);
+        }
+    </style>
+
+    <!--  
+    ========================================
+    COPY UNTIL HERE ↑↑↑
+    ========================================
+    -->
+
+    <script>
+        function closeCheckoutModal() {
+            alert('Close button clicked!');
+        }
+
+        function handleCheckoutSubmit(event) {
+            const email = document.getElementById('checkoutEmail').value;
+            const privacyChecked = document.getElementById('privacyCheck').checked;
+
+            if (!email || !privacyChecked) {
+                alert('Please fill in all required fields and accept the terms.');
+                return;
+            }
+
+            alert(`Email submitted: ${email}\nRedirecting to Stripe...`);
+        }
+    </script>
+
+</body>
+
+</html>
