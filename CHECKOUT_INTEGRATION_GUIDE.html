@@ -1,0 +1,303 @@
+\u003c!DOCTYPE html\u003e
+\u003chtml lang="en"\u003e
+\u003chead\u003e
+\u003cmeta charset="UTF-8"\u003e
+\u003cmeta name="viewport" content="width=device-width, initial-scale=1.0"\u003e
+\u003ctitle\u003eCheckout Modal Integration - Instructions\u003c/title\u003e
+\u003c/head\u003e
+\u003cbody\u003e
+\u003ch1\u003eCheckout Modal - Google Sheets Integration\u003c/h1\u003e
+
+\u003ch2\u003eStep 1: Set Up Google Sheets\u003c/h2\u003e
+\u003col\u003e
+\u003cli\u003eCreate a new Google Sheet\u003c/li\u003e
+\u003cli\u003eAdd column headers in Row 1: \u003ccode\u003eTimestamp\u003c/code\u003e,
+\u003ccode\u003eEmail\u003c/code\u003e, \u003ccode\u003eProduct\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003eGo to \u003cstrong\u003eExtensions → Apps Script\u003c/strong\u003e\u003c/li\u003e
+\u003cli\u003ePaste this code:\u003c/li\u003e
+\u003c/ol\u003e
+
+\u003cpre\u003e\u003ccode\u003e
+function doPost(e) {
+try {
+var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+var data = JSON.parse(e.postData.contents);
+
+// Add row to sheet
+sheet.appendRow([
+new Date(),
+data.email,
+data.product || 'Vectric Aspire 12'
+]);
+
+// Return success
+return ContentService
+.createTextOutput(JSON.stringify({ 'result': 'success' }))
+.setMimeType(ContentService.MimeType.JSON);
+
+} catch (error) {
+return ContentService
+.createTextOutput(JSON.stringify({ 'result': 'error', 'error': error.toString() }))
+.setMimeType(ContentService.MimeType.JSON);
+}
+}
+\u003c/code\u003e\u003c/pre\u003e
+
+\u003col start="5"\u003e
+\u003cli\u003eClick \u003cstrong\u003eDeploy → New deployment\u003c/strong\u003e\u003c/li\u003e
+\u003cli\u003eSelect type: \u003cstrong\u003eWeb app\u003c/strong\u003e\u003c/li\u003e
+\u003cli\u003eExecute as: \u003cstrong\u003eMe\u003c/strong\u003e\u003c/li\u003e
+\u003cli\u003eWho has access: \u003cstrong\u003eAnyone\u003c/strong\u003e\u003c/li\u003e
+\u003cli\u003eCopy the \u003cstrong\u003eWeb app URL\u003c/strong\u003e (it will look like:
+\u003ccode\u003ehttps://script.google.com/macros/s/XXXXX/exec\u003c/code\u003e)\u003c/li\u003e
+\u003c/ol\u003e
+
+\u003chr\u003e
+
+\u003ch2\u003eStep 2: Replace Checkout Modal HTML\u003c/h2\u003e
+\u003cp\u003eFind this section in your \u003ccode\u003eindex.html\u003c/code\u003e (around line 1409) and replace
+it:\u003c/p\u003e
+
+\u003cpre\u003e\u003ccode\u003e
+\u003c!-- Checkout Popup Modal - Email Collection --\u003e
+\u003cdiv id="checkoutModal" class="checkout-modal-backdrop"
+style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7);
+z-index: 10000; align-items: center; justify-content: center;"\u003e
+\u003cdiv class="checkout-modal"
+style="background: white; border-radius: 20px; max-width: 540px; width: 90%; position: relative; animation: slideIn 0.3s
+ease-out;"\u003e
+
+\u003c!-- Close Button --\u003e
+\u003cbutton onclick="closeCheckoutModal()"
+style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: #9ca3af; font-size: 1.75rem;
+cursor: pointer; line-height: 1; padding: 0; transition: color 0.2s; z-index: 1;"
+onmouseover="this.style.color='#374151'" onmouseout="this.style.color='#9ca3af'"\u003e
+×
+\u003c/button\u003e
+
+\u003c!-- Content --\u003e
+\u003cdiv style="padding: 2.5rem 2rem;"\u003e
+\u003c!-- Header --\u003e
+\u003ch2 style="margin: 0 0 1rem 0; font-size: 1.875rem; font-weight: 700; color: #1f2937; line-height: 1.3;"\u003e
+Ready to Get Started?
+\u003c/h2\u003e
+
+\u003c!-- Description --\u003e
+\u003cp style="margin: 0 0 2rem 0; color: #6b7280; font-size: 1rem; line-height: 1.6;"\u003e
+Enter your email to proceed with your purchase of Aspire 12. Get lifetime access to professional CNC design software.
+\u003c/p\u003e
+
+\u003c!-- Form --\u003e
+\u003cform id="checkoutEmailForm" onsubmit="handleCheckoutSubmit(event)"\u003e
+\u003c!-- Email Input --\u003e
+\u003cdiv style="margin-bottom: 1.5rem;"\u003e
+\u003clabel for="checkoutEmail"
+style="display: block; margin-bottom: 0.5rem; color: #374151; font-size: 0.9375rem; font-weight: 600;"\u003e
+Email Address *
+\u003c/label\u003e
+\u003cinput
+type="email"
+id="checkoutEmail"
+name="email"
+required
+placeholder="remoymak@gmail.com"
+style="width: 100%; padding: 0.875rem 1rem; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 1rem;
+transition: all 0.2s; font-family: inherit;"
+onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59, 130, 246, 0.1)';"
+onblur="this.style.borderColor='#d1d5db'; this.style.boxShadow='none';"\u003e
+\u003c/div\u003e
+
+\u003c!-- Privacy Policy Checkbox --\u003e
+\u003cdiv style="margin-bottom: 1.5rem;"\u003e
+\u003clabel style="display: flex; align-items: flex-start; gap: 0.625rem; cursor: pointer; user-select: none;"\u003e
+\u003cinput
+type="checkbox"
+id="privacyCheck"
+required
+style="margin-top: 0.25rem; width: 18px; height: 18px; cursor: pointer; accent-color: #3b82f6; flex-shrink: 0;"\u003e
+\u003cspan style="color: #6b7280; font-size: 0.9375rem; line-height: 1.5;"\u003e
+I agree to the
+\u003ca href="privacy.html" target="_blank"
+style="color: #3b82f6; text-decoration: none; font-weight: 600;"
+onmouseover="this.style.textDecoration='underline'"
+onmouseout="this.style.textDecoration='none'"\u003e
+Privacy Policy
+\u003c/a\u003e
+and
+\u003ca href="terms.html" target="_blank"
+style="color: #3b82f6; text-decoration: none; font-weight: 600;"
+onmouseover="this.style.textDecoration='underline'"
+onmouseout="this.style.textDecoration='none'"\u003e
+Terms of Service
+\u003c/a\u003e*
+\u003c/span\u003e
+\u003c/label\u003e
+\u003c/div\u003e
+
+\u003c!-- Submit Button --\u003e
+\u003cbutton
+type="submit"
+id="proceedCheckoutBtn"
+style="width: 100%; background: #3b82f6; color: white; border: none; padding: 1rem 1.5rem; border-radius: 8px;
+font-size: 1.0625rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;"\u003e
+Proceed to Checkout
+\u003c/button\u003e
+
+\u003c!-- Security Note --\u003e
+\u003cp style="text-align: center; color: #6b7280; font-size: 0.875rem; margin: 0; line-height: 1.5;"\u003e
+Your purchase is secure and encrypted with industry-standard security.
+\u003c/p\u003e
+\u003c/form\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+\u003c/code\u003e\u003c/pre\u003e
+
+\u003chr\u003e
+
+\u003ch2\u003eStep 3: Update JavaScript (Replace lines 1576-1625)\u003c/h2\u003e
+\u003cpre\u003e\u003ccode\u003e
+\u003cscript\u003e
+// ============================================
+// CHECKOUT CONFIGURATION
+// ============================================
+const stripeUrl = 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01';
+const googleSheetsUrl = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'; // Replace with your URL
+
+// ============================================
+// CHECKOUT MODAL FUNCTIONS
+// ============================================
+function openCheckoutModal() {
+document.getElementById('checkoutModal').classList.add('active');
+document.body.style.overflow = 'hidden';
+
+// Google Ads Add to Basket Conversion
+gtag('event', 'conversion', { 'send_to': 'AW-17819561147/UzIMCLPV09YbELvZg7FC' });
+
+// Google Ads Begin Checkout Conversion
+gtag('event', 'conversion', {
+'send_to': 'AW-17761712074/osgjCPL7xtMbEMrvuJVC',
+'value': 1.0,
+'currency': 'USD'
+});
+}
+
+function closeCheckoutModal() {
+document.getElementById('checkoutModal').classList.remove('active');
+document.body.style.overflow = 'auto';
+}
+
+// ============================================
+// HANDLE CHECKOUT FORM SUBMISSION
+// ============================================
+async function handleCheckoutSubmit(event) {
+event.preventDefault();
+
+const email = document.getElementById('checkoutEmail').value;
+const privacyChecked = document.getElementById('privacyCheck').checked;
+const submitBtn = document.getElementById('proceedCheckoutBtn');
+
+// Validate
+if (!email || !privacyChecked) {
+alert('Please fill in all required fields and accept the terms.');
+return;
+}
+
+// Disable button and show loading state
+submitBtn.disabled = true;
+submitBtn.textContent = 'Processing...';
+
+try {
+// Send email to Google Sheets
+await fetch(googleSheetsUrl, {
+method: 'POST',
+mode: 'no-cors',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify({
+email: email,
+product: 'Vectric Aspire 12',
+timestamp: new Date().toISOString()
+})
+});
+
+// Track conversion
+if (typeof gtag_report_conversion === 'function') {
+gtag_report_conversion(stripeUrl);
+}
+
+// Redirect to Stripe with email prefilled
+const stripeCheckoutUrl = `${stripeUrl}?prefilled_email=${encodeURIComponent(email)}`;
+window.location.href = stripeCheckoutUrl;
+
+} catch (error) {
+console.error('Error:', error);
+// Still redirect even if Google Sheets fails
+const stripeCheckoutUrl = `${stripeUrl}?prefilled_email=${encodeURIComponent(email)}`;
+window.location.href = stripeCheckoutUrl;
+}
+}
+
+// ============================================
+// INITIALIZE EVENT LISTENERS
+// ============================================
+document.addEventListener('DOMContentLoaded', function () {
+// Button hover effect
+const proceedBtn = document.getElementById('proceedCheckoutBtn');
+if (proceedBtn) {
+proceedBtn.addEventListener('mouseover', function() {
+this.style.background = '#2563eb';
+this.style.transform = 'translateY(-1px)';
+this.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)';
+});
+proceedBtn.addEventListener('mouseout', function() {
+if (!this.disabled) {
+this.style.background = '#3b82f6';
+this.style.transform = 'translateY(0)';
+this.style.boxShadow = 'none';
+}
+});
+}
+
+// Update all buy buttons to open modal
+const buyButtons = document.querySelectorAll('a[href*="stripe.com"]');
+buyButtons.forEach(button =\u003e {
+button.addEventListener('click', function (e) {
+e.preventDefault();
+openCheckoutModal();
+});
+});
+
+// Close modal on backdrop click
+const checkoutModal = document.getElementById('checkoutModal');
+if (checkoutModal) {
+checkoutModal.addEventListener('click', function (e) {
+if (e.target === this) {
+closeCheckoutModal();
+}
+});
+}
+});
+\u003c/script\u003e
+\u003c/code\u003e\u003c/pre\u003e
+
+\u003chr\u003e
+
+\u003ch2\u003eTesting Instructions\u003c/h2\u003e
+\u003col\u003e
+\u003cli\u003eReplace \u003ccode\u003eYOUR_GOOGLE_APPS_SCRIPT_URL_HERE\u003c/code\u003e with your actual Google Apps
+Script URL\u003c/li\u003e
+\u003cli\u003eTest the checkout modal - click any "Buy Now" button\u003c/li\u003e
+\u003cli\u003eEnter an email and check the box\u003c/li\u003e
+\u003cli\u003eClick "Proceed to Checkout"\u003c/li\u003e
+\u003cli\u003eVerify:
+\u003cul\u003e
+\u003cli\u003eEmail appears in your Google Sheet\u003c/li\u003e
+\u003cli\u003eYou're redirected to Stripe with email prefilled\u003c/li\u003e
+\u003c/ul\u003e
+\u003c/li\u003e
+\u003c/ol\u003e
+
+\u003c/body\u003e
+\u003c/html\u003e

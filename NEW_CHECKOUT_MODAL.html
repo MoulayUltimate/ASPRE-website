@@ -1,0 +1,116 @@
+\u003c!-- ============================================
+CHECKOUT MODAL - EMAIL COLLECTION DESIGN
+Replace the existing checkout modal with this code
+Lines 1409-1551 in index.html
+============================================ --\u003e
+
+\u003c!-- Checkout Popup Modal --\u003e
+\u003cdiv id="checkoutModal" class="checkout-modal-backdrop"
+style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7);
+z-index: 10000; align-items: center; justify-content: center;"\u003e
+\u003cdiv class="checkout-modal"
+style="background: white; border-radius: 20px; max-width: 540px; width: 90%; position: relative; animation: slideIn 0.3s
+ease-out;"\u003e
+
+\u003c!-- Close Button --\u003e
+\u003cbutton onclick="closeCheckoutModal()"
+style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: #9ca3af; font-size: 1.75rem;
+cursor: pointer; line-height: 1; padding: 0; transition: color 0.2s; z-index: 1;"
+onmouseover="this.style.color='#374151'" onmouseout="this.style.color='#9ca3af'"\u003e
+×
+\u003c/button\u003e
+
+\u003c!-- Content --\u003e
+\u003cdiv style="padding: 2.5rem 2rem;"\u003e
+\u003c!-- Header --\u003e
+\u003ch2 style="margin: 0 0 1rem 0; font-size: 1.875rem; font-weight: 700; color: #1f2937; line-height: 1.3;"\u003e
+Ready to Get Started?
+\u003c/h2\u003e
+
+\u003c!-- Description --\u003e
+\u003cp style="margin: 0 0 2rem 0; color: #6b7280; font-size: 1rem; line-height: 1.6;"\u003e
+Enter your email to proceed with your purchase of Aspire 12. Get lifetime access to professional CNC design software.
+\u003c/p\u003e
+
+\u003c!-- Form --\u003e
+\u003cform id="checkoutEmailForm" onsubmit="handleCheckoutSubmit(event)"\u003e
+\u003c!-- Email Input --\u003e
+\u003cdiv style="margin-bottom: 1.5rem;"\u003e
+\u003clabel for="checkoutEmail"
+style="display: block; margin-bottom: 0.5rem; color: #374151; font-size: 0.9375rem; font-weight: 600;"\u003e
+Email Address *
+\u003c/label\u003e
+\u003cinput
+type="email"
+id="checkoutEmail"
+name="email"
+required
+placeholder="remoymak@gmail.com"
+style="width: 100%; padding: 0.875rem 1rem; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 1rem;
+transition: all 0.2s; font-family: inherit;"
+onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59, 130, 246, 0.1)';"
+onblur="this.style.borderColor='#d1d5db'; this.style.boxShadow='none';"\u003e
+\u003c/div\u003e
+
+\u003c!-- Privacy Policy Checkbox --\u003e
+\u003cdiv style="margin-bottom: 1.5rem;"\u003e
+\u003clabel style="display: flex; align-items: flex-start; gap: 0.625rem; cursor: pointer; user-select: none;"\u003e
+\u003cinput
+type="checkbox"
+id="privacyCheck"
+required
+style="margin-top: 0.25rem; width: 18px; height: 18px; cursor: pointer; accent-color: #3b82f6; flex-shrink: 0;"\u003e
+\u003cspan style="color: #6b7280; font-size: 0.9375rem; line-height: 1.5;"\u003e
+I agree to the
+\u003ca href="privacy.html" target="_blank"
+style="color: #3b82f6; text-decoration: none; font-weight: 600;"
+onmouseover="this.style.textDecoration='underline'"
+onmouseout="this.style.textDecoration='none'"\u003e
+Privacy Policy
+\u003c/a\u003e
+and
+\u003ca href="terms.html" target="_blank"
+style="color: #3b82f6; text-decoration: none; font-weight: 600;"
+onmouseover="this.style.textDecoration='underline'"
+onmouseout="this.style.textDecoration='none'"\u003e
+Terms of Service
+\u003c/a\u003e*
+\u003c/span\u003e
+\u003c/label\u003e
+\u003c/div\u003e
+
+\u003c!-- Submit Button --\u003e
+\u003cbutton
+type="submit"
+id="proceedCheckoutBtn"
+style="width: 100%; background: #3b82f6; color: white; border: none; padding: 1rem 1.5rem; border-radius: 8px;
+font-size: 1.0625rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;"\u003e
+Proceed to Checkout
+\u003c/button\u003e
+
+\u003c!-- Security Note --\u003e
+\u003cp style="text-align: center; color: #6b7280; font-size: 0.875rem; margin: 0; line-height: 1.5;"\u003e
+Your purchase is secure and encrypted with industry-standard security.
+\u003c/p\u003e
+\u003c/form\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+
+\u003c!-- Keep existing CSS for animation --\u003e
+\u003cstyle\u003e
+@keyframes slideIn {
+from {
+opacity: 0;
+transform: translateY(-50px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+.checkout-modal-backdrop.active {
+display: flex !important;
+}
+\u003c/style\u003e
