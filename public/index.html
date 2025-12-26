@@ -1406,11 +1406,11 @@
     </script>
 
 
-    <!-- Checkout Popup Modal - Email Collection with Payment Badges -->
+    <!-- Checkout Popup Modal - Simple Direct Checkout -->
     <div id="checkoutModal" class="checkout-modal-backdrop"
         style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 10000;">
         <div class="checkout-modal"
-            style="background: white; border-radius: 20px; max-width: 540px; width: 90%; margin: auto; position: relative; animation: slideIn 0.3s ease-out; max-height: 95vh; overflow-y: auto;">
+            style="background: white; border-radius: 20px; max-width: 480px; width: 90%; margin: auto; position: relative; animation: slideIn 0.3s ease-out; max-height: 95vh; overflow-y: auto;">
 
             <!-- Close Button -->
             <button onclick="closeCheckoutModal()"
@@ -1423,70 +1423,17 @@
             <div style="padding: 2.5rem 2rem;">
                 <!-- Header -->
                 <h2
-                    style="margin: 0 0 1rem 0; font-size: 1.875rem; font-weight: 700; color: #1f2937; line-height: 1.3;">
-                    Ready to Get Started?
+                    style="margin: 0 0 0.5rem 0; font-size: 1.875rem; font-weight: 700; color: #1f2937; line-height: 1.3; text-align: center;">
+                    Complete Your Purchase
                 </h2>
 
                 <!-- Description -->
-                <p style="margin: 0 0 2rem 0; color: #6b7280; font-size: 1rem; line-height: 1.6;">
-                    Enter your email to proceed with your purchase of Aspire 12. Get lifetime access to professional CNC
-                    design software.
+                <p style="margin: 0 0 2rem 0; color: #6b7280; font-size: 1rem; line-height: 1.6; text-align: center;">
+                    Get instant lifetime access to Aspire 12 professional CNC design software.
                 </p>
 
-                <!-- Form -->
-                <form id="checkoutEmailForm" onsubmit="handleCheckoutSubmit(event)">
-                    <!-- Email Input -->
-                    <div style="margin-bottom: 1.5rem;">
-                        <label for="checkoutEmail"
-                            style="display: block; margin-bottom: 0.5rem; color: #374151; font-size: 0.9375rem; font-weight: 600;">
-                            Email Address *
-                        </label>
-                        <input type="email" id="checkoutEmail" name="email" required placeholder="remoymak@gmail.com"
-                            style="width: 100%; padding: 0.875rem 1rem; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 1rem; transition: all 0.2s; font-family: inherit;"
-                            onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59, 130, 246, 0.1)';"
-                            onblur="this.style.borderColor='#d1d5db'; this.style.boxShadow='none';">
-                    </div>
-
-                    <!-- Privacy Policy Checkbox -->
-                    <div style="margin-bottom: 1.5rem;">
-                        <label
-                            style="display: flex; align-items: flex-start; gap: 0.625rem; cursor: pointer; user-select: none;">
-                            <input type="checkbox" id="privacyCheck" required
-                                style="margin-top: 0.25rem; width: 18px; height: 18px; cursor: pointer; accent-color: #3b82f6; flex-shrink: 0;">
-                            <span style="color: #6b7280; font-size: 0.9375rem; line-height: 1.5;">
-                                I agree to the
-                                <a href="privacy.html" target="_blank"
-                                    style="color: #3b82f6; text-decoration: none; font-weight: 600;"
-                                    onmouseover="this.style.textDecoration='underline'"
-                                    onmouseout="this.style.textDecoration='none'">
-                                    Privacy Policy
-                                </a>
-                                and
-                                <a href="terms.html" target="_blank"
-                                    style="color: #3b82f6; text-decoration: none; font-weight: 600;"
-                                    onmouseover="this.style.textDecoration='underline'"
-                                    onmouseout="this.style.textDecoration='none'">
-                                    Terms of Service
-                                </a>*
-                            </span>
-                        </label>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" id="proceedCheckoutBtn"
-                        style="width: 100%; background: #3b82f6; color: white; border: none; padding: 1rem 1.5rem; border-radius: 8px; font-size: 1.0625rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
-                        Proceed to Checkout
-                    </button>
-
-                    <!-- Security Note -->
-                    <p
-                        style="text-align: center; color: #6b7280; font-size: 0.875rem; margin: 0 0 1.25rem 0; line-height: 1.5;">
-                        Your purchase is secure and encrypted with industry-standard security.
-                    </p>
-                </form>
-
                 <!-- Order Summary -->
-                <div style="margin-bottom: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+                <div style="margin-bottom: 2rem;">
                     <h3
                         style="color: #374151; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 1rem 0;">
                         Order Summary
@@ -1494,7 +1441,7 @@
 
                     <div style="background: #f9fafb; border-radius: 8px; padding: 1.25rem; border: 1px solid #e5e7eb;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
-                            <span style="color: #6b7280; font-size: 0.9375rem;">Aspire 12 Lifetime</span>
+                            <span style="color: #6b7280; font-size: 0.9375rem;">Aspire 12 Lifetime License</span>
                             <span style="color: #111827; font-size: 0.9375rem; font-weight: 600;">$119.00</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
@@ -1509,12 +1456,25 @@
                     </div>
                 </div>
 
+                <!-- Complete Purchase Button -->
+                <button onclick="proceedToStripeCheckout()" id="completePurchaseBtn"
+                    style="width: 100%; background: #3b82f6; color: white; border: none; padding: 1.125rem 1.5rem; border-radius: 8px; font-size: 1.125rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
+                    <i class="fas fa-lock" style="margin-right: 0.5rem;"></i>
+                    Complete Secure Purchase
+                </button>
+
+                <!-- Security Note -->
+                <p
+                    style="text-align: center; color: #6b7280; font-size: 0.875rem; margin: 0 0 1.5rem 0; line-height: 1.5;">
+                    Your purchase is secure and encrypted with industry-standard security.
+                </p>
+
                 <!-- Payment Trust Badges -->
                 <div style="padding-top: 1.25rem; border-top: 1px solid #e9ecef; text-align: center;">
                     <!-- Header -->
                     <div
                         style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;">
-                        <i class="fas fa-lock" style="color: #10b981; font-size: 0.9375rem;"></i>
+                        <i class="fas fa-shield-alt" style="color: #10b981; font-size: 0.9375rem;"></i>
                         <p
                             style="color: #6b7280; font-size: 0.8125rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">
                             Guaranteed Safe Checkout
@@ -1754,8 +1714,6 @@
         // ============================================
         const CHECKOUT_CONFIG = {
             stripeUrl: 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01',
-            // IMPORTANT: Replace with your Google Apps Script deployment URL
-            googleSheetsUrl: 'https://script.google.com/macros/s/AKfycbyJVK44u7pIlrYcEH6Ji-V763uOb3HTzBE2BrgWNdtgfhpNuqBDx13tKfgsmX2QnMm_/exec',
             productName: 'Vectric Aspire 12'
         };
 
@@ -1782,12 +1740,6 @@
                     'currency': 'USD'
                 });
             }
-
-            // Clear form
-            const emailInput = document.getElementById('checkoutEmail');
-            const privacyCheck = document.getElementById('privacyCheck');
-            if (emailInput) emailInput.value = '';
-            if (privacyCheck) privacyCheck.checked = false;
         }
 
         function closeCheckoutModal() {
@@ -1799,95 +1751,44 @@
         }
 
         // ============================================
-        // FORM SUBMISSION HANDLER
+        // DIRECT CHECKOUT FUNCTION
         // ============================================
-        async function handleCheckoutSubmit(event) {
-            event.preventDefault();
+        function proceedToStripeCheckout() {
+            const submitBtn = document.getElementById('completePurchaseBtn');
 
-            const email = document.getElementById('checkoutEmail')?.value;
-            const privacyChecked = document.getElementById('privacyCheck')?.checked;
-            const submitBtn = document.getElementById('proceedCheckoutBtn');
-
-            // Validation
-            if (!email || !privacyChecked) {
-                alert('Please fill in all required fields and accept the terms.');
-                return;
-            }
-
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-
-            // Disable button and show loading
+            // Show loading state
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.textContent = 'Processing...';
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 0.5rem;"></i>Processing...';
                 submitBtn.style.opacity = '0.7';
                 submitBtn.style.cursor = 'not-allowed';
             }
 
-            try {
-                // Build Stripe URL immediately
-                const stripeCheckoutUrl = `${CHECKOUT_CONFIG.stripeUrl}?prefilled_email=${encodeURIComponent(email)}`;
-
-                // Send data to Google Sheets in background (fire-and-forget)
-                if (CHECKOUT_CONFIG.googleSheetsUrl !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-                    const data = {
-                        email: email,
-                        product: CHECKOUT_CONFIG.productName,
-                        timestamp: new Date().toISOString(),
-                        source: window.location.href
-                    };
-
-                    // Fire-and-forget - don't wait for response
-                    fetch(CHECKOUT_CONFIG.googleSheetsUrl, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    }).catch(err => console.log('Google Sheets log failed (non-critical):', err));
-
-                    console.log('✅ Email sent to Google Sheets:', email);
-                }
-
-                // Track purchase conversion
-                if (typeof gtag_report_conversion === 'function') {
-                    gtag_report_conversion(CHECKOUT_CONFIG.stripeUrl);
-                }
-
-                // INSTANT redirect to Stripe - no waiting!
-                console.log('🔄 Redirecting to Stripe:', stripeCheckoutUrl);
-                window.location.href = stripeCheckoutUrl;
-
-            } catch (error) {
-                console.error('❌ Error:', error);
-
-                // Redirect to Stripe anyway
-                const stripeCheckoutUrl = `${CHECKOUT_CONFIG.stripeUrl}?prefilled_email=${encodeURIComponent(email)}`;
-                window.location.href = stripeCheckoutUrl;
+            // Track purchase conversion
+            if (typeof gtag_report_conversion === 'function') {
+                gtag_report_conversion(CHECKOUT_CONFIG.stripeUrl);
             }
+
+            // Redirect to Stripe checkout
+            console.log('🔄 Redirecting to Stripe checkout...');
+            window.location.href = CHECKOUT_CONFIG.stripeUrl;
         }
 
         // ============================================
         // INITIALIZE EVENT LISTENERS
         // ============================================
         document.addEventListener('DOMContentLoaded', function () {
-            // Button hover effect
-            const proceedBtn = document.getElementById('proceedCheckoutBtn');
-            if (proceedBtn) {
-                proceedBtn.addEventListener('mouseover', function () {
+            // Complete Purchase Button hover effect
+            const completePurchaseBtn = document.getElementById('completePurchaseBtn');
+            if (completePurchaseBtn) {
+                completePurchaseBtn.addEventListener('mouseover', function () {
                     if (!this.disabled) {
                         this.style.background = '#2563eb';
-                        this.style.transform = 'translateY(-1px)';
-                        this.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)';
+                        this.style.transform = 'translateY(-2px)';
+                        this.style.boxShadow = '0 6px 20px rgba(59, 130, 246, 0.4)';
                     }
                 });
-                proceedBtn.addEventListener('mouseout', function () {
+                completePurchaseBtn.addEventListener('mouseout', function () {
                     if (!this.disabled) {
                         this.style.background = '#3b82f6';
                         this.style.transform = 'translateY(0)';
@@ -1922,12 +1823,7 @@
                 }
             });
 
-            // Configuration warning
-            if (CHECKOUT_CONFIG.googleSheetsUrl === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-                console.warn('⚠️ WARNING: Google Sheets URL not configured! Update CHECKOUT_CONFIG.googleSheetsUrl');
-            } else {
-                console.log('✅ Checkout system initialized with Google Sheets integration');
-            }
+            console.log('✅ Direct checkout system initialized');
         });
     </script>
 
