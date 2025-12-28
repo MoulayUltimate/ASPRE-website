@@ -24,7 +24,7 @@
                 totalDiscount: 3218,
                 fullPackageRetail: 3457
             },
-            checkoutUrl: 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01'
+            checkoutUrl: 'https://buy.stripe.com/9B6aEX92segVgRL76V4ow00'
         },
         'GBP': {
             symbol: '£',
@@ -60,7 +60,7 @@
                 totalDiscount: 2961,
                 fullPackageRetail: 3180
             },
-            checkoutUrl: 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01'
+            checkoutUrl: 'https://buy.stripe.com/9B6aEX92segVgRL76V4ow00'
         },
         'CAD': {
             symbol: 'C$',
@@ -78,7 +78,7 @@
                 totalDiscount: 4344,
                 fullPackageRetail: 4667
             },
-            checkoutUrl: 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01'
+            checkoutUrl: 'https://buy.stripe.com/9B6aEX92segVgRL76V4ow00'
         },
         'AUD': {
             symbol: 'A$',
@@ -96,7 +96,7 @@
                 totalDiscount: 4893,
                 fullPackageRetail: 5255
             },
-            checkoutUrl: 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01'
+            checkoutUrl: 'https://buy.stripe.com/9B6aEX92segVgRL76V4ow00'
         }
     };
 
