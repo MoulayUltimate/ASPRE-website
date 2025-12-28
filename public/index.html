@@ -370,6 +370,26 @@
 
                 <!-- Right: Product Info -->
                 <div style="padding: 2rem 2.5rem;">
+                    <!-- Coupon Banner -->
+                    <div class="coupon-banner"
+                        style="background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 100%); border: 2px dashed #fbbf24; border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div
+                                style="width: 40px; height: 40px; background: #fbbf24; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.25rem;">
+                                <i class="fas fa-tag"></i>
+                            </div>
+                            <div>
+                                <p style="margin: 0; font-weight: 700; color: #92400e; font-size: 0.9375rem;">Special
+                                    Offer</p>
+                                <p style="margin: 0; color: #b45309; font-size: 0.875rem;">Get extra 10% OFF</p>
+                            </div>
+                        </div>
+                        <div style="background: white; border: 1px solid #fcd34d; padding: 0.5rem 1rem; border-radius: 6px; font-family: monospace; font-weight: 700; color: #d97706; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"
+                            onclick="copyCoupon(this)">
+                            <span>Vectric10</span>
+                            <i class="far fa-copy"></i>
+                        </div>
+                    </div>
                     <!-- Product Title -->
                     <div style="margin-bottom: 1.5rem;">
                         <h2
@@ -1457,6 +1477,24 @@
                     </div>
                 </div>
 
+                <!-- Coupon Section -->
+                <div style="margin-bottom: 2rem;">
+                    <div id="couponToggle"
+                        style="color: #0066cc; font-size: 0.875rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"
+                        onclick="toggleCouponInput()">
+                        <i class="fas fa-tag"></i> Have a coupon code?
+                    </div>
+                    <div id="couponInputContainer" style="display: none; margin-top: 1rem;">
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="couponCodeInput" placeholder="Enter code"
+                                style="flex: 1; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 0.9375rem;">
+                            <button onclick="applyCoupon()"
+                                style="background: #1f2937; color: white; border: none; padding: 0 1.25rem; border-radius: 8px; font-weight: 600; cursor: pointer;">Apply</button>
+                        </div>
+                        <p id="couponMessage" style="margin: 0.5rem 0 0 0; font-size: 0.8125rem; display: none;"></p>
+                    </div>
+                </div>
+
                 <!-- Complete Purchase Button -->
                 <button onclick="proceedToStripeCheckout()" id="completePurchaseBtn"
                     style="width: 100%; background: #3b82f6; color: white; border: none; padding: 1.125rem 1.5rem; border-radius: 8px; font-size: 1.125rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
@@ -1822,6 +1860,102 @@
 
             console.log('✅ Direct checkout system initialized');
         });
+
+        // ============================================
+        // COUPON FUNCTIONS
+        // ============================================
+        function copyCoupon(element) {
+            const code = 'Vectric10';
+            navigator.clipboard.writeText(code).then(() => {
+                const originalContent = element.innerHTML;
+                element.innerHTML = '<span>Copied!</span> <i class="fas fa-check"></i>';
+                element.style.borderColor = '#00b67a';
+                element.style.color = '#00b67a';
+                setTimeout(() => {
+                    element.innerHTML = originalContent;
+                    element.style.borderColor = '#fcd34d';
+                    element.style.color = '#d97706';
+                }, 2000);
+            });
+        }
+
+        function toggleCouponInput() {
+            const container = document.getElementById('couponInputContainer');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function applyCoupon() {
+            const input = document.getElementById('couponCodeInput');
+            const message = document.getElementById('couponMessage');
+            const code = input.value.trim();
+
+            if (code.toLowerCase() === 'vectric10') {
+                // Success
+                message.style.display = 'block';
+                message.style.color = '#00b67a';
+                message.textContent = 'Coupon applied! 10% discount calculated.';
+
+                // Calculate discount
+                // We need to find the total price element in the modal
+                // It is the last .price-main inside #checkoutModal
+                const modal = document.getElementById('checkoutModal');
+                const priceElements = modal.querySelectorAll('.price-main');
+                const totalElement = priceElements[priceElements.length - 1];
+
+                if (totalElement) {
+                    const currentPriceText = totalElement.textContent;
+                    // Extract symbol and value
+                    // Regex to match currency symbol at start or end
+                    const match = currentPriceText.match(/([^\d.,\s]+)?\s*([\d.,]+)\s*([^\d.,\s]+)?/);
+
+                    if (match) {
+                        const symbolPrefix = match[1] || '';
+                        const valueStr = match[2];
+                        const symbolSuffix = match[3] || '';
+
+                        // Parse value (handle commas)
+                        const priceValue = parseFloat(valueStr.replace(/,/g, ''));
+
+                        if (!isNaN(priceValue)) {
+                            const discount = priceValue * 0.10;
+                            const newPrice = priceValue - discount;
+
+                            // Update Total
+                            totalElement.textContent = `${symbolPrefix}${Math.round(newPrice).toLocaleString()}${symbolSuffix}`;
+
+                            // Add discount line if not exists
+                            let discountRow = document.getElementById('couponDiscountRow');
+                            if (!discountRow) {
+                                const summaryContainer = modal.querySelector('div > div:nth-child(2) > div');
+                                // Insert before the divider
+                                const divider = summaryContainer.querySelector('div[style*="height: 1px"]');
+
+                                discountRow = document.createElement('div');
+                                discountRow.id = 'couponDiscountRow';
+                                discountRow.style.cssText = "display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: #00b67a;";
+                                summaryContainer.insertBefore(discountRow, divider);
+                            }
+
+                            discountRow.innerHTML = `
+                                <span style="font-size: 0.9375rem; font-weight: 500;">Coupon (10% Off)</span>
+                                <span style="font-size: 0.9375rem; font-weight: 600;">-${symbolPrefix}${Math.round(discount).toLocaleString()}${symbolSuffix}</span>
+                            `;
+
+                            // Disable input
+                            input.disabled = true;
+                            document.querySelector('#couponInputContainer button').disabled = true;
+                            document.querySelector('#couponInputContainer button').textContent = 'Applied';
+                        }
+                    }
+                }
+
+            } else {
+                // Error
+                message.style.display = 'block';
+                message.style.color = '#dc2626';
+                message.textContent = 'Invalid coupon code.';
+            }
+        }
     </script>
 
     <script src="js/geo-currency.js"></script>
