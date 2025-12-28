@@ -3,7 +3,7 @@
  * Automatically detects user location and converts prices to local currency
  */
 
-(function() {
+(function () {
     'use strict';
 
     // Currency Configuration
@@ -28,18 +28,18 @@
         'GBP': {
             symbol: '£',
             code: 'GBP',
-            rate: 0.79, // Conversion rate from USD to GBP
+            rate: 0.75, // Conversion rate from USD to GBP (approx 89/119)
             position: 'before',
             prices: {
                 main: 89,
-                retail: 1575,
-                discount: 1486,
-                trainingLibrary: 337,
-                designFiles: 205,
-                installationSupport: 118,
-                lifetimeUpdates: 2636,
-                totalDiscount: 2541,
-                fullPackageRetail: 2730
+                retail: 1492,
+                discount: 1403,
+                trainingLibrary: 319,
+                designFiles: 194,
+                installationSupport: 111,
+                lifetimeUpdates: 2496,
+                totalDiscount: 2407,
+                fullPackageRetail: 2585
             }
         },
         'EUR': {
@@ -102,7 +102,7 @@
         'IM': 'GBP', // Isle of Man
         'JE': 'GBP', // Jersey
         'GG': 'GBP', // Guernsey
-        
+
         // Euro countries
         'AT': 'EUR', // Austria
         'BE': 'EUR', // Belgium
@@ -123,14 +123,14 @@
         'SK': 'EUR', // Slovakia
         'SI': 'EUR', // Slovenia
         'ES': 'EUR', // Spain
-        
+
         // Canadian Dollar
         'CA': 'CAD', // Canada
-        
+
         // Australian Dollar
         'AU': 'AUD', // Australia
         'NZ': 'AUD', // New Zealand (using AUD for simplicity)
-        
+
         // Default to USD for all other countries
     };
 
@@ -170,10 +170,10 @@
 
                     if (response.ok) {
                         const data = await response.json();
-                        
+
                         // Extract country code based on service response format
                         let countryCode = null;
-                        
+
                         if (data.country_code) {
                             countryCode = data.country_code; // ipapi.co
                         } else if (data.country) {
@@ -215,7 +215,7 @@
      */
     function updateAllPrices() {
         const currency = CURRENCY_CONFIG[currentCurrency];
-        
+
         console.log('Updating prices to:', currentCurrency);
 
         // Update main price displays ($119)
@@ -334,7 +334,7 @@
         selector.addEventListener('change', (e) => {
             currentCurrency = e.target.value;
             updateAllPrices();
-            
+
             // Track currency change
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'currency_change', {
@@ -364,7 +364,7 @@
     function initializePriceElements() {
         // This function should be called BEFORE updating prices
         // It adds the necessary classes and data attributes to existing price elements
-        
+
         // We'll match the exact HTML structure from index.html
         const priceSelectors = [
             { selector: 'span:contains("$119")', class: 'price-main' },
