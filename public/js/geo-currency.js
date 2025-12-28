@@ -23,7 +23,8 @@
                 lifetimeUpdates: 3337,
                 totalDiscount: 3218,
                 fullPackageRetail: 3457
-            }
+            },
+            checkoutUrl: 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01'
         },
         'GBP': {
             symbol: '£',
@@ -40,7 +41,8 @@
                 lifetimeUpdates: 2496,
                 totalDiscount: 2407,
                 fullPackageRetail: 2585
-            }
+            },
+            checkoutUrl: 'https://buy.stripe.com/9B64gBbbv7Png4vgLtaAw02'
         },
         'EUR': {
             symbol: '€',
@@ -57,7 +59,8 @@
                 lifetimeUpdates: 3070,
                 totalDiscount: 2961,
                 fullPackageRetail: 3180
-            }
+            },
+            checkoutUrl: 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01'
         },
         'CAD': {
             symbol: 'C$',
@@ -74,7 +77,8 @@
                 lifetimeUpdates: 4505,
                 totalDiscount: 4344,
                 fullPackageRetail: 4667
-            }
+            },
+            checkoutUrl: 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01'
         },
         'AUD': {
             symbol: 'A$',
@@ -91,7 +95,8 @@
                 lifetimeUpdates: 5072,
                 totalDiscount: 4893,
                 fullPackageRetail: 5255
-            }
+            },
+            checkoutUrl: 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01'
         }
     };
 
@@ -255,6 +260,12 @@
         const flashSaleBanner = document.querySelector('.flash-sale-discount');
         if (flashSaleBanner) {
             flashSaleBanner.textContent = formatPrice(currency.prices.discount);
+        }
+
+        // Update Checkout URL
+        if (typeof CHECKOUT_CONFIG !== 'undefined' && currency.checkoutUrl) {
+            CHECKOUT_CONFIG.stripeUrl = currency.checkoutUrl;
+            console.log('Updated checkout URL to:', currency.checkoutUrl);
         }
 
         // Store currency preference
