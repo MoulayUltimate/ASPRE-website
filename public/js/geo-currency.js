@@ -302,15 +302,10 @@
             bottom: 20px;
             right: 20px;
             background: transparent;
-            padding: 8px;
-            border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            font-size: 14px;
-            color: #333;
+            padding: 0;
             z-index: 9999;
             display: flex;
             align-items: center;
-            gap: 8px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             transition: all 0.3s;
         `;
