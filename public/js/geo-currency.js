@@ -316,7 +316,7 @@
         `;
 
         indicator.innerHTML = `
-            <span style="font-weight: 600;">💱 Currency:</span>
+            <span id="currency-label" style="font-weight: 600;">💱 Currency:</span>
             <select id="currency-selector" style="
                 border: 1px solid #ddd;
                 border-radius: 6px;
@@ -334,6 +334,20 @@
                 <option value="AUD">🇦🇺 AUD (A$)</option>
             </select>
         `;
+
+        // Hide 'Currency:' text on mobile
+        if (window.innerWidth <= 768) {
+            const label = indicator.querySelector('#currency-label');
+            if (label) label.style.display = 'none';
+        }
+
+        // Handle window resize to show/hide label
+        window.addEventListener('resize', () => {
+            const label = indicator.querySelector('#currency-label');
+            if (label) {
+                label.style.display = window.innerWidth <= 768 ? 'none' : 'inline';
+            }
+        });
 
         document.body.appendChild(indicator);
 
