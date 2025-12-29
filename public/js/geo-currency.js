@@ -301,53 +301,40 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: white;
-            padding: 12px 20px;
-            border-radius: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            background: transparent;
+            padding: 8px;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             font-size: 14px;
             color: #333;
             z-index: 9999;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
         `;
 
         indicator.innerHTML = `
-            <span id="currency-label" style="font-weight: 600;">💱 Currency:</span>
             <select id="currency-selector" style="
-                border: 1px solid #ddd;
-                border-radius: 6px;
-                padding: 6px 12px;
+                border: none;
+                background: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(10px);
+                border-radius: 8px;
+                padding: 8px 12px;
                 font-size: 14px;
-                background: white;
                 cursor: pointer;
                 font-weight: 600;
                 color: #0066cc;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             ">
-                <option value="USD">🇺🇸 USD ($)</option>
-                <option value="GBP">🇬🇧 GBP (£)</option>
-                <option value="EUR">🇪🇺 EUR (€)</option>
-                <option value="CAD">🇨🇦 CAD (C$)</option>
-                <option value="AUD">🇦🇺 AUD (A$)</option>
+                <option value="USD">🇺🇸 USD</option>
+                <option value="GBP">🇬🇧 GBP</option>
+                <option value="EUR">🇪🇺 EUR</option>
+                <option value="CAD">🇨🇦 CAD</option>
+                <option value="AUD">🇦🇺 AUD</option>
             </select>
         `;
-
-        // Hide 'Currency:' text on mobile
-        if (window.innerWidth <= 768) {
-            const label = indicator.querySelector('#currency-label');
-            if (label) label.style.display = 'none';
-        }
-
-        // Handle window resize to show/hide label
-        window.addEventListener('resize', () => {
-            const label = indicator.querySelector('#currency-label');
-            if (label) {
-                label.style.display = window.innerWidth <= 768 ? 'none' : 'inline';
-            }
-        });
 
         document.body.appendChild(indicator);
 
