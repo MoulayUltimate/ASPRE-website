@@ -106,9 +106,9 @@
 
             /* Image container - Compact */
             .product-image-container {
-                min-height: auto !important;
-                max-height: none !important;
-                padding: 1.5rem 0.5rem !important;
+                min-height: 350px !important;
+                max-height: 350px !important;
+                padding: 1rem !important;
                 position: relative !important;
                 display: flex !important;
                 align-items: center !important;
@@ -116,18 +116,18 @@
                 background: #f8f9fa !important;
             }
 
-            /* Images - Bigger on mobile */
+            /* Images - Bigger and centered on mobile */
             #productImg1,
             #productImg2 {
                 max-width: 95% !important;
-                max-height: 350px !important;
+                max-height: 330px !important;
                 width: auto !important;
                 height: auto !important;
-                position: relative !important;
-                left: auto !important;
-                top: auto !important;
-                transform: none !important;
-                margin: 0 auto !important;
+                position: absolute !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                margin: 0 !important;
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06) !important;
                 border-radius: 8px !important;
             }
