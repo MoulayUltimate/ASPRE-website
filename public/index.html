@@ -575,54 +575,18 @@
                 </p>
             </div>
 
-            <!-- Video Container with Click-to-Load -->
+            <!-- Video Container -->
             <div class="video-showcase-container"
                 style="max-width: 900px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 2px solid #e9ecef;">
-                <div id="youtube-video-wrapper"
-                    style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; cursor: pointer; background: #000;">
-                    <!-- Thumbnail Image -->
-                    <img id="video-thumbnail" src="https://img.youtube.com/vi/YhZvuls_tms/maxresdefault.jpg"
-                        alt="Vectric Aspire 12 Demo"
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
-
-                    <!-- Play Button Overlay -->
-                    <div id="play-button"
-                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(0, 102, 204, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);">
-                        <i class="fas fa-play" style="color: white; font-size: 28px; margin-left: 4px;"></i>
-                    </div>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                        src="https://www.youtube.com/embed/YhZvuls_tms?start=44&autoplay=1&mute=1&rel=0&modestbranding=1&loop=1&playlist=YhZvuls_tms"
+                        title="Vectric Aspire 12 Demo" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
                 </div>
             </div>
-
-            <script>
-                // Load YouTube iframe only when clicked
-                document.getElementById('youtube-video-wrapper').addEventListener('click', function () {
-                    const iframe = document.createElement('iframe');
-                    iframe.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;';
-                    iframe.src = 'https://www.youtube.com/embed/YhZvuls_tms?start=44&autoplay=1&rel=0&modestbranding=1';
-                    iframe.title = 'Vectric Aspire 12 Demo';
-                    iframe.frameBorder = '0';
-                    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-                    iframe.allowFullscreen = true;
-
-                    this.innerHTML = '';
-                    this.appendChild(iframe);
-                    this.style.cursor = 'default';
-                });
-
-                // Hover effect for play button
-                const playBtn = document.getElementById('play-button');
-                const wrapper = document.getElementById('youtube-video-wrapper');
-
-                wrapper.addEventListener('mouseenter', function () {
-                    playBtn.style.transform = 'translate(-50%, -50%) scale(1.1)';
-                    playBtn.style.background = 'rgba(0, 102, 204, 1)';
-                });
-
-                wrapper.addEventListener('mouseleave', function () {
-                    playBtn.style.transform = 'translate(-50%, -50%) scale(1)';
-                    playBtn.style.background = 'rgba(0, 102, 204, 0.9)';
-                });
-            </script>
         </div>
     </section>
 
