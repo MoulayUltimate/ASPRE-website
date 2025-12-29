@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - ASPIRE</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <style>
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contact-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+
+        .contact-header p {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid #e9ecef;
+        }
+
+        .contact-methods {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .contact-method:hover {
+            transform: translateY(-4px);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0066cc 0%, #004c99 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .contact-header h1 {
+                font-size: 2rem;
+            }
+
+            .contact-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .contact-method {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contact-container">
+        <div class="contact-header">
+            <h1>Contact Support</h1>
+            <p>We're here to help! Reach out to us anytime.</p>
+        </div>
+
+        <div class="contact-card">
+            <div class="contact-methods">
+                <!-- Email Contact -->
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Email Us</h3>
+                        <a href="mailto:contact@3daspire.com">contact@3daspire.com</a>
+                        <p style="margin: 0.5rem 0 0; color: var(--gray-600); font-size: 0.9375rem;">We typically
+                            respond within 2-4 hours</p>
+                    </div>
+                </div>
+
+                <!-- Support Hours -->
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Support Hours</h3>
+                        <p style="margin: 0; color: var(--gray-700); font-size: 1.125rem;">24/7 Email Support</p>
+                        <p style="margin: 0.5rem 0 0; color: var(--gray-600); font-size: 0.9375rem;">We're always here
+                            to assist you</p>
+                    </div>
+                </div>
+
+                <!-- Response Time -->
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Need Help With?</h3>
+                        <p style="margin: 0; color: var(--gray-700); font-size: 0.9375rem;">
+                            • License activation<br>
+                            • Installation support<br>
+                            • Technical questions<br>
+                            • Refund requests
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="back-home">
+                <a href="index.html" class="btn btn-primary"
+                    style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
