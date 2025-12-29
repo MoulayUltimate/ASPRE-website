@@ -163,67 +163,93 @@
                 font-size: 0.875rem !important;
             }
 
-            /* Features - SINGLE COLUMN on mobile */
+            /* Features - 2 COLUMNS on mobile (Horizontal layout) */
             .product-showcase-box>div:last-child>div:nth-child(2) {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 0.875rem !important;
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 0.75rem !important;
                 margin-bottom: 1.25rem !important;
             }
 
             .product-showcase-box>div:last-child>div:nth-child(2)>div {
                 display: flex !important;
                 align-items: center !important;
-                gap: 0.625rem !important;
+                gap: 0.5rem !important;
                 width: 100% !important;
+                justify-content: flex-start !important;
             }
 
             .product-showcase-box>div:last-child>div:nth-child(2) span {
-                font-size: 0.875rem !important;
-                line-height: 1.3 !important;
+                font-size: 0.8rem !important;
+                line-height: 1.2 !important;
                 white-space: normal !important;
+                text-align: left !important;
             }
 
             .product-showcase-box>div:last-child>div:nth-child(2) i {
-                font-size: 1.125rem !important;
+                font-size: 1rem !important;
                 flex-shrink: 0 !important;
             }
 
-            /* Pricing section */
+            /* Pricing section - Compact */
             .product-showcase-box>div:last-child>div:nth-child(3) {
-                padding: 1rem !important;
+                padding: 0.75rem !important;
                 margin-bottom: 1rem !important;
             }
 
             .product-showcase-box>div:last-child>div:nth-child(3)>div:first-child {
-                gap: 1rem !important;
-                margin-bottom: 0.75rem !important;
+                gap: 0.5rem !important;
+                margin-bottom: 0.5rem !important;
             }
 
             .product-showcase-box>div:last-child>div:nth-child(3) span:first-child {
-                font-size: 1.125rem !important;
+                font-size: 1rem !important;
             }
 
             .product-showcase-box>div:last-child>div:nth-child(3) span:last-child {
-                font-size: 2.25rem !important;
+                font-size: 2rem !important;
             }
 
             .product-showcase-box>div:last-child>div:nth-child(3)>div:last-child {
-                font-size: 0.875rem !important;
-                padding: 0.5rem 1rem !important;
+                font-size: 0.8rem !important;
+                padding: 0.35rem 0.75rem !important;
             }
 
-            /* Button */
+            /* Button - Prominent */
             .product-showcase-box>div:last-child>a {
-                font-size: 0.9375rem !important;
+                font-size: 1rem !important;
                 padding: 1rem !important;
                 white-space: normal !important;
                 line-height: 1.3 !important;
+                background: linear-gradient(135deg, #0066cc 0%, #004c99 100%) !important;
+                box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3) !important;
+                animation: pulse-mobile 2s infinite;
             }
 
-            /* Trust badges */
+            /* Trust badges - Compact */
+            .product-showcase-box>div:last-child>div:last-child {
+                gap: 0.75rem !important;
+            }
+
             .product-showcase-box>div:last-child>div:last-child span {
-                font-size: 0.6875rem !important;
+                font-size: 0.65rem !important;
+            }
+        }
+
+        @keyframes pulse-mobile {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+            }
+
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 4px 20px rgba(0, 102, 204, 0.5);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
             }
         }
 
@@ -325,7 +351,8 @@
                 <!-- Hero Media -->
                 <div class="hero-media">
                     <!-- Aspire Demo Video -->
-                    <video autoplay muted loop playsinline preload="auto" fetchpriority="high">
+                    <video autoplay muted loop playsinline preload="metadata"
+                        poster="assets/images/aspire-v12-showcase.png">
                         <source src="videos/aspire-demo.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -547,7 +574,7 @@
                 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
                     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                         src="https://www.youtube.com/embed/YhZvuls_tms?start=44&autoplay=1&mute=1&rel=0&modestbranding=1&loop=1&playlist=YhZvuls_tms"
-                        title="Vectric Aspire 12 Demo" frameborder="0"
+                        title="Vectric Aspire 12 Demo" frameborder="0" loading="lazy"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
                     </iframe>
