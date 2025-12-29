@@ -191,28 +191,41 @@
                 flex-shrink: 0 !important;
             }
 
-            /* Pricing section - Compact */
+            /* Pricing section - Compact & Professional */
             .product-showcase-box>div:last-child>div:nth-child(3) {
-                padding: 0.75rem !important;
+                padding: 1rem 0.75rem !important;
                 margin-bottom: 1rem !important;
+                text-align: center !important;
             }
 
+            /* Price display - horizontal layout */
             .product-showcase-box>div:last-child>div:nth-child(3)>div:first-child {
+                display: flex !important;
+                align-items: baseline !important;
+                justify-content: center !important;
                 gap: 0.5rem !important;
-                margin-bottom: 0.5rem !important;
+                margin-bottom: 0.75rem !important;
+                flex-wrap: wrap !important;
             }
 
             .product-showcase-box>div:last-child>div:nth-child(3) span:first-child {
-                font-size: 1rem !important;
+                font-size: 0.95rem !important;
+                order: 1 !important;
             }
 
             .product-showcase-box>div:last-child>div:nth-child(3) span:last-child {
-                font-size: 2rem !important;
+                font-size: 2.25rem !important;
+                order: 2 !important;
             }
 
+            /* Discount badge - Small and inline */
             .product-showcase-box>div:last-child>div:nth-child(3)>div:last-child {
-                font-size: 0.8rem !important;
-                padding: 0.35rem 0.75rem !important;
+                font-size: 0.7rem !important;
+                padding: 0.25rem 0.65rem !important;
+                display: inline-block !important;
+                border-radius: 6px !important;
+                font-weight: 700 !important;
+                margin: 0 !important;
             }
 
             /* Button - Prominent */
