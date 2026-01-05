@@ -7,7 +7,7 @@
     'use strict';
 
     // Currency Configuration
-    const CURRENCY_CONFIG = {
+    const CURRENCY_CONFIG = window.CURRENCY_CONFIG = {
         'USD': {
             symbol: '$',
             code: 'USD',
@@ -42,7 +42,7 @@
                 totalDiscount: 2407,
                 fullPackageRetail: 2585
             },
-            checkoutUrl: 'https://buy.stripe.com/9B64gBbbv7Png4vgLtaAw02'
+            checkoutUrl: 'https://buy.stripe.com/eVq6oGdKIadK5P86ow2Ry01'
         },
         'EUR': {
             symbol: '€',
