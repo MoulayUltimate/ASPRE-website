@@ -7,13 +7,13 @@ pages_build_output_dir = "public"
 # Run `npx wrangler kv:namespace create ASPRE_SETTINGS` and `npx wrangler kv:namespace create ASPRE_AUTH`
 # Then paste the IDs below:
 
-[[kv_namespaces]]
-binding = "ASPRE_SETTINGS"
-id = "69390a05af4e40b6a6b66a4a59e634e2"
+# [[kv_namespaces]]
+# binding = "ASPRE_SETTINGS"
+# id = "69390a05af4e40b6a6b66a4a59e634e2"
 
-[[kv_namespaces]]
-binding = "ASPRE_AUTH"
-id = "e00db70bb6414eae9a80038ad02bfde9"
+# [[kv_namespaces]]
+# binding = "ASPRE_AUTH"
+# id = "e00db70bb6414eae9a80038ad02bfde9"
 
 # Environment Variables (set in Cloudflare Dashboard)
 # STRIPE_SECRET_KEY
