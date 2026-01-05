@@ -7,7 +7,7 @@
     'use strict';
 
     // Currency Configuration
-    const CURRENCY_CONFIG = {
+    const CURRENCY_CONFIG = window.CURRENCY_CONFIG = {
         'USD': {
             symbol: '$',
             code: 'USD',
