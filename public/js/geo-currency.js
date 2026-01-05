@@ -24,7 +24,7 @@
                 totalDiscount: 3218,
                 fullPackageRetail: 3457
             },
-            checkoutUrl: 'https://buy.stripe.com/9B6aEX92segVgRL76V4ow00'
+            checkoutUrl: 'https://buy.stripe.com/bJe00i0XWdpW7Xg5ks2Ry00'
         },
         'GBP': {
             symbol: '£',

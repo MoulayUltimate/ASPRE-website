@@ -6,7 +6,7 @@
 // CONFIGURATION
 // ============================================
 const CHECKOUT_CONFIG = {
-    stripeUrl: 'https://buy.stripe.com/bJecN7frL2v38C3an5aAw01',
+    stripeUrl: 'https://buy.stripe.com/bJe00i0XWdpW7Xg5ks2Ry00',
     // IMPORTANT: Replace this with your Google Apps Script URL
     googleSheetsUrl: 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE',
     productName: 'Vectric Aspire 12',
