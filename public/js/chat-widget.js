@@ -256,9 +256,23 @@
         return div.innerHTML;
     }
 
+    async function sendPresence() {
+        try {
+            await fetch('/api/chat/presence', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ conversationId })
+            });
+        } catch (e) { }
+    }
+
     function startPolling() {
         if (pollInterval) clearInterval(pollInterval);
         pollInterval = setInterval(loadMessages, 3000);
+
+        // Start presence signaling
+        sendPresence();
+        setInterval(sendPresence, 20000); // Every 20s
     }
 
     function stopPolling() {
@@ -267,5 +281,13 @@
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', createChatWidget);
     else createChatWidget();
-    window.addEventListener('beforeunload', stopPolling);
+
+    window.addEventListener('beforeunload', () => {
+        stopPolling();
+        // Try to signal leaving
+        if (navigator.sendBeacon) {
+            const data = JSON.stringify({ conversationId });
+            navigator.sendBeacon('/api/chat/presence', data);
+        }
+    });
 })();

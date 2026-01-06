@@ -4,9 +4,14 @@ export async function onRequestGet(context) {
     try {
         const list = await env.ASPRE_SETTINGS.get('chat::list', { type: 'json' }) || [];
 
-        return new Response(JSON.stringify({
-            conversations: list
-        }), {
+        // Check presence for each conversation
+        const conversations = await Promise.all(list.map(async (conv) => {
+            const presence = await env.ASPRE_SETTINGS.get(`chat::presence::${conv.id}`);
+            const isOnline = presence && (Date.now() - parseInt(presence) < 35000); // 35s buffer
+            return { ...conv, isOnline: !!isOnline };
+        }));
+
+        return new Response(JSON.stringify({ conversations }), {
             headers: { 'Content-Type': 'application/json' }
         });
 

@@ -1060,3 +1060,19 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+.online-dot-small {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #10b981;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid white;
+    box-shadow: 0 0 0 1px #10b981;
+}
+
+.conversation-id {
+    display: flex;
+    align-items: center;
+}

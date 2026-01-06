@@ -14,13 +14,17 @@ export async function onRequestGet(context) {
         const conversation = await env.ASPRE_SETTINGS.get(`chat::${conversationId}`, { type: 'json' });
 
         // Check if other party is typing
-        // If sender is customer, check if admin is typing
         const adminTyping = await env.ASPRE_SETTINGS.get(`chat::typing::${conversationId}::admin`);
         const customerTyping = await env.ASPRE_SETTINGS.get(`chat::typing::${conversationId}::customer`);
+
+        // Check presence (online status)
+        const presence = await env.ASPRE_SETTINGS.get(`chat::presence::${conversationId}`);
+        const isOnline = presence && (Date.now() - parseInt(presence) < 35000);
 
         return new Response(JSON.stringify({
             messages: conversation?.messages || [],
             unread: conversation?.unread || 0,
+            isOnline: !!isOnline,
             isTyping: {
                 admin: !!adminTyping,
                 customer: !!customerTyping

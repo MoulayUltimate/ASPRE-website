@@ -21,6 +21,8 @@ async function loadChatInbox() {
     }
 }
 
+let lastOnlineStatus = {};
+
 function displayConversations(conversations) {
     const container = document.getElementById('conversationsList');
     const badge = document.getElementById('totalChats');
@@ -47,11 +49,12 @@ function displayConversations(conversations) {
         const unreadBadge = conv.unread > 0 ? `<span class="unread-badge">${conv.unread}</span>` : '';
         const active = conv.id === currentChatId ? 'active' : '';
         const displayName = conv.customerName || `Customer ${conv.id.slice(-6)}`;
+        const onlineDot = conv.isOnline ? '<span class="online-dot-small"></span>' : '';
 
         return `
             <div class="conversation-item ${active}" onclick="openChat('${conv.id}', '${escapeHtmlAttr(displayName)}')">
                 <div class="conversation-header">
-                    <span class="conversation-id">${escapeHtml(displayName)}${unreadBadge}</span>
+                    <span class="conversation-id">${onlineDot}${escapeHtml(displayName)}${unreadBadge}</span>
                     <span class="conversation-time">${time}</span>
                 </div>
                 <div class="conversation-preview">${conv.lastMessage || 'No messages'}</div>
@@ -103,6 +106,14 @@ async function loadChatMessages() {
         const res = await fetch(`/api/chat/messages?conversationId=${currentChatId}`);
         if (!res.ok) return;
         const data = await res.json();
+
+        // Check if online status changed
+        const isOnline = data.isOnline; // We'll need to update the messages API too
+        if (lastOnlineStatus[currentChatId] === true && isOnline === false) {
+            appendSystemMessage('User left the website');
+        }
+        lastOnlineStatus[currentChatId] = isOnline;
+
         displayChatMessages(data.messages || [], data.unread === 0);
 
         // Handle customer typing indicator
@@ -134,6 +145,16 @@ async function loadChatMessages() {
     } catch (e) {
         console.error('Failed to load chat messages', e);
     }
+}
+
+function appendSystemMessage(text) {
+    const container = document.getElementById('chatMessagesPanel');
+    const div = document.createElement('div');
+    div.className = 'system-message';
+    div.style.cssText = 'text-align: center; margin: 1rem 0; font-size: 0.75rem; color: #9ca3af; font-style: italic;';
+    div.textContent = text;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
 }
 
 function displayChatMessages(messages, isRead) {
