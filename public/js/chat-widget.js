@@ -24,10 +24,13 @@
                 <div id="chat-popup">
                     <div class="chat-header">
                         <div class="chat-header-left">
-                            <div class="chat-avatar">👤</div>
-                            <h3>Hi there 👋</h3>
+                            <div class="chat-avatar" style="background: #004C99; color: white;">🎧</div>
+                            <div>
+                                <h3 style="margin:0; line-height:1.2;">3DAspire Support</h3>
+                                <span style="font-size: 0.75rem; color: #10b981;">● Online</span>
+                            </div>
                         </div>
-                        <button class="chat-close" aria-label="Close chat">&times;</button>
+                        <button class="chat-close" aria-label="Close chat" style="font-size: 24px;">&times;</button>
                     </div>
                     
                     <div id="nameInputScreen" class="name-input-screen">
@@ -92,17 +95,23 @@
         button.addEventListener('click', () => {
             popup.classList.toggle('open');
             if (popup.classList.contains('open')) {
+                if (window.innerWidth <= 480) {
+                    document.body.style.overflow = 'hidden'; // Lock scroll on mobile
+                }
                 if (customerName) {
                     input.focus();
                     loadMessages();
                 } else {
                     nameInput.focus();
                 }
+            } else {
+                document.body.style.overflow = ''; // Unlock scroll
             }
         });
 
         close.addEventListener('click', () => {
             popup.classList.remove('open');
+            document.body.style.overflow = ''; // Unlock scroll
         });
 
         sendBtn.addEventListener('click', sendMessage);
