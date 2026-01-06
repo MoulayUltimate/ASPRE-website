@@ -7,6 +7,14 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+body.chat-open,
+html.chat-open {
+    overflow: hidden !important;
+    height: 100% !important;
+    position: fixed !important;
+    width: 100% !important;
+}
+
 #chat-button {
     width: 60px;
     height: 60px;
@@ -374,22 +382,27 @@
     #chat-widget {
         bottom: 30px !important;
         right: 20px !important;
-        width: auto !important;
-        height: auto !important;
+        width: 60px !important;
+        height: 60px !important;
         z-index: 100000 !important;
+        position: fixed !important;
+        overflow: visible !important;
     }
 
     #chat-popup {
         position: fixed !important;
         top: 0 !important;
         left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        border-radius: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: -webkit-fill-available !important;
+        background: white !important;
         z-index: 100001 !important;
         display: none;
+        flex-direction: column;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     #chat-popup.open {
@@ -408,7 +421,6 @@
         box-sizing: border-box !important;
         flex-shrink: 0 !important;
         box-shadow: none !important;
-        /* Remove shadow on mobile */
         position: relative !important;
         overflow: visible !important;
     }
@@ -422,15 +434,27 @@
     .chat-header {
         padding: 15px 20px !important;
         padding-top: calc(env(safe-area-inset-top, 15px) + 10px) !important;
+        flex-shrink: 0 !important;
     }
 
     .chat-messages {
         padding: 15px !important;
+        flex: 1 1 auto !important;
+        overflow-y: auto !important;
+        min-height: 0 !important;
     }
 
     .chat-input-area {
         padding: 15px !important;
         padding-bottom: calc(env(safe-area-inset-bottom, 15px) + 10px) !important;
+        flex-shrink: 0 !important;
+        background: white !important;
+    }
+
+    #chatMessagesContainer {
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
 }
 

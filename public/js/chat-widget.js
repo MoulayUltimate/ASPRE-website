@@ -40,7 +40,7 @@
                         <button id="startChatBtn" onclick="startChat()">Start Chat</button>
                     </div>
                     
-                    <div id="chatMessagesContainer" style="display:none; flex:1; display:flex; flex-direction:column;">
+                    <div id="chatMessagesContainer" style="display:none; flex:1; flex-direction:column; overflow:hidden;">
                         <div class="chat-messages" id="chat-messages">
                             <div class="welcome-message">
                                 Hi there 👋 If you need any assistance, I'm always here.
@@ -68,7 +68,7 @@
                         </div>
                         
                         <div class="chat-footer">
-                            Powered by Your Company
+                            Powered by 3DAspire
                         </div>
                     </div>
                 </div>
@@ -95,25 +95,34 @@
         const nameInput = document.getElementById('customerNameInput');
 
         button.addEventListener('click', () => {
-            popup.classList.toggle('open');
-            if (popup.classList.contains('open')) {
+            const isOpen = popup.classList.toggle('open');
+            if (isOpen) {
                 if (window.innerWidth <= 480) {
-                    document.body.style.overflow = 'hidden'; // Lock scroll on mobile
+                    document.documentElement.classList.add('chat-open');
+                    document.body.classList.add('chat-open');
+                    popup.style.height = window.innerHeight + 'px';
                 }
-                if (customerName) {
-                    input.focus();
-                    loadMessages();
-                } else {
-                    nameInput.focus();
-                }
+                document.getElementById('chat-button').classList.remove('unread');
+
+                setTimeout(() => {
+                    const nameScreen = document.getElementById('nameInputScreen');
+                    if (nameScreen && nameScreen.style.display !== 'none') {
+                        document.getElementById('customerNameInput').focus();
+                    } else {
+                        document.getElementById('chat-input').focus();
+                        loadMessages();
+                    }
+                }, 200);
             } else {
-                document.body.style.overflow = ''; // Unlock scroll
+                document.documentElement.classList.remove('chat-open');
+                document.body.classList.remove('chat-open');
             }
         });
 
         close.addEventListener('click', () => {
             popup.classList.remove('open');
-            document.body.style.overflow = ''; // Unlock scroll
+            document.documentElement.classList.remove('chat-open');
+            document.body.classList.remove('chat-open');
         });
 
         sendBtn.addEventListener('click', sendMessage);
