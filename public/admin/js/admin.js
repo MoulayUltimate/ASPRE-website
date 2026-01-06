@@ -389,7 +389,7 @@ function updateClicks(clicks) {
     if (!tbody) return;
 
     if (!clicks || clicks.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#9ca3af;">No click data yet</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#9ca3af;">No click data yet</td></tr>';
         if (badge) badge.textContent = '0 clicks';
         return;
     }
@@ -398,13 +398,15 @@ function updateClicks(clicks) {
 
     tbody.innerHTML = clicks.slice(0, 20).map(c => {
         const icon = c.type === 'link' ? '<i class="fas fa-link"></i>' : '<i class="fas fa-hand-pointer"></i>';
-        const url = c.href ? `<a href="${c.href}" target="_blank" style="color:#0066cc; text-decoration:none;">${c.href.slice(0, 40)}...</a>` : '-';
+        const url = c.href ? `<a href="${c.href}" target="_blank" style="color:#0066cc; text-decoration:none;">${c.href.slice(0, 40)}${c.href.length > 40 ? '...' : ''}</a>` : '-';
+        const country = `<span>${getFlagEmoji(c.country)} ${c.country || 'Unknown'}</span>`;
 
         return `
             <tr>
                 <td>${icon} ${c.type || 'click'}</td>
                 <td><strong>${c.text}</strong></td>
                 <td>${url}</td>
+                <td>${country}</td>
                 <td>${new Date(c.ts).toLocaleTimeString()}</td>
             </tr>
         `;
