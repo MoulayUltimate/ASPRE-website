@@ -2,7 +2,7 @@ export async function onRequestPost(context) {
     const { request, env } = context;
 
     try {
-        const { conversationId, message, sender } = await request.json();
+        const { conversationId, message, sender, customerName } = await request.json();
 
         if (!conversationId || !message || !sender) {
             return new Response(JSON.stringify({ error: 'Missing required fields' }), {
@@ -14,15 +14,21 @@ export async function onRequestPost(context) {
         // Get existing conversation
         let conversation = await env.ASPRE_SETTINGS.get(`chat::${conversationId}`, { type: 'json' }) || {
             id: conversationId,
+            customerName: customerName || 'Anonymous',
             messages: [],
             lastMessage: null,
             lastMessageTime: null,
             unread: 0
         };
 
+        // Update customer name if provided
+        if (customerName && sender === 'customer') {
+            conversation.customerName = customerName;
+        }
+
         // Add new message
         const newMessage = {
-            message: message.slice(0, 500), // Limit message length
+            message: message.slice(0, 500),
             sender,
             timestamp: Date.now()
         };
@@ -34,6 +40,8 @@ export async function onRequestPost(context) {
         // Increment unread if customer message
         if (sender === 'customer') {
             conversation.unread = (conversation.unread || 0) + 1;
+        } else {
+            conversation.unread = 0;
         }
 
         // Save conversation
@@ -45,6 +53,7 @@ export async function onRequestPost(context) {
 
         const listItem = {
             id: conversationId,
+            customerName: conversation.customerName,
             lastMessage: conversation.lastMessage,
             lastMessageTime: conversation.lastMessageTime,
             unread: conversation.unread
@@ -56,7 +65,6 @@ export async function onRequestPost(context) {
             list.unshift(listItem);
         }
 
-        // Keep only last 100 conversations
         list = list.slice(0, 100);
         await env.ASPRE_SETTINGS.put('chat::list', JSON.stringify(list));
 

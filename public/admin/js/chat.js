@@ -1,5 +1,6 @@
 // LIVE CHAT FUNCTIONALITY for Admin Dashboard
 let currentChatId = null;
+let currentChatName = null;
 let chatPollInterval = null;
 
 async function loadChatInbox() {
@@ -55,11 +56,12 @@ function displayConversations(conversations) {
         const time = new Date(conv.lastMessageTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const unreadBadge = conv.unread > 0 ? `<span class="unread-badge">${conv.unread}</span>` : '';
         const active = conv.id === currentChatId ? 'active' : '';
+        const displayName = conv.customerName || `Customer ${conv.id.slice(-6)}`;
 
         return `
-            <div class="conversation-item ${active}" onclick="openChat('${conv.id}')">
+            <div class="conversation-item ${active}" onclick="openChat('${conv.id}', '${escapeHtmlAttr(displayName)}')">
                 <div class="conversation-header">
-                    <span class="conversation-id">Customer ${conv.id.slice(-6)}${unreadBadge}</span>
+                    <span class="conversation-id">${escapeHtml(displayName)}${unreadBadge}</span>
                     <span class="conversation-time">${time}</span>
                 </div>
                 <div class="conversation-preview">${conv.lastMessage || 'No messages'}</div>
@@ -68,13 +70,14 @@ function displayConversations(conversations) {
     }).join('');
 }
 
-async function openChat(conversationId) {
+async function openChat(conversationId, customerName) {
     currentChatId = conversationId;
+    currentChatName = customerName;
 
     // Update UI
     document.getElementById('chatWelcome').style.display = 'none';
     document.getElementById('chatActive').style.display = 'flex';
-    document.getElementById('chatCustomerName').textContent = `Customer ${conversationId.slice(-6)}`;
+    document.getElementById('chatCustomerName').textContent = customerName || `Customer ${conversationId.slice(-6)}`;
     document.getElementById('chatCustomerId').textContent = conversationId;
 
     // Load messages
@@ -101,7 +104,7 @@ function displayChatMessages(messages) {
 
         return `
             <div class="admin-chat-message ${msg.sender}">
-                <div class="admin-message-bubble">${escapeHtmlChat(msg.message)}</div>
+                <div class="admin-message-bubble">${escapeHtml(msg.message)}</div>
                 <div class="admin-message-time">${time}</div>
             </div>
         `;
@@ -111,10 +114,14 @@ function displayChatMessages(messages) {
     container.scrollTop = container.scrollHeight;
 }
 
-function escapeHtmlChat(text) {
+function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+}
+
+function escapeHtmlAttr(text) {
+    return text.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 async function sendAdminReply() {
@@ -142,7 +149,7 @@ async function sendAdminReply() {
 
         if (res.ok) {
             textarea.value = '';
-            openChat(currentChatId); // Reload messages
+            openChat(currentChatId, currentChatName);
         }
     } catch (e) {
         console.error('Failed to send reply', e);
