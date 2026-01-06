@@ -1,13 +1,16 @@
 // Admin Dashboard Logic
 const API_BASE = '/admin/api';
 let charts = {}; // Store chart instances
+let currentSettings = {};
 
 document.addEventListener('DOMContentLoaded', async () => {
     await checkAuth();
     setupNavigation();
+    setupEventListeners();
 
     // Initial Load
     await loadAnalytics();
+    await loadSettings();
 
     // Auto-refresh Analytics every 30s
     setInterval(loadAnalytics, 30000);
@@ -25,6 +28,14 @@ async function checkAuth() {
     }
 }
 
+// Setup Event Listeners
+function setupEventListeners() {
+    const origEl = document.getElementById('priceOriginal');
+    const currEl = document.getElementById('priceCurrent');
+    if (origEl) origEl.addEventListener('input', calculateDiscount);
+    if (currEl) currEl.addEventListener('input', calculateDiscount);
+}
+
 // Navigation
 function setupNavigation() {
     document.querySelectorAll('.nav-item').forEach(item => {
@@ -40,11 +51,161 @@ function setupNavigation() {
             const target = document.getElementById(tabId);
             if (target) target.classList.add('active');
 
+            // Update page title
+            const titles = {
+                'analytics': 'Dashboard Analytics',
+                'payments': 'Payment Settings',
+                'pricing': 'Pricing Management',
+                'marketing': 'Marketing & Tracking',
+                'security': 'Security Settings'
+            };
+            document.getElementById('pageTitle').textContent = titles[tabId] || 'Dashboard';
+
             // Load specific data if needed
             if (tabId === 'analytics') loadAnalytics();
-            // Add other tab loaders here if needed
         });
     });
+}
+
+// Load Settings
+async function loadSettings() {
+    try {
+        const res = await fetch(`${API_BASE}/settings`);
+        if (res.ok) {
+            currentSettings = await res.json();
+            populateForms(currentSettings);
+        }
+    } catch (e) {
+        console.error('Error loading settings', e);
+    }
+}
+
+// Populate Forms with Data
+function populateForms(data) {
+    // Stripe
+    if (data.stripe) {
+        document.getElementById('stripePublicKey').value = data.stripe.publicKey || '';
+        document.getElementById('stripeLinkUSD').value = data.stripe.links?.usd || '';
+        document.getElementById('stripeLinkGBP').value = data.stripe.links?.gbp || '';
+    }
+
+    // Pricing
+    if (data.pricing) {
+        document.getElementById('currencySymbol').value = data.pricing.symbol || '$';
+        document.getElementById('currencyCode').value = data.pricing.code || 'USD';
+        document.getElementById('priceOriginal').value = data.pricing.original || '';
+        document.getElementById('priceCurrent').value = data.pricing.current || '';
+        calculateDiscount();
+    }
+
+    // Marketing
+    if (data.marketing) {
+        document.getElementById('googleAdsId').value = data.marketing.googleAds || '';
+        document.getElementById('ga4Id').value = data.marketing.ga4 || '';
+        document.getElementById('gtmId').value = data.marketing.gtm || '';
+    }
+}
+
+// Calculate Discount
+function calculateDiscount() {
+    const original = parseFloat(document.getElementById('priceOriginal').value) || 0;
+    const current = parseFloat(document.getElementById('priceCurrent').value) || 0;
+    const symbol = document.getElementById('currencySymbol').value;
+
+    if (original > 0 && current > 0) {
+        const discount = original - current;
+        const percent = Math.round((discount / original) * 100);
+        document.getElementById('priceDiscount').value = `${symbol}${discount.toFixed(2)} (${percent}% OFF)`;
+    }
+}
+
+// Save Settings
+async function saveSettings(e, type) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = 'Saving...';
+    btn.disabled = true;
+
+    try {
+        let payload = {};
+
+        if (type === 'stripe') {
+            payload.stripe = {
+                publicKey: document.getElementById('stripePublicKey').value,
+                links: {
+                    usd: document.getElementById('stripeLinkUSD').value,
+                    gbp: document.getElementById('stripeLinkGBP').value
+                }
+            };
+        }
+
+        if (type === 'pricing') {
+            payload.pricing = {
+                symbol: document.getElementById('currencySymbol').value,
+                code: document.getElementById('currencyCode').value,
+                original: parseFloat(document.getElementById('priceOriginal').value),
+                current: parseFloat(document.getElementById('priceCurrent').value)
+            };
+        }
+
+        if (type === 'marketing') {
+            payload.marketing = {
+                googleAds: document.getElementById('googleAdsId').value,
+                ga4: document.getElementById('ga4Id').value,
+                gtm: document.getElementById('gtmId').value
+            };
+        }
+
+        const res = await fetch(`${API_BASE}/settings`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+            showToast('Settings saved successfully');
+            await loadSettings(); // Reload to confirm
+        } else {
+            throw new Error('Failed to save');
+        }
+
+    } catch (e) {
+        showToast('Error saving settings', 'error');
+    } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+    }
+}
+
+// Change Password
+async function updatePassword(e) {
+    e.preventDefault();
+    const current = document.getElementById('currentPassword').value;
+    const newPass = document.getElementById('newPassword').value;
+    const confirm = document.getElementById('confirmPassword').value;
+
+    if (newPass !== confirm) {
+        showToast('New passwords do not match', 'error');
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_BASE}/password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ current, newPass })
+        });
+
+        if (res.ok) {
+            showToast('Password updated successfully');
+            e.target.reset();
+        } else {
+            showToast('Failed to update password', 'error');
+        }
+    } catch (e) {
+        showToast('Error updating password', 'error');
+    }
 }
 
 // Load Analytics Data
@@ -72,7 +233,9 @@ function updateSummaryCards(data) {
 }
 
 function updateCharts(history) {
-    const ctx = document.getElementById('trafficChart').getContext('2d');
+    const canvas = document.getElementById('trafficChart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
     // Destroy existing if needed
     if (charts.traffic) charts.traffic.destroy();
@@ -80,7 +243,7 @@ function updateCharts(history) {
     charts.traffic = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], // Mock labels for now
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             datasets: [{
                 label: 'Visitors',
                 data: history.visitors,
@@ -103,8 +266,9 @@ function updateCharts(history) {
         }
     });
 
-    // Update Country List (Mock for now as we need real data aggregation)
+    // Update Country List
     const countryList = document.getElementById('countryList');
+    if (!countryList) return;
     countryList.innerHTML = `
         <div class="country-item">
             <div class="country-info">
@@ -128,6 +292,7 @@ function updateCharts(history) {
 
 function updateLiveUsers(realtime) {
     const tbody = document.getElementById('liveUsersTable');
+    if (!tbody) return;
     if (!realtime.users || realtime.users.length === 0) {
         tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#9ca3af;">No active users right now</td></tr>';
         return;
@@ -147,6 +312,7 @@ function updateLiveUsers(realtime) {
 
 function updateErrorLog(errors) {
     const container = document.getElementById('errorLog');
+    if (!container) return;
     if (!errors || errors.length === 0) {
         container.innerHTML = '<div class="log-item empty">No recent errors detected.</div>';
         return;
@@ -161,6 +327,27 @@ function updateErrorLog(errors) {
             <div class="log-time">${new Date(e.ts).toLocaleTimeString()}</div>
         </div>
     `).join('');
+}
+
+function showToast(msg, type = 'success') {
+    const toast = document.getElementById('toast');
+    const msgEl = document.getElementById('toastMessage');
+    const icon = toast.querySelector('i');
+
+    msgEl.textContent = msg;
+    toast.className = 'toast show';
+
+    if (type === 'error') {
+        icon.className = 'fas fa-exclamation-circle';
+        icon.style.color = '#ef4444';
+    } else {
+        icon.className = 'fas fa-check-circle';
+        icon.style.color = '#10b981';
+    }
+
+    setTimeout(() => {
+        toast.className = 'toast';
+    }, 3000);
 }
 
 async function logout() {

@@ -161,37 +161,138 @@
 
             </div>
 
-            <!-- Other Tabs (Placeholders for now, logic handled in JS) -->
+            <!-- Payments Tab -->
             <div id="payments" class="tab-content">
-                <!-- Existing Payment Content -->
                 <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fab fa-stripe"></i> Stripe Configuration</h2>
+                    </div>
                     <div class="card-body">
-                        <h2>Payments Settings</h2>
-                        <p>Use the sidebar to navigate.</p>
+                        <form id="stripeForm" onsubmit="saveSettings(event, 'stripe')">
+                            <div class="form-group">
+                                <label>Payment Link (USD)</label>
+                                <input type="url" id="stripeLinkUSD" placeholder="https://buy.stripe.com/..."
+                                    class="regular-input">
+                                <small class="hint">This link will be used for US Dollar payments</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Link (GBP)</label>
+                                <input type="url" id="stripeLinkGBP" placeholder="https://buy.stripe.com/..."
+                                    class="regular-input">
+                                <small class="hint">This link will be used for British Pound payments</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Stripe Publishable Key</label>
+                                <input type="text" id="stripePublicKey" placeholder="pk_live_..." class="code-input">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-save">Save Stripe Settings</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+
+            <!-- Pricing Tab -->
             <div id="pricing" class="tab-content">
                 <div class="card">
+                    <div class="card-header">
+                        <h2>Pricing Management</h2>
+                    </div>
                     <div class="card-body">
-                        <h2>Pricing Settings</h2>
-                        <p>Use the sidebar to navigate.</p>
+                        <form id="pricingForm" onsubmit="saveSettings(event, 'pricing')">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label>Currency Symbol</label>
+                                    <select id="currencySymbol" class="regular-input">
+                                        <option value="$">USD ($)</option>
+                                        <option value="£">GBP (£)</option>
+                                        <option value="€">EUR (€)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Currency Code</label>
+                                    <select id="currencyCode" class="regular-input">
+                                        <option value="USD">USD</option>
+                                        <option value="GBP">GBP</option>
+                                        <option value="EUR">EUR</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label>Original Price (Retail)</label>
+                                    <input type="number" id="priceOriginal" step="0.01" class="regular-input">
+                                </div>
+                                <div class="form-group">
+                                    <label>Sale Price (Current)</label>
+                                    <input type="number" id="priceCurrent" step="0.01" class="regular-input">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Discount Amount (Calculated)</label>
+                                <input type="text" id="priceDiscount" readonly class="regular-input readonly">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-save">Update Prices</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+
+            <!-- Marketing Tab -->
             <div id="marketing" class="tab-content">
                 <div class="card">
+                    <div class="card-header">
+                        <h2>Marketing & Tracking</h2>
+                    </div>
                     <div class="card-body">
-                        <h2>Marketing Settings</h2>
-                        <p>Use the sidebar to navigate.</p>
+                        <form id="marketingForm" onsubmit="saveSettings(event, 'marketing')">
+                            <div class="form-group">
+                                <label>Google Ads Conversion ID</label>
+                                <input type="text" id="googleAdsId" placeholder="AW-..." class="code-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Google Analytics ID (GA4)</label>
+                                <input type="text" id="ga4Id" placeholder="G-..." class="code-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Google Tag Manager ID</label>
+                                <input type="text" id="gtmId" placeholder="GTM-..." class="code-input">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-save">Save Tracking Codes</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+
+            <!-- Security Tab -->
             <div id="security" class="tab-content">
                 <div class="card">
+                    <div class="card-header">
+                        <h2>Admin Security</h2>
+                    </div>
                     <div class="card-body">
-                        <h2>Security Settings</h2>
-                        <p>Use the sidebar to navigate.</p>
+                        <form id="securityForm" onsubmit="updatePassword(event)">
+                            <div class="form-group">
+                                <label>Current Password</label>
+                                <input type="password" id="currentPassword" required class="regular-input">
+                            </div>
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" id="newPassword" required class="regular-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm New Password</label>
+                                <input type="password" id="confirmPassword" required class="regular-input">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-save">Change Password</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
