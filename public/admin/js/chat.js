@@ -107,8 +107,14 @@ async function loadChatMessages() {
         if (!res.ok) return;
         const data = await res.json();
 
+        // Update header online status
+        const headerDot = document.getElementById('headerOnlineDot');
+        if (headerDot) {
+            headerDot.style.display = data.isOnline ? 'inline-block' : 'none';
+        }
+
         // Check if online status changed
-        const isOnline = data.isOnline; // We'll need to update the messages API too
+        const isOnline = data.isOnline;
         if (lastOnlineStatus[currentChatId] === true && isOnline === false) {
             appendSystemMessage('User left the website');
         }

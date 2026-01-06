@@ -276,10 +276,11 @@
 
     window.addEventListener('beforeunload', () => {
         stopPolling();
-        // Try to signal leaving
+        // Signal leaving
         if (navigator.sendBeacon) {
-            const data = JSON.stringify({ conversationId });
-            navigator.sendBeacon('/api/chat/presence', data);
+            const data = JSON.stringify({ conversationId, status: 'offline' });
+            const blob = new Blob([data], { type: 'application/json' });
+            navigator.sendBeacon('/api/chat/presence', blob);
         }
     });
 })();
