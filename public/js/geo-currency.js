@@ -300,7 +300,7 @@
         indicator.style.cssText = `
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            left: 20px;
             background: transparent;
             padding: 0;
             z-index: 9999;
