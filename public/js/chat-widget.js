@@ -48,10 +48,13 @@
                         </div>
                         
                         <div id="typingIndicator" class="chat-messages" style="display:none; padding: 0 20px 10px 20px; background: #f9fafb; flex: none;">
-                            <div class="typing-indicator">
-                                <div class="typing-dot"></div>
-                                <div class="typing-dot"></div>
-                                <div class="typing-dot"></div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="typing-indicator" style="margin-bottom: 0;">
+                                    <div class="typing-dot"></div>
+                                    <div class="typing-dot"></div>
+                                    <div class="typing-dot"></div>
+                                </div>
+                                <span style="font-size: 0.75rem; color: #6b7280; font-style: italic;">3DAspire Support is typing...</span>
                             </div>
                         </div>
                         
@@ -116,12 +119,14 @@
 
         sendBtn.addEventListener('click', sendMessage);
 
+        input.addEventListener('input', () => {
+            sendTypingStatus();
+        });
+
         input.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 sendMessage();
-            } else {
-                sendTypingStatus();
             }
         });
 

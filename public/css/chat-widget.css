@@ -371,6 +371,11 @@
 
 /* Mobile Responsive */
 @media (max-width: 480px) {
+    #chat-widget {
+        bottom: calc(30px + env(safe-area-inset-bottom, 0px)) !important;
+        right: 20px !important;
+    }
+
     #chat-popup {
         width: 100% !important;
         height: 100% !important;
@@ -390,8 +395,6 @@
     #chat-button {
         width: 60px !important;
         height: 60px !important;
-        right: 20px !important;
-        bottom: 20px !important;
         border-radius: 50% !important;
         display: flex !important;
         align-items: center !important;
@@ -400,6 +403,10 @@
         margin: 0 !important;
         box-sizing: border-box !important;
         flex-shrink: 0 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+        position: relative !important;
+        bottom: 0 !important;
+        right: 0 !important;
     }
 
     #chat-button svg {

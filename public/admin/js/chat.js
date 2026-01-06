@@ -114,12 +114,13 @@ async function loadChatMessages() {
                 typingDiv.id = 'adminTypingIndicator';
                 typingDiv.className = 'admin-chat-message customer';
                 typingDiv.innerHTML = `
-                    <div class="admin-message-bubble" style="padding: 10px 15px;">
-                        <div class="typing-indicator" style="background:transparent; padding:0; margin:0;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <div class="typing-indicator" style="background:#f3f4f6; padding: 8px 12px; border-radius: 12px; margin: 0;">
                             <div class="typing-dot" style="background:#9ca3af;"></div>
                             <div class="typing-dot" style="background:#9ca3af;"></div>
                             <div class="typing-dot" style="background:#9ca3af;"></div>
                         </div>
+                        <span style="font-size: 0.75rem; color: #6b7280; font-style: italic;">Customer is typing...</span>
                     </div>
                 `;
                 messagesPanel.appendChild(typingDiv);
