@@ -232,7 +232,7 @@ async function loadAnalytics() {
         const data = await res.json();
 
         updateSummaryCards(data);
-        updateCharts(data.history);
+        updateCharts(data.history, data.topCountries);
         updateLiveUsers(data.realtime);
         updateErrorLog(data.errors);
         updateClicks(data.clicks);
@@ -249,7 +249,7 @@ function updateSummaryCards(data) {
     document.getElementById('statErrors').textContent = data.errors?.length || 0;
 }
 
-function updateCharts(history) {
+function updateCharts(history, topCountries) {
     const canvas = document.getElementById('trafficChart');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -260,7 +260,7 @@ function updateCharts(history) {
     charts.traffic = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            labels: history.labels || ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             datasets: [{
                 label: 'Visitors',
                 data: history.visitors,
@@ -286,25 +286,40 @@ function updateCharts(history) {
     // Update Country List
     const countryList = document.getElementById('countryList');
     if (!countryList) return;
-    countryList.innerHTML = `
-        <div class="country-item">
-            <div class="country-info">
-                <span class="flag">🇺🇸</span>
-                <span class="country-name">United States</span>
-            </div>
-            <span class="country-count">45%</span>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="width: 45%"></div></div>
-        
+
+    if (!topCountries || topCountries.length === 0) {
+        countryList.innerHTML = '<p style="text-align:center; color:#9ca3af; padding:1rem;">No country data yet</p>';
+        return;
+    }
+
+    countryList.innerHTML = topCountries.map(c => `
         <div class="country-item" style="margin-top: 1rem">
             <div class="country-info">
-                <span class="flag">🇬🇧</span>
-                <span class="country-name">United Kingdom</span>
+                <span class="flag">${getFlagEmoji(c.code)}</span>
+                <span class="country-name">${getCountryName(c.code)}</span>
             </div>
-            <span class="country-count">20%</span>
+            <span class="country-count">${c.percent}%</span>
         </div>
-        <div class="progress-bar"><div class="progress-fill" style="width: 20%"></div></div>
-    `;
+        <div class="progress-bar"><div class="progress-fill" style="width: ${c.percent}%"></div></div>
+    `).join('');
+}
+
+function getFlagEmoji(countryCode) {
+    if (!countryCode || countryCode === 'Unknown') return '🌐';
+    const codePoints = countryCode
+        .toUpperCase()
+        .split('')
+        .map(char => 127397 + char.charCodeAt());
+    return String.fromCodePoint(...codePoints);
+}
+
+function getCountryName(code) {
+    const names = {
+        'US': 'United States', 'GB': 'United Kingdom', 'CA': 'Canada', 'AU': 'Australia',
+        'DE': 'Germany', 'FR': 'France', 'IT': 'Italy', 'ES': 'Spain', 'BR': 'Brazil',
+        'IN': 'India', 'CN': 'China', 'JP': 'Japan', 'RU': 'Russia', 'Unknown': 'Unknown'
+    };
+    return names[code] || code;
 }
 
 function updateLiveUsers(realtime) {

@@ -32,14 +32,14 @@
 
         if (link) {
             sendEvent('click', {
-                type: 'link',
+                clickType: 'link',
                 href: link.href,
                 text: (link.innerText || link.textContent || 'Image/Icon').trim().slice(0, 100),
                 target: link.target || '_self'
             });
         } else if (btn) {
             sendEvent('click', {
-                type: 'button',
+                clickType: 'button',
                 text: (btn.innerText || btn.textContent || 'Button').trim().slice(0, 100),
                 id: btn.id || null
             });
