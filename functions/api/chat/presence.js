@@ -2,7 +2,7 @@ export async function onRequestPost(context) {
     const { request, env } = context;
 
     try {
-        const { conversationId } = await request.json();
+        const { conversationId, status } = await request.json();
 
         if (!conversationId) {
             return new Response(JSON.stringify({ error: 'Missing conversationId' }), {
@@ -11,8 +11,12 @@ export async function onRequestPost(context) {
             });
         }
 
-        // Store presence with 30s TTL
-        await env.ASPRE_SETTINGS.put(`chat::presence::${conversationId}`, Date.now().toString(), { expirationTtl: 60 });
+        if (status === 'offline') {
+            await env.ASPRE_SETTINGS.delete(`chat::presence::${conversationId}`);
+        } else {
+            // Store presence with 60s TTL
+            await env.ASPRE_SETTINGS.put(`chat::presence::${conversationId}`, Date.now().toString(), { expirationTtl: 60 });
+        }
 
         return new Response(JSON.stringify({ success: true }), {
             headers: { 'Content-Type': 'application/json' }

@@ -59,7 +59,6 @@
                         </div>
                         
                         <div class="chat-input-area">
-                            <button class="emoji-btn" onclick="insertEmoji()" aria-label="Insert emoji">😊</button>
                             <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." maxlength="500">
                             <button class="chat-send-btn" id="chat-send" aria-label="Send message">
                                 <svg viewBox="0 0 24 24">
@@ -163,13 +162,6 @@
         document.getElementById('chat-input').focus();
         loadMessages();
         startPolling();
-    };
-
-    window.insertEmoji = function () {
-        const input = document.getElementById('chat-input');
-        const emojis = ['😊', '👍', '❤️', '😂', '🎉', '👋', '🙏', '✨'];
-        input.value += emojis[Math.floor(Math.random() * emojis.length)];
-        input.focus();
     };
 
     async function sendMessage() {
