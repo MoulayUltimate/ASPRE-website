@@ -1806,6 +1806,11 @@
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
 
+            // Track conversion in our analytics
+            if (window.sendEvent) {
+                window.sendEvent('conversion');
+            }
+
             // Google Ads Add to Basket Conversion
             if (typeof gtag === 'function') {
                 gtag('event', 'conversion', {

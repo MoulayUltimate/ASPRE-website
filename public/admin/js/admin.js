@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await checkAuth();
     setupNavigation();
     setupEventListeners();
+    setupQuotes();
 
     // Initial Load
     await loadAnalytics();
@@ -15,6 +16,47 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Auto-refresh Analytics every 30s
     setInterval(loadAnalytics, 30000);
 });
+
+// Motivational Quotes Logic
+function setupQuotes() {
+    const quotes = [
+        "Discipline is the bridge between goals and accomplishment.",
+        "The only way to do great work is to love what you do.",
+        "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+        "Hard work beats talent when talent doesn't work hard.",
+        "Don't count the days, make the days count.",
+        "The difference between who you are and who you want to be is what you do.",
+        "Discipline is doing what needs to be done, even if you don't want to do it.",
+        "Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work.",
+        "The successful warrior is the average man, with laser-like focus.",
+        "Motivation gets you going, but discipline keeps you growing.",
+        "Great things are done by a series of small things brought together.",
+        "Focus on being productive instead of busy.",
+        "The price of excellence is discipline. The cost of mediocrity is disappointment.",
+        "Work hard in silence, let your success be your noise.",
+        "Discipline is the soul of an army. It makes small numbers formidable."
+    ];
+
+    const quoteEl = document.getElementById('quoteText');
+    if (!quoteEl) return;
+
+    const HOURS_TO_CHANGE = 4;
+    const lastQuoteUpdate = localStorage.getItem('lastQuoteUpdate');
+    const currentQuoteIndex = localStorage.getItem('currentQuoteIndex');
+    const now = Date.now();
+
+    if (!lastQuoteUpdate || (now - lastQuoteUpdate > HOURS_TO_CHANGE * 60 * 60 * 1000)) {
+        // Change quote
+        const newIndex = Math.floor(Math.random() * quotes.length);
+        localStorage.setItem('currentQuoteIndex', newIndex);
+        localStorage.setItem('lastQuoteUpdate', now);
+        quoteEl.textContent = `"${quotes[newIndex]}"`;
+    } else {
+        // Keep current quote
+        const index = currentQuoteIndex || 0;
+        quoteEl.textContent = `"${quotes[index]}"`;
+    }
+}
 
 // Auth Check
 async function checkAuth() {
@@ -236,6 +278,15 @@ async function loadAnalytics() {
         updateLiveUsers(data.realtime);
         updateErrorLog(data.errors);
         updateClicks(data.clicks);
+
+        // Update "Last Updated" timestamp
+        const now = new Date().toLocaleTimeString();
+        const title = document.getElementById('pageTitle');
+        if (title && !title.innerHTML.includes('small')) {
+            title.innerHTML += ` <small style="font-size: 0.8rem; color: #9ca3af; font-weight: 400; margin-left: 10px;">(Live: ${now})</small>`;
+        } else if (title) {
+            title.querySelector('small').textContent = `(Live: ${now})`;
+        }
 
     } catch (e) {
         console.error('Failed to load analytics', e);

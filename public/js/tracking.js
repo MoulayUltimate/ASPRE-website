@@ -16,6 +16,9 @@
         }).catch(() => { }); // Ignore errors to not block UI
     }
 
+    // Expose globally
+    window.sendEvent = sendEvent;
+
     // 1. Track Page View
     sendEvent('pageview');
 

@@ -127,9 +127,42 @@ body {
     margin-bottom: 2rem;
 }
 
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
 .top-bar h1 {
     font-size: 1.875rem;
     font-weight: 700;
+    margin: 0;
+}
+
+.quote-section {
+    flex: 1;
+    margin: 0 2rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    border-left: 2px solid var(--primary-color);
+    background: rgba(0, 102, 204, 0.03);
+    border-radius: 0 8px 8px 0;
+}
+
+#quoteText {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--text-light);
+    line-height: 1.4;
+    margin: 0;
+}
+
+@media (max-width: 1200px) {
+    .quote-section {
+        display: none;
+    }
 }
 
 .user-info {
@@ -141,6 +174,7 @@ body {
     border-radius: 20px;
     border: 1px solid var(--border);
     font-weight: 500;
+    flex-shrink: 0;
 }
 
 .status-indicator {
