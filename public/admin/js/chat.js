@@ -69,11 +69,20 @@ async function openChat(conversationId, customerName) {
     document.getElementById('chatCustomerName').textContent = customerName || `Customer ${conversationId.slice(-6)}`;
     document.getElementById('chatCustomerId').textContent = conversationId;
 
+    // Handle mobile view
+    if (window.innerWidth <= 1024) {
+        document.querySelector('.chat-inbox-container').classList.add('viewing-chat');
+    }
+
     // Setup typing listener
     const replyInput = document.getElementById('chatReplyInput');
-    replyInput.oninput = () => sendAdminTypingStatus();
+    if (replyInput) replyInput.oninput = () => sendAdminTypingStatus();
 
     loadChatMessages();
+}
+
+function closeChatMobile() {
+    document.querySelector('.chat-inbox-container').classList.remove('viewing-chat');
 }
 
 async function sendAdminTypingStatus() {

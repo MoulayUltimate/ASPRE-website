@@ -38,6 +38,15 @@ function setupEventListeners() {
 
 // Navigation
 function setupNavigation() {
+    const sidebar = document.querySelector('.sidebar');
+    const menuToggle = document.getElementById('menuToggle');
+
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    }
+
     document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
@@ -50,6 +59,11 @@ function setupNavigation() {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             const target = document.getElementById(tabId);
             if (target) target.classList.add('active');
+
+            // Close sidebar on mobile
+            if (window.innerWidth <= 1024) {
+                sidebar.classList.remove('active');
+            }
 
             // Update page title
             const titles = {
