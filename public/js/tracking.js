@@ -25,15 +25,23 @@
     }, 30000);
     sendEvent('heartbeat'); // Initial
 
-    // 3. Track Clicks
+    // 3. Track Clicks with Full Details
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a');
         const btn = e.target.closest('button');
 
-        if (link || btn) {
+        if (link) {
             sendEvent('click', {
-                target: (link?.href || btn?.innerText || 'unknown').slice(0, 100),
-                tag: link ? 'a' : 'button'
+                type: 'link',
+                href: link.href,
+                text: (link.innerText || link.textContent || 'Image/Icon').trim().slice(0, 100),
+                target: link.target || '_self'
+            });
+        } else if (btn) {
+            sendEvent('click', {
+                type: 'button',
+                text: (btn.innerText || btn.textContent || 'Button').trim().slice(0, 100),
+                id: btn.id || null
             });
         }
     });

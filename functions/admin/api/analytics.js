@@ -18,7 +18,10 @@ export async function onRequestGet(context) {
         // 3. Get Errors
         const errors = await env.ASPRE_SETTINGS.get('log::errors', { type: 'json' }) || [];
 
-        // 4. Historical Data (mock for now)
+        // 4. Get Clicks
+        const clicks = await env.ASPRE_SETTINGS.get('log::clicks', { type: 'json' }) || [];
+
+        // 5. Historical Data (mock)
         const chartData = {
             visitors: [120, 132, 101, 134, 90, 230, 210],
             conversions: [2, 3, 1, 4, 2, 5, 3]
@@ -34,16 +37,17 @@ export async function onRequestGet(context) {
                 conversions: 3
             },
             errors: errors,
+            clicks: clicks,
             history: chartData
         }), {
             headers: { 'Content-Type': 'application/json' }
         });
     } catch (error) {
-        // Return fallback data if KV fails
         return new Response(JSON.stringify({
             realtime: { count: 0, users: [] },
             today: { views: 0, conversions: 0 },
             errors: [],
+            clicks: [],
             history: {
                 visitors: [45, 52, 38, 67, 55, 78, 82],
                 conversions: [1, 2, 1, 3, 2, 4, 3]

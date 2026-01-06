@@ -4,10 +4,7 @@ export async function onRequestPost(context) {
     try {
         const data = await request.json();
         const timestamp = Date.now();
-        const dateKey = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-
-        // We will store data in ASPRE_SETTINGS for now as it's the available binding
-        // Structure: analytics::YYYY-MM-DD::type -> [events]
+        const dateKey = new Date().toISOString().split('T')[0];
 
         // 1. Real-time heartbeat (expires in 5 mins)
         if (data.type === 'heartbeat') {
@@ -17,23 +14,33 @@ export async function onRequestPost(context) {
                 country: request.cf?.country || 'Unknown',
                 city: request.cf?.city || 'Unknown',
                 ts: timestamp
-            }), { expirationTtl: 300 }); // 5 mins
+            }), { expirationTtl: 300 });
         }
 
-        // 2. Page Views & Events (Persistent)
-        // Note: In a real high-traffic app, we'd use Durable Objects or specialized analytics.
-        // For this scale, we'll append to a daily chunk or just log it.
-        // Since KV isn't great for "appending", we will just use the real-time feature 
-        // and simple counters for this demo to avoid race conditions.
-
+        // 2. Page Views
         if (data.type === 'pageview') {
-            // Increment daily counter
             const count = await env.ASPRE_SETTINGS.get(`stats::${dateKey}::views`) || 0;
             await env.ASPRE_SETTINGS.put(`stats::${dateKey}::views`, Number(count) + 1);
         }
 
+        // 3. Click Tracking - Store Top Clicks
+        if (data.type === 'click') {
+            let clicks = await env.ASPRE_SETTINGS.get('log::clicks', { type: 'json' }) || [];
+
+            clicks.unshift({
+                type: data.type || 'link',
+                text: data.text || 'Unknown',
+                href: data.href || null,
+                ts: timestamp,
+                country: request.cf?.country || 'Unknown'
+            });
+
+            clicks = clicks.slice(0, 100);
+            await env.ASPRE_SETTINGS.put('log::clicks', JSON.stringify(clicks));
+        }
+
+        // 4. Errors
         if (data.type === 'error') {
-            // Store last 50 errors
             let errors = await env.ASPRE_SETTINGS.get('log::errors', { type: 'json' }) || [];
             errors.unshift({ ...data, ts: timestamp, country: request.cf?.country });
             errors = errors.slice(0, 50);

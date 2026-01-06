@@ -219,6 +219,7 @@ async function loadAnalytics() {
         updateCharts(data.history);
         updateLiveUsers(data.realtime);
         updateErrorLog(data.errors);
+        updateClicks(data.clicks);
 
     } catch (e) {
         console.error('Failed to load analytics', e);
@@ -348,6 +349,35 @@ function showToast(msg, type = 'success') {
     setTimeout(() => {
         toast.className = 'toast';
     }, 3000);
+}
+
+function updateClicks(clicks) {
+    const tbody = document.getElementById('clicksTable');
+    const badge = document.getElementById('clicksCount');
+
+    if (!tbody) return;
+
+    if (!clicks || clicks.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#9ca3af;">No click data yet</td></tr>';
+        if (badge) badge.textContent = '0 clicks';
+        return;
+    }
+
+    if (badge) badge.textContent = `${clicks.length} recent`;
+
+    tbody.innerHTML = clicks.slice(0, 20).map(c => {
+        const icon = c.type === 'link' ? '<i class="fas fa-link"></i>' : '<i class="fas fa-hand-pointer"></i>';
+        const url = c.href ? `<a href="${c.href}" target="_blank" style="color:#0066cc; text-decoration:none;">${c.href.slice(0, 40)}...</a>` : '-';
+
+        return `
+            <tr>
+                <td>${icon} ${c.type || 'click'}</td>
+                <td><strong>${c.text}</strong></td>
+                <td>${url}</td>
+                <td>${new Date(c.ts).toLocaleTimeString()}</td>
+            </tr>
+        `;
+    }).join('');
 }
 
 async function logout() {
