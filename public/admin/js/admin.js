@@ -54,6 +54,7 @@ function setupNavigation() {
             // Update page title
             const titles = {
                 'analytics': 'Dashboard Analytics',
+                'chat': 'Live Chat Inbox',
                 'payments': 'Payment Settings',
                 'pricing': 'Pricing Management',
                 'marketing': 'Marketing & Tracking',
@@ -63,6 +64,7 @@ function setupNavigation() {
 
             // Load specific data if needed
             if (tabId === 'analytics') loadAnalytics();
+            if (tabId === 'chat') loadChatInbox();
         });
     });
 }

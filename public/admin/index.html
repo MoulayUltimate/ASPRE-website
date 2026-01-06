@@ -22,6 +22,10 @@
             <a href="#" class="nav-item active" data-tab="analytics">
                 <i class="fas fa-chart-line"></i> Analytics
             </a>
+            <a href="#" class="nav-item" data-tab="chat">
+                <i class="fas fa-comments"></i> Live Chat
+                <span id="chatUnreadBadge" class="unread-badge" style="display:none;"></span>
+            </a>
             <a href="#" class="nav-item" data-tab="payments">
                 <i class="fas fa-credit-card"></i> Payments
             </a>
@@ -184,6 +188,61 @@
 
             </div>
 
+            <!-- Live Chat Tab -->
+            <div id="chat" class="tab-content">
+                <div class="chat-inbox-container">
+                    <!-- Conversations List -->
+                    <div class="chat-conversations-panel">
+                        <div class="conversations-header">
+                            <h3>Conversations</h3>
+                            <span id="totalChats" class="badge-pill">0</span>
+                        </div>
+                        <div id="conversationsList" class="conversations-list">
+                            <!-- Populated by JS -->
+                            <div class="empty-conversations">
+                                <i class="fas fa-comments"
+                                    style="font-size:3rem; color:#cbd5e1; margin-bottom:1rem;"></i>
+                                <p>No conversations yet</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Panel -->
+                    <div class="chat-panel">
+                        <div id="chatWelcome" class="chat-welcome">
+                            <i class="fas fa-comment-dots"
+                                style="font-size:4rem; color:#cbd5e1; margin-bottom:1.5rem;"></i>
+                            <h2>Select a conversation</h2>
+                            <p>Choose a conversation from the left to start chatting</p>
+                        </div>
+
+                        <div id="chatActive" class="chat-active" style="display:none;">
+                            <div class="chat-panel-header">
+                                <div>
+                                    <h3 id="chatCustomerName">Customer</h3>
+                                    <p id="chatCustomerId" style="font-size:0.75rem; color:#9ca3af; margin:0;"></p>
+                                </div>
+                                <button onclick="markChatRead()" class="btn-mark-read">
+                                    <i class="fas fa-check-double"></i> Mark as Read
+                                </button>
+                            </div>
+
+                            <div id="chatMessagesPanel" class="chat-messages-panel">
+                                <!-- Messages populated by JS -->
+                            </div>
+
+                            <div class="chat-reply-area">
+                                <textarea id="chatReplyInput" placeholder="Type your reply..."
+                                    maxlength="500"></textarea>
+                                <button id="chatReplyBtn" onclick="sendAdminReply()">
+                                    <i class="fas fa-paper-plane"></i> Send
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Payments Tab -->
             <div id="payments" class="tab-content">
                 <div class="card">
@@ -329,6 +388,7 @@
         <span id="toastMessage">Settings saved successfully</span>
     </div>
 
+    <script src="js/chat.js"></script>
     <script src="js/admin.js"></script>
 </body>
 
