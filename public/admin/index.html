@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store Dashboard - Aspire Admin</title>
+    <title>Analytics Dashboard - Aspire Admin</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="dashboard-page">
@@ -17,11 +19,11 @@
             <span>Aspire Admin</span>
         </div>
         <nav class="sidebar-nav">
-            <a href="#" class="nav-item active" data-tab="overview">
-                <i class="fas fa-home"></i> Overview
+            <a href="#" class="nav-item active" data-tab="analytics">
+                <i class="fas fa-chart-line"></i> Analytics
             </a>
             <a href="#" class="nav-item" data-tab="payments">
-                <i class="fas fa-credit-card"></i> Payments (Stripe)
+                <i class="fas fa-credit-card"></i> Payments
             </a>
             <a href="#" class="nav-item" data-tab="pricing">
                 <i class="fas fa-tag"></i> Pricing
@@ -43,7 +45,7 @@
     <!-- Main Content -->
     <main class="main-content">
         <header class="top-bar">
-            <h1 id="pageTitle">Overview</h1>
+            <h1 id="pageTitle">Dashboard Analytics</h1>
             <div class="user-info">
                 <span id="adminUsername">Admin</span>
                 <div class="status-indicator online"></div>
@@ -54,199 +56,142 @@
             <!-- Loading State -->
             <div id="loadingState" class="loading-overlay">
                 <div class="spinner"></div>
-                <p>Loading settings...</p>
+                <p>Loading data...</p>
             </div>
 
-            <!-- Overview Tab -->
-            <div id="overview" class="tab-content active">
+            <!-- Analytics Tab (Main) -->
+            <div id="analytics" class="tab-content active">
+
+                <!-- Summary Cards -->
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon blue"><i class="fas fa-shopping-cart"></i></div>
-                        <div class="stat-info">
-                            <h3>Current Price</h3>
-                            <p id="statPrice">Loading...</p>
+                    <div class="stat-card gradient-blue">
+                        <div class="stat-content">
+                            <h3>Total Visitors (Today)</h3>
+                            <p id="statViews">0</p>
+                            <span class="trend up"><i class="fas fa-arrow-up"></i> 12% vs yesterday</span>
+                        </div>
+                        <div class="stat-icon-bg"><i class="fas fa-users"></i></div>
+                    </div>
+                    <div class="stat-card gradient-green">
+                        <div class="stat-content">
+                            <h3>Live Users</h3>
+                            <p id="statLive">0</p>
+                            <span class="live-badge">● Real-time</span>
+                        </div>
+                        <div class="stat-icon-bg"><i class="fas fa-bolt"></i></div>
+                    </div>
+                    <div class="stat-card gradient-purple">
+                        <div class="stat-content">
+                            <h3>Conversions</h3>
+                            <p id="statConversions">0</p>
+                            <span class="trend up"><i class="fas fa-arrow-up"></i> 5% vs yesterday</span>
+                        </div>
+                        <div class="stat-icon-bg"><i class="fas fa-shopping-cart"></i></div>
+                    </div>
+                    <div class="stat-card gradient-orange">
+                        <div class="stat-content">
+                            <h3>Errors (24h)</h3>
+                            <p id="statErrors">0</p>
+                            <span class="trend down" id="errorTrend">No issues</span>
+                        </div>
+                        <div class="stat-icon-bg"><i class="fas fa-exclamation-triangle"></i></div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-grid">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-chart-area"></i> Traffic Overview (7 Days)</h2>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="trafficChart"></canvas>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
-                        <div class="stat-info">
-                            <h3>Stripe Mode</h3>
-                            <p id="statStripeMode">Loading...</p>
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-globe"></i> Top Countries</h2>
                         </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon purple"><i class="fas fa-eye"></i></div>
-                        <div class="stat-info">
-                            <h3>Tracking</h3>
-                            <p id="statTracking">Active</p>
+                        <div class="card-body">
+                            <div id="countryList" class="country-list">
+                                <!-- Populated by JS -->
+                                <div class="empty-state">Waiting for data...</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="quick-actions">
-                    <h2>Quick Actions</h2>
-                    <div class="action-buttons">
-                        <button onclick="switchTab('payments')" class="btn-action">Update Payment Keys</button>
-                        <button onclick="switchTab('pricing')" class="btn-action">Change Price</button>
+                <!-- Real-time & Errors Grid -->
+                <div class="grid-2">
+                    <!-- Live Users Table -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-user-clock"></i> Active Users</h2>
+                            <span class="badge-pill">Live</span>
+                        </div>
+                        <div class="card-body no-padding">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Location</th>
+                                        <th>Page</th>
+                                        <th>Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="liveUsersTable">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Error Log -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-bug"></i> Recent Errors</h2>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div id="errorLog" class="log-container">
+                                <!-- Populated by JS -->
+                                <div class="log-item empty">No recent errors detected.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
 
-            <!-- Payments Tab -->
+            <!-- Other Tabs (Placeholders for now, logic handled in JS) -->
             <div id="payments" class="tab-content">
+                <!-- Existing Payment Content -->
                 <div class="card">
-                    <div class="card-header">
-                        <h2><i class="fab fa-stripe"></i> Stripe Configuration</h2>
-                        <div class="toggle-container">
-                            <span class="toggle-label">Test Mode</span>
-                            <label class="switch">
-                                <input type="checkbox" id="stripeTestMode">
-                                <span class="slider round"></span>
-                            </label>
-                            <span class="toggle-label">Live Mode</span>
-                        </div>
-                    </div>
                     <div class="card-body">
-                        <form id="stripeForm" onsubmit="saveSettings(event, 'stripe')">
-                            <div class="form-group">
-                                <label>Publishable Key</label>
-                                <div class="input-group">
-                                    <input type="text" id="stripePublicKey" placeholder="pk_live_..."
-                                        class="code-input">
-                                    <button type="button" class="btn-copy"
-                                        onclick="copyToClipboard('stripePublicKey')"><i
-                                            class="far fa-copy"></i></button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Secret Key (Hidden)</label>
-                                <div class="input-group">
-                                    <input type="password" id="stripeSecretKey" placeholder="sk_live_..."
-                                        class="code-input">
-                                    <button type="button" class="btn-reveal"
-                                        onclick="toggleVisibility('stripeSecretKey')"><i
-                                            class="far fa-eye"></i></button>
-                                </div>
-                                <small class="hint">Only enter if you want to update it.</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Payment Link (USD)</label>
-                                <input type="url" id="stripeLinkUSD" placeholder="https://buy.stripe.com/..."
-                                    class="regular-input">
-                            </div>
-                            <div class="form-group">
-                                <label>Payment Link (GBP)</label>
-                                <input type="url" id="stripeLinkGBP" placeholder="https://buy.stripe.com/..."
-                                    class="regular-input">
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn-save">Save Stripe Settings</button>
-                            </div>
-                        </form>
+                        <h2>Payments Settings</h2>
+                        <p>Use the sidebar to navigate.</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Pricing Tab -->
             <div id="pricing" class="tab-content">
                 <div class="card">
-                    <div class="card-header">
-                        <h2>Pricing Management</h2>
-                    </div>
                     <div class="card-body">
-                        <form id="pricingForm" onsubmit="saveSettings(event, 'pricing')">
-                            <div class="grid-2">
-                                <div class="form-group">
-                                    <label>Currency Symbol</label>
-                                    <select id="currencySymbol" class="regular-input">
-                                        <option value="$">USD ($)</option>
-                                        <option value="£">GBP (£)</option>
-                                        <option value="€">EUR (€)</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Currency Code</label>
-                                    <select id="currencyCode" class="regular-input">
-                                        <option value="USD">USD</option>
-                                        <option value="GBP">GBP</option>
-                                        <option value="EUR">EUR</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="grid-2">
-                                <div class="form-group">
-                                    <label>Original Price (Retail)</label>
-                                    <input type="number" id="priceOriginal" step="0.01" class="regular-input">
-                                </div>
-                                <div class="form-group">
-                                    <label>Sale Price (Current)</label>
-                                    <input type="number" id="priceCurrent" step="0.01" class="regular-input">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Discount Amount (Calculated)</label>
-                                <input type="text" id="priceDiscount" readonly class="regular-input readonly">
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn-save">Update Prices</button>
-                            </div>
-                        </form>
+                        <h2>Pricing Settings</h2>
+                        <p>Use the sidebar to navigate.</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Marketing Tab -->
             <div id="marketing" class="tab-content">
                 <div class="card">
-                    <div class="card-header">
-                        <h2>Marketing & Tracking</h2>
-                    </div>
                     <div class="card-body">
-                        <form id="marketingForm" onsubmit="saveSettings(event, 'marketing')">
-                            <div class="form-group">
-                                <label>Google Ads Conversion ID</label>
-                                <input type="text" id="googleAdsId" placeholder="AW-..." class="code-input">
-                            </div>
-                            <div class="form-group">
-                                <label>Google Analytics ID (GA4)</label>
-                                <input type="text" id="ga4Id" placeholder="G-..." class="code-input">
-                            </div>
-                            <div class="form-group">
-                                <label>Google Tag Manager ID</label>
-                                <input type="text" id="gtmId" placeholder="GTM-..." class="code-input">
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn-save">Save Tracking Codes</button>
-                            </div>
-                        </form>
+                        <h2>Marketing Settings</h2>
+                        <p>Use the sidebar to navigate.</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Security Tab -->
             <div id="security" class="tab-content">
                 <div class="card">
-                    <div class="card-header">
-                        <h2>Admin Security</h2>
-                    </div>
                     <div class="card-body">
-                        <form id="securityForm" onsubmit="updatePassword(event)">
-                            <div class="form-group">
-                                <label>Current Password</label>
-                                <input type="password" id="currentPassword" required class="regular-input">
-                            </div>
-                            <div class="form-group">
-                                <label>New Password</label>
-                                <input type="password" id="newPassword" required class="regular-input">
-                            </div>
-                            <div class="form-group">
-                                <label>Confirm New Password</label>
-                                <input type="password" id="confirmPassword" required class="regular-input">
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn-save">Change Password</button>
-                            </div>
-                        </form>
+                        <h2>Security Settings</h2>
+                        <p>Use the sidebar to navigate.</p>
                     </div>
                 </div>
             </div>
