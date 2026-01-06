@@ -1,4 +1,4 @@
-// Live Chat Widget - Redesigned
+// Live Chat Widget - Redesigned with Animations
 (function () {
     let conversationId = localStorage.getItem('chatConversationId') || generateId();
     let customerName = localStorage.getItem('chatCustomerName') || '';
@@ -6,6 +6,7 @@
 
     let lastMessageCount = 0;
     let pollInterval = null;
+    let typingTimeout = null;
 
     function generateId() {
         return 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
@@ -43,6 +44,14 @@
                             </div>
                         </div>
                         
+                        <div id="typingIndicator" class="chat-messages" style="display:none; padding: 0 20px 10px 20px; background: #f9fafb; flex: none;">
+                            <div class="typing-indicator">
+                                <div class="typing-dot"></div>
+                                <div class="typing-dot"></div>
+                                <div class="typing-dot"></div>
+                            </div>
+                        </div>
+                        
                         <div class="chat-input-area">
                             <button class="emoji-btn" onclick="insertEmoji()" aria-label="Insert emoji">😊</button>
                             <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." maxlength="500">
@@ -64,7 +73,6 @@
         document.body.insertAdjacentHTML('beforeend', widgetHTML);
         attachEventListeners();
 
-        // Check if user already has a name
         if (customerName) {
             document.getElementById('nameInputScreen').style.display = 'none';
             document.getElementById('chatMessagesContainer').style.display = 'flex';
@@ -103,6 +111,8 @@
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 sendMessage();
+            } else {
+                sendTypingStatus();
             }
         });
 
@@ -114,22 +124,29 @@
         });
     }
 
+    async function sendTypingStatus() {
+        if (typingTimeout) return;
+
+        typingTimeout = setTimeout(() => { typingTimeout = null; }, 3000);
+
+        try {
+            await fetch('/api/chat/typing', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ conversationId, sender: 'customer' })
+            });
+        } catch (e) { }
+    }
+
     window.startChat = function () {
         const nameInput = document.getElementById('customerNameInput');
         const name = nameInput.value.trim();
-
-        if (!name) {
-            nameInput.style.borderColor = '#ef4444';
-            return;
-        }
-
+        if (!name) { nameInput.style.borderColor = '#ef4444'; return; }
         customerName = name;
         localStorage.setItem('chatCustomerName', customerName);
-
         document.getElementById('nameInputScreen').style.display = 'none';
         document.getElementById('chatMessagesContainer').style.display = 'flex';
         document.getElementById('chat-input').focus();
-
         loadMessages();
         startPolling();
     };
@@ -137,37 +154,24 @@
     window.insertEmoji = function () {
         const input = document.getElementById('chat-input');
         const emojis = ['😊', '👍', '❤️', '😂', '🎉', '👋', '🙏', '✨'];
-        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-        input.value += emoji;
+        input.value += emojis[Math.floor(Math.random() * emojis.length)];
         input.focus();
     };
 
     async function sendMessage() {
         const input = document.getElementById('chat-input');
         const message = input.value.trim();
-
         if (!message || !customerName) return;
-
         const sendBtn = document.getElementById('chat-send');
         sendBtn.disabled = true;
         input.disabled = true;
-
         try {
             const res = await fetch('/api/chat/send', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    conversationId,
-                    message,
-                    sender: 'customer',
-                    customerName
-                })
+                body: JSON.stringify({ conversationId, message, sender: 'customer', customerName })
             });
-
-            if (res.ok) {
-                input.value = '';
-                loadMessages();
-            }
+            if (res.ok) { input.value = ''; loadMessages(); }
         } catch (e) {
             console.error('Failed to send message', e);
         } finally {
@@ -181,53 +185,54 @@
         try {
             const res = await fetch(`/api/chat/messages?conversationId=${conversationId}`);
             if (!res.ok) return;
-
             const data = await res.json();
-            displayMessages(data.messages || []);
+            displayMessages(data.messages || [], data.unread === 0);
 
-            // Check for new messages
+            // Handle typing indicator
+            const typingInd = document.getElementById('typingIndicator');
+            if (data.isTyping && data.isTyping.admin) {
+                typingInd.style.display = 'block';
+                const container = document.getElementById('chat-messages');
+                container.scrollTop = container.scrollHeight;
+            } else {
+                typingInd.style.display = 'none';
+            }
+
             if (data.messages && data.messages.length > lastMessageCount) {
                 lastMessageCount = data.messages.length;
-
-                // Show notification badge if chat is closed
                 const popup = document.getElementById('chat-popup');
                 const button = document.getElementById('chat-button');
-                if (!popup.classList.contains('open')) {
-                    button.classList.add('unread');
-                } else {
-                    button.classList.remove('unread');
-                }
+                if (!popup.classList.contains('open')) button.classList.add('unread');
+                else button.classList.remove('unread');
             }
         } catch (e) {
             console.error('Failed to load messages', e);
         }
     }
 
-    function displayMessages(messages) {
+    function displayMessages(messages, isRead) {
         const container = document.getElementById('chat-messages');
         const welcome = container.querySelector('.welcome-message');
-
-        // Clear all except welcome message
         container.innerHTML = '';
-        if (messages.length === 0) {
-            container.appendChild(welcome);
-        }
+        if (messages.length === 0) container.appendChild(welcome);
 
-        messages.forEach(msg => {
+        messages.forEach((msg, index) => {
             const msgDiv = document.createElement('div');
             msgDiv.className = `chat-message ${msg.sender}`;
-
             const time = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            let readReceipt = '';
+            if (msg.sender === 'customer' && index === messages.length - 1 && isRead) {
+                readReceipt = `<div class="read-receipt"><i class="fas fa-check-double"></i> Read</div>`;
+            }
 
             msgDiv.innerHTML = `
                 <div class="message-bubble">${escapeHtml(msg.message)}</div>
                 <div class="message-time">${time}</div>
+                ${readReceipt}
             `;
-
             container.appendChild(msgDiv);
         });
-
-        // Scroll to bottom
         container.scrollTop = container.scrollHeight;
     }
 
@@ -238,25 +243,15 @@
     }
 
     function startPolling() {
-        // Poll every 3 seconds for new messages
         if (pollInterval) clearInterval(pollInterval);
         pollInterval = setInterval(loadMessages, 3000);
     }
 
     function stopPolling() {
-        if (pollInterval) {
-            clearInterval(pollInterval);
-            pollInterval = null;
-        }
+        if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
     }
 
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', createChatWidget);
-    } else {
-        createChatWidget();
-    }
-
-    // Cleanup on page unload
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', createChatWidget);
+    else createChatWidget();
     window.addEventListener('beforeunload', stopPolling);
 })();

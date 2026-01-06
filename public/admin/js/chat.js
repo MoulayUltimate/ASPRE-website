@@ -1,7 +1,8 @@
-// LIVE CHAT FUNCTIONALITY for Admin Dashboard
+// LIVE CHAT FUNCTIONALITY for Admin Dashboard with Animations
 let currentChatId = null;
 let currentChatName = null;
 let chatPollInterval = null;
+let adminTypingTimeout = null;
 
 async function loadChatInbox() {
     try {
@@ -28,28 +29,17 @@ function displayConversations(conversations) {
     if (!container) return;
 
     if (conversations.length === 0) {
-        container.innerHTML = `
-            <div class="empty-conversations">
-                <i class="fas fa-comments" style="font-size:3rem; color:#cbd5e1; margin-bottom:1rem;"></i>
-                <p>No conversations yet</p>
-            </div>
-        `;
+        container.innerHTML = `<div class="empty-conversations"><p>No conversations yet</p></div>`;
         if (badge) badge.textContent = '0';
         if (menuBadge) menuBadge.style.display = 'none';
         return;
     }
 
     if (badge) badge.textContent = conversations.length;
-
-    // Calculate total unread
     const totalUnread = conversations.reduce((sum, c) => sum + (c.unread || 0), 0);
     if (menuBadge) {
-        if (totalUnread > 0) {
-            menuBadge.textContent = totalUnread;
-            menuBadge.style.display = 'inline';
-        } else {
-            menuBadge.style.display = 'none';
-        }
+        if (totalUnread > 0) { menuBadge.textContent = totalUnread; menuBadge.style.display = 'inline'; }
+        else { menuBadge.style.display = 'none'; }
     }
 
     container.innerHTML = conversations.map(conv => {
@@ -74,43 +64,88 @@ async function openChat(conversationId, customerName) {
     currentChatId = conversationId;
     currentChatName = customerName;
 
-    // Update UI
     document.getElementById('chatWelcome').style.display = 'none';
     document.getElementById('chatActive').style.display = 'flex';
     document.getElementById('chatCustomerName').textContent = customerName || `Customer ${conversationId.slice(-6)}`;
     document.getElementById('chatCustomerId').textContent = conversationId;
 
-    // Load messages
+    // Setup typing listener
+    const replyInput = document.getElementById('chatReplyInput');
+    replyInput.oninput = () => sendAdminTypingStatus();
+
+    loadChatMessages();
+}
+
+async function sendAdminTypingStatus() {
+    if (adminTypingTimeout || !currentChatId) return;
+    adminTypingTimeout = setTimeout(() => { adminTypingTimeout = null; }, 3000);
     try {
-        const res = await fetch(`/api/chat/messages?conversationId=${conversationId}`);
+        await fetch('/api/chat/typing', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ conversationId: currentChatId, sender: 'admin' })
+        });
+    } catch (e) { }
+}
+
+async function loadChatMessages() {
+    if (!currentChatId) return;
+    try {
+        const res = await fetch(`/api/chat/messages?conversationId=${currentChatId}`);
         if (!res.ok) return;
-
         const data = await res.json();
-        displayChatMessages(data.messages || []);
+        displayChatMessages(data.messages || [], data.unread === 0);
 
-        // Mark as read
-        await markChatRead();
+        // Handle customer typing indicator
+        const messagesPanel = document.getElementById('chatMessagesPanel');
+        const existingTyping = document.getElementById('adminTypingIndicator');
+        if (data.isTyping && data.isTyping.customer) {
+            if (!existingTyping) {
+                const typingDiv = document.createElement('div');
+                typingDiv.id = 'adminTypingIndicator';
+                typingDiv.className = 'admin-chat-message customer';
+                typingDiv.innerHTML = `
+                    <div class="admin-message-bubble" style="padding: 10px 15px;">
+                        <div class="typing-indicator" style="background:transparent; padding:0; margin:0;">
+                            <div class="typing-dot" style="background:#9ca3af;"></div>
+                            <div class="typing-dot" style="background:#9ca3af;"></div>
+                            <div class="typing-dot" style="background:#9ca3af;"></div>
+                        </div>
+                    </div>
+                `;
+                messagesPanel.appendChild(typingDiv);
+                messagesPanel.scrollTop = messagesPanel.scrollHeight;
+            }
+        } else if (existingTyping) {
+            existingTyping.remove();
+        }
+
+        if (data.unread > 0) await markChatRead();
     } catch (e) {
         console.error('Failed to load chat messages', e);
     }
 }
 
-function displayChatMessages(messages) {
+function displayChatMessages(messages, isRead) {
     const container = document.getElementById('chatMessagesPanel');
     if (!container) return;
 
-    container.innerHTML = messages.map(msg => {
+    container.innerHTML = messages.map((msg, index) => {
         const time = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        let readReceipt = '';
+        if (msg.sender === 'admin' && index === messages.length - 1 && isRead) {
+            readReceipt = `<div class="admin-message-time" style="text-align:right;"><i class="fas fa-check-double" style="color:#10b981;"></i> Read</div>`;
+        }
 
         return `
             <div class="admin-chat-message ${msg.sender}">
                 <div class="admin-message-bubble">${escapeHtml(msg.message)}</div>
                 <div class="admin-message-time">${time}</div>
+                ${readReceipt}
             </div>
         `;
     }).join('');
 
-    // Scroll to bottom
     container.scrollTop = container.scrollHeight;
 }
 
@@ -126,31 +161,19 @@ function escapeHtmlAttr(text) {
 
 async function sendAdminReply() {
     if (!currentChatId) return;
-
     const textarea = document.getElementById('chatReplyInput');
     const btn = document.getElementById('chatReplyBtn');
     const message = textarea.value.trim();
-
     if (!message) return;
-
     btn.disabled = true;
     textarea.disabled = true;
-
     try {
         const res = await fetch('/api/chat/send', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                conversationId: currentChatId,
-                message,
-                sender: 'admin'
-            })
+            body: JSON.stringify({ conversationId: currentChatId, message, sender: 'admin' })
         });
-
-        if (res.ok) {
-            textarea.value = '';
-            openChat(currentChatId, currentChatName);
-        }
+        if (res.ok) { textarea.value = ''; loadChatMessages(); }
     } catch (e) {
         console.error('Failed to send reply', e);
     } finally {
@@ -162,16 +185,21 @@ async function sendAdminReply() {
 
 async function markChatRead() {
     if (!currentChatId) return;
-
     try {
         await fetch(`${API_BASE}/chat/mark-read`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ conversationId: currentChatId })
         });
-
-        loadChatInbox(); // Refresh list
+        loadChatInbox();
     } catch (e) {
         console.error('Failed to mark as read', e);
     }
 }
+
+// Update polling to include messages if a chat is open
+setInterval(() => {
+    if (currentChatId && document.getElementById('chat').classList.contains('active')) {
+        loadChatMessages();
+    }
+}, 3000);
