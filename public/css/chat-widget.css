@@ -2,7 +2,7 @@
 #chat-widget {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left: 20px;
     z-index: 9999;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -11,9 +11,9 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #004C99 0%, #0066cc 100%);
     border: none;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 76, 153, 0.4);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -24,7 +24,7 @@
 
 #chat-button:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 76, 153, 0.5);
 }
 
 #chat-button svg {
@@ -63,7 +63,7 @@
 #chat-popup {
     position: fixed;
     bottom: 90px;
-    right: 20px;
+    left: 20px;
     width: 380px;
     height: 550px;
     background: white;
@@ -92,7 +92,7 @@
 }
 
 .chat-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #004C99 0%, #0066cc 100%);
     color: white;
     padding: 20px;
     display: flex;
@@ -164,7 +164,7 @@
 }
 
 .chat-message.customer .message-bubble {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #004C99 0%, #0066cc 100%);
     color: white;
     border-bottom-right-radius: 4px;
 }
@@ -223,14 +223,14 @@
 }
 
 .chat-input:focus {
-    border-color: #667eea;
+    border-color: #004C99;
 }
 
 .chat-send-btn {
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #004C99 0%, #0066cc 100%);
     border: none;
     color: white;
     cursor: pointer;
@@ -260,12 +260,12 @@
     #chat-popup {
         width: calc(100vw - 20px);
         height: calc(100vh - 100px);
-        right: 10px;
+        left: 10px;
         bottom: 80px;
     }
 
     #chat-button {
-        right: 15px;
+        left: 15px;
         bottom: 15px;
     }
 }
