@@ -17,6 +17,8 @@ const poppins = Poppins({
     display: 'swap',
 });
 
+export const runtime = 'edge';
+
 export const metadata: Metadata = {
     metadataBase: new URL('https://www.3daspire.com'),
     title: 'Vectric Aspire 12 - Full Lifetime License | Save $1,876 Today',
