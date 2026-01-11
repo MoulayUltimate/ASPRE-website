@@ -118,9 +118,9 @@ export default function OrdersPage() {
                                         ${order.total.toFixed(2)}
                                     </td>
                                     <td style={{ padding: '1rem', textAlign: 'right' }}>
-                                        <Link href={`/admin/orders/${order.orderId}`} style={{ color: '#3b82f6', textDecoration: 'none', fontSize: '0.875rem', fontWeight: 500 }}>
-                                            View Details
-                                        </Link>
+                                        <span style={{ color: '#9ca3af', fontSize: '0.875rem' }}>
+                                            Details
+                                        </span>
                                     </td>
                                 </tr>
                             ))
