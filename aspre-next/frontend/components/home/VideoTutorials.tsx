@@ -4,22 +4,22 @@ const tutorials = [
     {
         id: 'glEsqGe_8cU',
         title: 'Furniture Making with Aspire',
-        thumbnail: 'https://img.youtube.com/vi/glEsqGe_8cU/maxresdefault.jpg',
+        thumbnail: 'https://img.youtube.com/vi/glEsqGe_8cU/hqdefault.jpg',
     },
     {
         id: '9Lc7XZHrvP8',
-        title: 'Clip Art \u0026 Design Arrangement',
-        thumbnail: 'https://img.youtube.com/vi/9Lc7XZHrvP8/maxresdefault.jpg',
+        title: 'Clip Art & Design Arrangement',
+        thumbnail: 'https://img.youtube.com/vi/9Lc7XZHrvP8/hqdefault.jpg',
     },
     {
         id: 'IHPQ65Rn0YM',
         title: 'Model in a Dish Recess',
-        thumbnail: 'https://img.youtube.com/vi/IHPQ65Rn0YM/maxresdefault.jpg',
+        thumbnail: 'https://img.youtube.com/vi/IHPQ65Rn0YM/hqdefault.jpg',
     },
     {
         id: 's4ofeDBlkbw',
         title: 'Custom Brush Function',
-        thumbnail: 'https://img.youtube.com/vi/s4ofeDBlkbw/maxresdefault.jpg',
+        thumbnail: 'https://img.youtube.com/vi/s4ofeDBlkbw/hqdefault.jpg',
     },
 ];
 
