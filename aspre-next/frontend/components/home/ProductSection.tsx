@@ -15,13 +15,7 @@ export default function ProductSection() {
     const { addToCart } = useCart();
 
     const handleAddToCart = () => {
-        addToCart({
-            id: PRODUCT.id,
-            name: PRODUCT.name,
-            price: PRODUCT.price,
-            originalPrice: PRODUCT.originalPrice,
-            image: PRODUCT.image,
-        });
+        window.location.href = 'https://buy.stripe.com/bJe00i0XWdpW7Xg5ks2Ry00';
     };
 
     return (
@@ -29,7 +23,7 @@ export default function ProductSection() {
             <div className="container">
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                     gap: '4rem',
                     alignItems: 'start'
                 }}>
@@ -53,23 +47,22 @@ export default function ProductSection() {
                     {/* Right Column - Product Details (In Card) */}
                     <div style={{
                         background: 'white',
-                        padding: '3rem',
+                        padding: '2rem',
                         borderRadius: '1.5rem',
                         boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.1)',
                         border: '1px solid rgba(0,0,0,0.05)',
                         position: 'relative',
                         zIndex: 20
                     }}>
-                        <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#1a1a1a', marginBottom: '0.5rem', lineHeight: 1.1 }}>
+                        <h2 style={{ fontSize: '2rem', fontWeight: '800', color: '#1a1a1a', marginBottom: '0.5rem', lineHeight: 1.1 }}>
                             Vectric Aspire 12
                         </h2>
-                        <p style={{ fontSize: '1.125rem', color: '#666666', marginBottom: '2rem' }}>
+                        <p style={{ fontSize: '1rem', color: '#666666', marginBottom: '2rem' }}>
                             Professional 3D CNC Design & Carving Software - Windows
                         </p>
 
                         {/* Features Grid */}
-                        {/* Features Grid */}
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2.5rem' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', marginBottom: '2.5rem' }}>
                             {[
                                 { icon: 'fa-infinity', color: '#0066cc', text: 'Lifetime License', bg: '#e0f2fe' },
                                 { icon: 'fa-bolt', color: '#00b67a', text: 'Instant Delivery', bg: '#dcfce7' },
@@ -79,10 +72,10 @@ export default function ProductSection() {
                                 <div key={index} style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: '1rem',
-                                    padding: '1rem',
+                                    gap: '0.75rem',
+                                    padding: '0.75rem',
                                     background: '#f8fafc',
-                                    borderRadius: '1rem',
+                                    borderRadius: '0.75rem',
                                     border: '1px solid #e2e8f0',
                                     transition: 'all 0.2s ease'
                                 }}
@@ -98,30 +91,30 @@ export default function ProductSection() {
                                     }}
                                 >
                                     <div style={{
-                                        width: '40px',
-                                        height: '40px',
-                                        borderRadius: '10px',
+                                        width: '32px',
+                                        height: '32px',
+                                        borderRadius: '8px',
                                         background: feature.bg,
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         flexShrink: 0
                                     }}>
-                                        <i className={`fas ${feature.icon}`} style={{ color: feature.color, fontSize: '1.1rem' }}></i>
+                                        <i className={`fas ${feature.icon}`} style={{ color: feature.color, fontSize: '0.9rem' }}></i>
                                     </div>
-                                    <span style={{ fontSize: '0.95rem', fontWeight: 600, color: '#334155' }}>{feature.text}</span>
+                                    <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#334155', lineHeight: 1.2 }}>{feature.text}</span>
                                 </div>
                             ))}
                         </div>
 
                         {/* Pricing Area */}
-                        <div style={{ background: '#f8fafc', padding: '2.5rem', borderRadius: '1.25rem', textAlign: 'center', border: '1px solid #e2e8f0' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', marginBottom: '1.5rem' }}>
-                                <span style={{ fontSize: '1.75rem', color: '#94a3b8', textDecoration: 'line-through', fontWeight: 500 }}>$1,995</span>
-                                <span style={{ fontSize: '4rem', fontWeight: 800, color: '#0066cc', lineHeight: 1 }}>$119</span>
+                        <div style={{ background: '#f8fafc', padding: '2rem', borderRadius: '1.25rem', textAlign: 'center', border: '1px solid #e2e8f0' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+                                <span style={{ fontSize: '1.5rem', color: '#94a3b8', textDecoration: 'line-through', fontWeight: 500 }}>$1,995</span>
+                                <span style={{ fontSize: '3.5rem', fontWeight: 800, color: '#0066cc', lineHeight: 1 }}>$119</span>
                             </div>
 
-                            <div style={{ display: 'inline-block', background: '#00b67a', color: 'white', padding: '0.5rem 1.5rem', borderRadius: '999px', fontWeight: 700, fontSize: '1rem', marginBottom: '2rem', boxShadow: '0 4px 6px -1px rgba(0, 182, 122, 0.2)' }}>
+                            <div style={{ display: 'inline-block', background: '#00b67a', color: 'white', padding: '0.5rem 1.5rem', borderRadius: '999px', fontWeight: 700, fontSize: '0.9rem', marginBottom: '2rem', boxShadow: '0 4px 6px -1px rgba(0, 182, 122, 0.2)' }}>
                                 Save $1,876 (94% OFF)
                             </div>
 
@@ -134,7 +127,7 @@ export default function ProductSection() {
                                     border: 'none',
                                     padding: '1.25rem',
                                     borderRadius: '1rem',
-                                    fontSize: '1.25rem',
+                                    fontSize: '1.1rem',
                                     fontWeight: 700,
                                     cursor: 'pointer',
                                     display: 'flex',

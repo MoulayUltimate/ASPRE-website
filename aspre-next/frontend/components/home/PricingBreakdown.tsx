@@ -16,13 +16,7 @@ export default function PricingBreakdown() {
     const { addToCart } = useCart();
 
     const handleAddToCart = () => {
-        addToCart({
-            id: PRODUCT.id,
-            name: PRODUCT.name,
-            price: PRODUCT.price,
-            originalPrice: PRODUCT.originalPrice,
-            image: PRODUCT.image,
-        });
+        window.location.href = 'https://buy.stripe.com/bJe00i0XWdpW7Xg5ks2Ry00';
     };
 
     return (
