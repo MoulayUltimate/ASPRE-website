@@ -1,0 +1,280 @@
+.checkoutPage {
+    background: #f9fafb;
+    min-height: 100vh;
+    padding: 2rem 0 4rem;
+}
+
+.checkoutGrid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 3rem;
+}
+
+.checkoutHeader {
+    margin-bottom: 2rem;
+}
+
+.checkoutHeader h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.checkoutHeader p {
+    color: var(--gray-600);
+}
+
+.form {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+.section h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.formGroup {
+    margin-bottom: 1rem;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--gray-700);
+}
+
+.formGroup input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.formGroup input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.hint {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    margin-top: 0.5rem;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.paymentSection {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.secureText {
+    color: var(--success);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.paymentMethods {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.paymentMethod {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+.paymentIcons {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    color: var(--gray-600);
+}
+
+.redirectNote {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    text-align: center;
+}
+
+.submitButton {
+    width: 100%;
+}
+
+/* Summary Column */
+.summaryCard {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+    position: sticky;
+    top: 100px;
+}
+
+.itemsList {
+    margin-bottom: 2rem;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.itemImage {
+    position: relative;
+}
+
+.itemQty {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--gray-600);
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.itemInfo h4 {
+    font-size: 1rem;
+    margin: 0 0 0.25rem;
+}
+
+.itemInfo p {
+    color: var(--gray-600);
+    margin: 0;
+}
+
+.couponSection {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.couponInput {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.couponInput input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+}
+
+.appliedCoupon {
+    background: #ecfdf5;
+    color: #047857;
+    padding: 0.75rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.removeCoupon {
+    background: none;
+    border: none;
+    color: #047857;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.removeCoupon:hover {
+    opacity: 1;
+}
+
+.errorText {
+    color: var(--error);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+.totals {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    color: var(--gray-700);
+}
+
+.discountRow {
+    color: var(--success);
+}
+
+.divider {
+    height: 1px;
+    background: var(--gray-200);
+    margin: 0.5rem 0;
+}
+
+.grandTotal {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    align-items: center;
+}
+
+.currency {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    font-weight: 400;
+    margin-right: 0.25rem;
+}
+
+@media (max-width: 1024px) {
+    .checkoutGrid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .summaryColumn {
+        order: -1;
+    }
+
+    .summaryCard {
+        position: static;
+    }
+}

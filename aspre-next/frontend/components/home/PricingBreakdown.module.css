@@ -1,0 +1,184 @@
+.pricingCard {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.mainBox {
+    background: white;
+    border: 3px solid var(--accent-blue);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.lineItems {
+    margin-bottom: 1.5rem;
+}
+
+.lineItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.875rem 0;
+}
+
+.lineItem span:first-child {
+    color: var(--gray-600);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.strikePrice {
+    color: var(--gray-500);
+    text-decoration: line-through;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.lastItem {
+    border-bottom: 1px solid var(--gray-200);
+    padding-bottom: 1.25rem;
+}
+
+.totalValue {
+    color: var(--gray-700);
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.discountBox {
+    background: #ffe6e6;
+    border: 2px solid #ffcccc;
+    padding: 1.25rem 1.75rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.discountBox span:first-child {
+    font-weight: 700;
+    color: var(--gray-900);
+    font-size: 1.125rem;
+}
+
+.discountAmount {
+    font-weight: 900;
+    color: #dc2626;
+    font-size: 2rem;
+}
+
+.finalPriceBox {
+    background: white;
+    border: 3px solid var(--accent-blue);
+    padding: 1.5rem 1.75rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.finalPriceBox span:first-child {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--gray-900);
+}
+
+.finalPrice {
+    font-weight: 900;
+    font-size: 3rem;
+    color: var(--accent-blue);
+    line-height: 1;
+}
+
+.ctaButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, #0052a3 100%);
+    color: white;
+    width: 100%;
+    padding: 1.5rem 2rem;
+    border-radius: 10px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s;
+}
+
+.ctaButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 102, 204, 0.3);
+}
+
+.trustPoints {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.trustPoint {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--gray-600);
+}
+
+.trustPoint i {
+    color: var(--accent-blue);
+    font-size: 1.125rem;
+}
+
+.trustPoint span {
+    font-weight: 500;
+    font-size: 0.9375rem;
+}
+
+.urgencyBanner {
+    background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+    border: 2px solid #fda4af;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.urgencyTitle {
+    margin: 0 0 0.5rem;
+    color: #881337;
+    font-weight: 700;
+    font-size: 1.0625rem;
+}
+
+.urgencyTitle i {
+    margin-right: 0.5rem;
+}
+
+.urgencyText {
+    margin: 0;
+    color: #9f1239;
+    font-size: 0.9375rem;
+}
+
+@media (max-width: 768px) {
+    .mainBox {
+        padding: 1.5rem;
+    }
+
+    .discountAmount {
+        font-size: 1.5rem;
+    }
+
+    .finalPrice {
+        font-size: 2rem;
+    }
+
+    .ctaButton {
+        font-size: 1rem;
+        padding: 1.25rem 1.5rem;
+    }
+}

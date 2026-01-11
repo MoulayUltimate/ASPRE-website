@@ -1,0 +1,286 @@
+/*!******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!../node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./app/checkout/Checkout.module.css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************/
+.Checkout_checkoutPage__a0kor {
+    background: #f9fafb;
+    min-height: 100vh;
+    padding: 2rem 0 4rem;
+}
+
+.Checkout_checkoutGrid___PeFh {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-gap: 3rem;
+    gap: 3rem;
+}
+
+.Checkout_checkoutHeader__LP_gT {
+    margin-bottom: 2rem;
+}
+
+.Checkout_checkoutHeader__LP_gT h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.Checkout_checkoutHeader__LP_gT p {
+    color: var(--gray-600);
+}
+
+.Checkout_form__Q_w18 {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+}
+
+.Checkout_section__0dpQx {
+    margin-bottom: 2rem;
+}
+
+.Checkout_section__0dpQx h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.Checkout_formGroup__hlydq {
+    margin-bottom: 1rem;
+}
+
+.Checkout_formGroup__hlydq label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--gray-700);
+}
+
+.Checkout_formGroup__hlydq input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.Checkout_formGroup__hlydq input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.Checkout_hint__80TkD {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    margin-top: 0.5rem;
+}
+
+.Checkout_row__g9QX2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    gap: 1rem;
+}
+
+.Checkout_paymentSection__KgNX_ {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.Checkout_secureText__Vn4ZG {
+    color: var(--success);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.Checkout_paymentMethods__GXSgl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.Checkout_paymentMethod__OlYSO {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+.Checkout_paymentIcons__VkDCJ {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    color: var(--gray-600);
+}
+
+.Checkout_redirectNote__8gzJo {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    text-align: center;
+}
+
+.Checkout_submitButton__pLfaD {
+    width: 100%;
+}
+
+/* Summary Column */
+.Checkout_summaryCard__c185g {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px;
+}
+
+.Checkout_itemsList__Jk5IJ {
+    margin-bottom: 2rem;
+}
+
+.Checkout_item__zRdr3 {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.Checkout_itemImage__n7CQW {
+    position: relative;
+}
+
+.Checkout_itemQty__ZqDHn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--gray-600);
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Checkout_itemInfo__rKk_R h4 {
+    font-size: 1rem;
+    margin: 0 0 0.25rem;
+}
+
+.Checkout_itemInfo__rKk_R p {
+    color: var(--gray-600);
+    margin: 0;
+}
+
+.Checkout_couponSection__33aqz {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.Checkout_couponInput__kR_XT {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.Checkout_couponInput__kR_XT input {
+    flex: 1 1;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+}
+
+.Checkout_appliedCoupon__1ZXeH {
+    background: #ecfdf5;
+    color: #047857;
+    padding: 0.75rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Checkout_removeCoupon__tpJMO {
+    background: none;
+    border: none;
+    color: #047857;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.Checkout_removeCoupon__tpJMO:hover {
+    opacity: 1;
+}
+
+.Checkout_errorText__EZq4W {
+    color: var(--error);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+.Checkout_totals__Q7GZX {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.Checkout_totalRow__335y_ {
+    display: flex;
+    justify-content: space-between;
+    color: var(--gray-700);
+}
+
+.Checkout_discountRow__Jzdzy {
+    color: var(--success);
+}
+
+.Checkout_divider__25O8v {
+    height: 1px;
+    background: var(--gray-200);
+    margin: 0.5rem 0;
+}
+
+.Checkout_grandTotal__NCOBK {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    align-items: center;
+}
+
+.Checkout_currency__EL_X3 {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    font-weight: 400;
+    margin-right: 0.25rem;
+}
+
+@media (max-width: 1024px) {
+    .Checkout_checkoutGrid___PeFh {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .Checkout_summaryColumn__yijps {
+        order: -1;
+    }
+
+    .Checkout_summaryCard__c185g {
+        position: static;
+    }
+}
