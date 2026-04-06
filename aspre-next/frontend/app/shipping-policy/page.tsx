@@ -24,7 +24,7 @@ export default function ShippingPolicy() {
 
                         <h3>Not Received?</h3>
                         <p>
-                            If you have not received your license email within 10 minutes of purchase, please check your Spam or Junk folder. If it is not there, please contact our support team at support@3daspire.com, and we will resend your license details immediately.
+                            If you have not received your license email within 10 minutes of purchase, please check your Spam or Junk folder. If it is not there, please contact our support team at contact@3daspire.com, and we will resend your license details immediately.
                         </p>
 
                         <h3>System Requirements</h3>

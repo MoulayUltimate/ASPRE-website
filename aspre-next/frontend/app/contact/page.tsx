@@ -22,8 +22,8 @@ export default function ContactPage() {
                                         <i className="fas fa-envelope" style={{ color: 'var(--accent-blue)' }} /> Email Support
                                     </h4>
                                     <p>
-                                        <a href="mailto:support@3daspire.com" style={{ fontSize: '1.125rem', fontWeight: 500 }}>
-                                            support@3daspire.com
+                                        <a href="mailto:contact@3daspire.com" style={{ fontSize: '1.125rem', fontWeight: 500 }}>
+                                            contact@3daspire.com
                                         </a>
                                     </p>
                                     <p style={{ fontSize: '0.875rem', color: 'var(--gray-500)' }}>

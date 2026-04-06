@@ -101,7 +101,7 @@ export default function AdminLogin() {
                                 outline: 'none',
                                 transition: 'border-color 0.15s ease-in-out'
                             }}
-                            placeholder="admin@3daspire.com"
+                            placeholder="contact@3daspire.com"
                         />
                     </div>
 

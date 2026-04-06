@@ -42,7 +42,7 @@ export default function PrivacyPolicy() {
 
                         <h3>5. Contact Us</h3>
                         <p>
-                            If you have any questions about this privacy policy or our privacy practices, please contact us at support@3daspire.com.
+                            If you have any questions about this privacy policy or our privacy practices, please contact us at contact@3daspire.com.
                         </p>
                     </div>
 

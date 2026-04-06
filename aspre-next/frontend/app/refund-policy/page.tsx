@@ -19,7 +19,7 @@ export default function RefundPolicy() {
 
                         <h3>How to Request a Refund</h3>
                         <p>
-                            To request a refund, please contact our support team at support@3daspire.com with your order number and the email address used for the purchase. Our team will process your request within 24-48 hours.
+                            To request a refund, please contact our support team at contact@3daspire.com with your order number and the email address used for the purchase. Our team will process your request within 24-48 hours.
                         </p>
 
                         <h3>Refund Processing</h3>

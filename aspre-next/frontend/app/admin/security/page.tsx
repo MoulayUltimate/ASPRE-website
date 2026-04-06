@@ -23,7 +23,7 @@ export default function SecurityPage() {
             const verifyRes = await fetch(`${apiUrl}/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: 'admin@3daspire.com', password: currentPassword }) // Assuming admin email
+                body: JSON.stringify({ email: 'contact@3daspire.com', password: currentPassword }) // Assuming admin email
             });
 
             if (!verifyRes.ok) {
