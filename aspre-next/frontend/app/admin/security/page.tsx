@@ -6,8 +6,9 @@ export default function SecurityPage() {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (newPassword !== confirmPassword) {
@@ -15,11 +16,41 @@ export default function SecurityPage() {
             return;
         }
 
-        // TODO: Backend password change
-        alert('Password updated! (Backend integration pending)');
-        setCurrentPassword('');
-        setNewPassword('');
-        setConfirmPassword('');
+        setLoading(true);
+        try {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+            // Verify current password first by calling login
+            const verifyRes = await fetch(`${apiUrl}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: 'admin@3daspire.com', password: currentPassword }) // Assuming admin email
+            });
+
+            if (!verifyRes.ok) {
+                alert('Current password is incorrect.');
+                setLoading(false);
+                return;
+            }
+
+            const response = await fetch(`${apiUrl}/settings/security`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: newPassword })
+            });
+            if (response.ok) {
+                alert('Password updated successfully!');
+                setCurrentPassword('');
+                setNewPassword('');
+                setConfirmPassword('');
+            } else {
+                alert('Failed to update password.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Error connecting to server.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

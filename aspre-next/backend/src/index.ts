@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import orderRoutes from './routes/orders';
 import stripeRoutes from './routes/stripe';
+import authRoutes from './routes/auth';
+import settingsRoutes from './routes/settings';
 
 dotenv.config();
 
@@ -20,6 +22,8 @@ app.use(express.json());
 // Routes
 app.use('/api/orders', orderRoutes);
 app.use('/api/stripe', stripeRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/settings', settingsRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

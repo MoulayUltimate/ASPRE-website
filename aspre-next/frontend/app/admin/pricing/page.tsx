@@ -8,6 +8,28 @@ export default function PricingPage() {
     const [priceOriginal, setPriceOriginal] = useState('1995');
     const [priceCurrent, setPriceCurrent] = useState('119');
     const [discount, setDiscount] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+                const response = await fetch(`${apiUrl}/settings/pricing`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && Object.keys(data).length > 0) {
+                        setCurrencySymbol(data.currencySymbol || '$');
+                        setCurrencyCode(data.currencyCode || 'USD');
+                        setPriceOriginal(data.priceOriginal || '1995');
+                        setPriceCurrent(data.priceCurrent || '119');
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to load settings', err);
+            }
+        };
+        fetchSettings();
+    }, []);
 
     useEffect(() => {
         const orig = parseFloat(priceOriginal) || 0;
@@ -16,10 +38,27 @@ export default function PricingPage() {
         setDiscount(disc.toFixed(2));
     }, [priceOriginal, priceCurrent]);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO: Save to backend/Cloudflare KV
-        alert('Pricing updated! (Backend integration pending)');
+        setLoading(true);
+        try {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+            const response = await fetch(`${apiUrl}/settings/pricing`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ currencySymbol, currencyCode, priceOriginal, priceCurrent })
+            });
+            if (response.ok) {
+                alert('Pricing updated successfully!');
+            } else {
+                alert('Failed to update pricing.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Error connecting to server.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

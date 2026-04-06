@@ -1,7 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import styles from './AdminLayout.module.css';
 
 export default function AdminLayoutClient({
@@ -10,6 +11,39 @@ export default function AdminLayoutClient({
     children: React.ReactNode;
 }) {
     const pathname = usePathname();
+    const router = useRouter();
+    const [isAuthorized, setIsAuthorized] = useState(false);
+
+    useEffect(() => {
+        // Allow access to login page without auth
+        if (pathname === '/admin/login') {
+            setIsAuthorized(true);
+            return;
+        }
+
+        // Check for authentication
+        const auth = localStorage.getItem('adminAuth');
+        if (!auth) {
+            router.push('/admin/login');
+        } else {
+            setIsAuthorized(true);
+        }
+    }, [router, pathname]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('adminAuth');
+        router.push('/admin/login');
+    };
+
+    // Prevent flashing of admin content before redirect
+    if (!isAuthorized) {
+        return null;
+    }
+
+    // If on login page, render children without the admin layout
+    if (pathname === '/admin/login') {
+        return <>{children}</>;
+    }
 
     const navItems = [
         { name: 'Analytics', path: '/admin', icon: 'fa-chart-line' },
@@ -44,7 +78,7 @@ export default function AdminLayoutClient({
                     </ul>
                 </nav>
                 <div className={styles.sidebarFooter}>
-                    <button className={styles.logoutButton}>
+                    <button onClick={handleLogout} className={styles.logoutButton}>
                         <i className="fas fa-sign-out-alt" /> Logout
                     </button>
                 </div>

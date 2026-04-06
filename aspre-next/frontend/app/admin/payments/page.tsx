@@ -1,16 +1,54 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function PaymentsPage() {
     const [stripeLinkUSD, setStripeLinkUSD] = useState('');
     const [stripeLinkGBP, setStripeLinkGBP] = useState('');
     const [stripePublicKey, setStripePublicKey] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+                const response = await fetch(`${apiUrl}/settings/payments`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data) {
+                        setStripeLinkUSD(data.stripeLinkUSD || '');
+                        setStripeLinkGBP(data.stripeLinkGBP || '');
+                        setStripePublicKey(data.stripePublicKey || '');
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to load settings', err);
+            }
+        };
+        fetchSettings();
+    }, []);
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO: Save to backend/Cloudflare KV
-        alert('Stripe settings saved! (Backend integration pending)');
+        setLoading(true);
+        try {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+            const response = await fetch(`${apiUrl}/settings/payments`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ stripeLinkUSD, stripeLinkGBP, stripePublicKey })
+            });
+            if (response.ok) {
+                alert('Stripe settings saved successfully!');
+            } else {
+                alert('Failed to save Stripe settings.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Error connecting to server.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

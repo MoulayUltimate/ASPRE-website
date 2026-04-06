@@ -1,0 +1,27 @@
+{
+  "name": "aspre",
+  "version": "1.0.0",
+  "description": "Vectric Aspire 12 E-Commerce Platform - Professional CNC software license sales",
+  "main": "public/index.html",
+  "scripts": {
+    "dev": "wrangler pages dev public --kv ASPRE_LICENSES --kv ASPRE_ORDERS --kv ASPRE_CUSTOMERS --kv ASPRE_SETTINGS",
+    "build": "echo 'No build step required for static site'",
+    "deploy": "wrangler pages publish public",
+    "preview": "wrangler pages dev public"
+  },
+  "keywords": [
+    "vectric",
+    "aspire",
+    "cnc",
+    "ecommerce",
+    "cloudflare"
+  ],
+  "author": "ASPRE",
+  "license": "ISC",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  },
+  "dependencies": {
+    "@stripe/stripe-js": "^2.0.0"
+  }
+}

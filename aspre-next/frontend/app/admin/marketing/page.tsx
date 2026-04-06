@@ -1,16 +1,54 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function MarketingPage() {
     const [googleAdsId, setGoogleAdsId] = useState('');
     const [ga4Id, setGa4Id] = useState('');
     const [gtmId, setGtmId] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+                const response = await fetch(`${apiUrl}/settings/marketing`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data) {
+                        setGoogleAdsId(data.googleAdsId || '');
+                        setGa4Id(data.ga4Id || '');
+                        setGtmId(data.gtmId || '');
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to load settings', err);
+            }
+        };
+        fetchSettings();
+    }, []);
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO: Save to backend/Cloudflare KV
-        alert('Tracking codes saved! (Backend integration pending)');
+        setLoading(true);
+        try {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+            const response = await fetch(`${apiUrl}/settings/marketing`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ googleAdsId, ga4Id, gtmId })
+            });
+            if (response.ok) {
+                alert('Tracking codes saved successfully!');
+            } else {
+                alert('Failed to save tracking codes.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Error connecting to server.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

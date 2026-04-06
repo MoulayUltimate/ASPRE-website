@@ -11,5 +11,8 @@
     "cnc"
   ],
   "author": "ASPRE",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "stripe": "^20.1.2"
+  }
 }
