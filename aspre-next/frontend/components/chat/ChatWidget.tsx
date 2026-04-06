@@ -124,7 +124,7 @@ export default function ChatWidget() {
                     display: 'flex', flexDirection: 'column',
                     overflow: 'hidden'
                 }}>
-                    <div style={{ background: 'linear-gradient(135deg, #a855f7 0%, #7e22ce 100%)', padding: '1rem', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ background: 'linear-gradient(135deg, #0066cc 0%, #004c99 100%)', padding: '1rem', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
                             <h3 style={{ margin: 0, fontSize: '1.125rem' }}>Live Chat</h3>
                             <p style={{ margin: 0, fontSize: '0.75rem', opacity: 0.9 }}>We typically reply in a few minutes</p>
@@ -137,7 +137,7 @@ export default function ChatWidget() {
                     {!conversationId ? (
                         <div style={{ flex: 1, padding: '1.5rem', display: 'flex', flexDirection: 'column', background: '#f9fafb' }}>
                             <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-                                <i className="fas fa-headset" style={{ fontSize: '3rem', color: '#a855f7', marginBottom: '1rem' }}></i>
+                                <i className="fas fa-headset" style={{ fontSize: '3rem', color: '#0066cc', marginBottom: '1rem' }}></i>
                                 <h4 style={{ margin: 0, color: '#1f2937' }}>Welcome to Aspire Support!</h4>
                                 <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem' }}>Please enter your email to start a conversation.</p>
                             </div>
@@ -158,7 +158,7 @@ export default function ChatWidget() {
                                     rows={3}
                                     style={{ padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', fontSize: '0.875rem', resize: 'none' }}
                                 />
-                                <button type="submit" disabled={loading} style={{ background: '#7e22ce', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '0.5rem', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer' }}>
+                                <button type="submit" disabled={loading} style={{ background: '#0066cc', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '0.5rem', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer' }}>
                                     {loading ? 'Starting...' : 'Start Chat'}
                                 </button>
                             </form>
@@ -169,7 +169,7 @@ export default function ChatWidget() {
                                 {messages.map((msg, idx) => (
                                     <div key={idx} style={{
                                         alignSelf: msg.sender === 'customer' ? 'flex-end' : 'flex-start',
-                                        background: msg.sender === 'customer' ? '#7e22ce' : '#e5e7eb',
+                                        background: msg.sender === 'customer' ? '#0066cc' : '#e5e7eb',
                                         color: msg.sender === 'customer' ? 'white' : '#1f2937',
                                         padding: '0.5rem 1rem', borderRadius: '1rem',
                                         borderBottomRightRadius: msg.sender === 'customer' ? '0.25rem' : '1rem',
@@ -189,7 +189,7 @@ export default function ChatWidget() {
                                     onChange={(e) => setNewMessage(e.target.value)}
                                     style={{ flex: 1, padding: '0.5rem 0.75rem', borderRadius: '9999px', border: '1px solid #d1d5db', fontSize: '0.875rem', outline: 'none' }}
                                 />
-                                <button type="submit" style={{ background: '#7e22ce', color: 'white', border: 'none', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                <button type="submit" style={{ background: '#0066cc', color: 'white', border: 'none', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                                     <i className="fas fa-paper-plane"></i>
                                 </button>
                             </form>
@@ -202,10 +202,10 @@ export default function ChatWidget() {
             <button
                 onClick={() => { setIsOpen(!isOpen); setUnread(0); }}
                 style={{
-                    background: 'linear-gradient(135deg, #a855f7 0%, #7e22ce 100%)',
+                    background: 'linear-gradient(135deg, #0066cc 0%, #004c99 100%)',
                     color: 'white', border: 'none',
                     width: '3.5rem', height: '3.5rem', borderRadius: '50%',
-                    boxShadow: '0 4px 15px rgba(126, 34, 206, 0.4)',
+                    boxShadow: '0 4px 15px rgba(0, 102, 204, 0.4)',
                     cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: '1.5rem', position: 'relative', transition: 'transform 0.2s'
                 }}

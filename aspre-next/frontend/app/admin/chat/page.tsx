@@ -94,7 +94,7 @@ export default function LiveChatPage() {
                 <div style={{ background: 'white', borderRadius: '0.75rem', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                     <div style={{ padding: '1.5rem', borderBottom: '1px solid #e5e7eb', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <h3 style={{ margin: 0, fontSize: '1.125rem' }}>Conversations</h3>
-                        <span style={{ background: '#e0e7ff', color: '#4f46e5', padding: '0.25rem 0.75rem', borderRadius: '9999px', fontSize: '0.875rem', fontWeight: 'bold' }}>
+                        <span style={{ background: '#e0e7ff', color: '#0066cc', padding: '#0.25rem 0.75rem', borderRadius: '9999px', fontSize: '0.875rem', fontWeight: 'bold' }}>
                             {conversations.length}
                         </span>
                     </div>
@@ -148,13 +148,13 @@ export default function LiveChatPage() {
                     ) : (
                         <>
                             <div style={{ padding: '1.5rem', borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
-                                <h3 style={{ margin: 0, fontSize: '1.125rem' }}>Chat with <span style={{ color: '#4f46e5' }}>{activeChat.email}</span></h3>
+                                <h3 style={{ margin: 0, fontSize: '1.125rem' }}>Chat with <span style={{ color: '#0066cc' }}>{activeChat.email}</span></h3>
                             </div>
                             <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', background: '#f3f4f6' }}>
                                 {messages.map((msg, idx) => (
                                     <div key={idx} style={{
                                         alignSelf: msg.sender === 'admin' ? 'flex-end' : 'flex-start',
-                                        background: msg.sender === 'admin' ? '#4f46e5' : 'white',
+                                        background: msg.sender === 'admin' ? '#0066cc' : 'white',
                                         color: msg.sender === 'admin' ? 'white' : '#1f2937',
                                         padding: '0.75rem 1.25rem', borderRadius: '1rem',
                                         borderBottomRightRadius: msg.sender === 'admin' ? '0.25rem' : '1rem',
@@ -186,7 +186,7 @@ export default function LiveChatPage() {
                                     />
                                     <button
                                         onClick={handleSendReply}
-                                        style={{ background: '#4f46e5', color: 'white', border: 'none', padding: '0 1.5rem', borderRadius: '0.5rem', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                                        style={{ background: '#0066cc', color: 'white', border: 'none', padding: '0 1.5rem', borderRadius: '0.5rem', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                                     >
                                         <i className="fas fa-paper-plane"></i> Send
                                     </button>
