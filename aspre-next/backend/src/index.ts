@@ -5,6 +5,8 @@ import orderRoutes from './routes/orders';
 import stripeRoutes from './routes/stripe';
 import authRoutes from './routes/auth';
 import settingsRoutes from './routes/settings';
+import analyticsRoutes from './routes/analytics';
+import chatRoutes from './routes/chat';
 
 dotenv.config();
 
@@ -24,6 +26,8 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/stripe', stripeRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

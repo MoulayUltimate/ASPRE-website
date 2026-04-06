@@ -3,6 +3,7 @@ import { Inter, Poppins } from 'next/font/google';
 import '@/styles/globals.css';
 import { CartProvider } from '@/context/CartContext';
 import ConditionalLayout from '@/components/layout/ConditionalLayout';
+import ChatWidget from '@/components/chat/ChatWidget';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -72,7 +73,10 @@ export default function RootLayout({
             </head>
             <body>
                 <CartProvider>
-                    <ConditionalLayout>{children}</ConditionalLayout>
+                    <ConditionalLayout>
+                        {children}
+                        <ChatWidget />
+                    </ConditionalLayout>
                 </CartProvider>
             </body>
         </html>

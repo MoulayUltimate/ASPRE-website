@@ -58,11 +58,12 @@ export const CloudflareKV = {
         return true;
     },
 
-    async list(namespaceId: string | undefined, limit = 10, cursor?: string) {
+    async list(namespaceId: string | undefined, limit = 10, cursor?: string, prefix?: string) {
         if (!namespaceId) throw new Error('Namespace ID not configured');
 
         let url = `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/storage/kv/namespaces/${namespaceId}/keys?limit=${limit}`;
         if (cursor) url += `&cursor=${cursor}`;
+        if (prefix) url += `&prefix=${encodeURIComponent(prefix)}`;
 
         const response = await fetch(url, {
             headers: {
