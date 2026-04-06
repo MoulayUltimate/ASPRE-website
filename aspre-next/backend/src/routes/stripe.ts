@@ -126,6 +126,12 @@ async function createOrderFromSession(session: Stripe.Checkout.Session) {
 
     // 3. Save to Cloudflare KV
     await CloudflareKV.orders.create(order);
+
+    // 4. Update Analytics Conversions
+    const todayKey = new Date().toISOString().split('T')[0];
+    const SETTINGS_NAMESPACE = process.env.CLOUDFLARE_KV_SETTINGS_ID || process.env.CLOUDFLARE_KV_ORDERS_ID;
+    const currentConvs = await CloudflareKV.get(SETTINGS_NAMESPACE, `stats::${todayKey}::conversions`) || 0;
+    await CloudflareKV.put(SETTINGS_NAMESPACE, `stats::${todayKey}::conversions`, Number(currentConvs) + 1);
 }
 
 export default router;

@@ -4,6 +4,7 @@ import '@/styles/globals.css';
 import { CartProvider } from '@/context/CartContext';
 import ConditionalLayout from '@/components/layout/ConditionalLayout';
 import ChatWidget from '@/components/chat/ChatWidget';
+import AnalyticsTracker from '@/components/analytics/AnalyticsTracker';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -75,6 +76,7 @@ export default function RootLayout({
                 <CartProvider>
                     <ConditionalLayout>
                         {children}
+                        <AnalyticsTracker />
                         <ChatWidget />
                     </ConditionalLayout>
                 </CartProvider>

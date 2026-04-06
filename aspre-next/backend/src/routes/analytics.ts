@@ -84,4 +84,50 @@ router.get('/', async (req, res) => {
     }
 });
 
+// 5. Tracking Endpoint
+router.post('/track', async (req, res) => {
+    try {
+        const { type, url, text, sessionId, country } = req.body;
+        const todayKey = new Date().toISOString().split('T')[0];
+
+        // Update Real-time
+        if (sessionId) {
+            const userData = {
+                id: sessionId,
+                url: url || '/',
+                lastSeen: Date.now(),
+                country: country || 'US'
+            };
+            await CloudflareKV.put(SETTINGS_NAMESPACE, `rt::${sessionId}`, userData);
+        }
+
+        if (type === 'pageview') {
+            // Increment Views
+            const currentViews = await CloudflareKV.get(SETTINGS_NAMESPACE, `stats::${todayKey}::views`) || 0;
+            await CloudflareKV.put(SETTINGS_NAMESPACE, `stats::${todayKey}::views`, Number(currentViews) + 1);
+
+            // Increment Country Stats
+            if (country) {
+                const countries = await CloudflareKV.get(SETTINGS_NAMESPACE, `stats::${todayKey}::countries`) || {};
+                countries[country] = (countries[country] || 0) + 1;
+                await CloudflareKV.put(SETTINGS_NAMESPACE, `stats::${todayKey}::countries`, countries);
+            }
+        } else if (type === 'click') {
+            const clicks = await CloudflareKV.get(SETTINGS_NAMESPACE, 'log::clicks') || [];
+            clicks.unshift({
+                timestamp: Date.now(),
+                type: 'click',
+                text: text || 'Unknown',
+                url: url || '/'
+            });
+            // Keep only last 50
+            await CloudflareKV.put(SETTINGS_NAMESPACE, 'log::clicks', clicks.slice(0, 50));
+        }
+
+        res.json({ success: true });
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 export default router;
