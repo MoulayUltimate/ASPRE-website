@@ -16,7 +16,7 @@ export default function PricingBreakdown() {
     const { addToCart } = useCart();
 
     const handleAddToCart = () => {
-        window.location.href = 'https://buy.stripe.com/bJe00i0XWdpW7Xg5ks2Ry00';
+        window.location.href = 'https://buy.stripe.com/cNicN490LaCea5ef075wI02';
     };
 
     return (
