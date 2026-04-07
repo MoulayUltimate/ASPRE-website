@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+import Script from 'next/script';
 
 function SuccessContent() {
     const searchParams = useSearchParams();
@@ -10,6 +11,15 @@ function SuccessContent() {
 
     return (
         <div className="section">
+            <Script id="google-ads-conversion" strategy="afterInteractive">
+                {`
+          gtag('event', 'conversion', {
+              'send_to': 'AW-18041209286/dqovCP2dwpccEMaD3JpD',
+              'value': 1.0,
+              'currency': 'EUR'
+          });
+        `}
+            </Script>
             <div className="container">
                 <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
                     <div style={{
