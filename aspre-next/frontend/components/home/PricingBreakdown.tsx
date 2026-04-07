@@ -16,7 +16,12 @@ export default function PricingBreakdown() {
     const { addToCart } = useCart();
 
     const handleAddToCart = () => {
-        window.location.href = 'https://buy.stripe.com/cNicN490LaCea5ef075wI02';
+        const checkoutUrl = 'https://buy.stripe.com/cNicN490LaCea5ef075wI02';
+        if (typeof window !== 'undefined' && (window as any).gtag_report_conversion) {
+            (window as any).gtag_report_conversion(checkoutUrl);
+        } else {
+            window.location.href = checkoutUrl;
+        }
     };
 
     return (
