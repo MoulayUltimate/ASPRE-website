@@ -36,7 +36,10 @@ export const metadata: Metadata = {
         images: ['/images/og-image.jpg'],
     },
     verification: {
-        google: '0ExB-H4z2ro44xPk-SN7slO5FnjoNg3tbEeUtayT2Z0',
+        google: [
+            '0ExB-H4z2ro44xPk-SN7slO5FnjoNg3tbEeUtayT2Z0',
+            'uQJetlDsCI1q7T7vvAm8OuhjjaUj4845YNrTFBczRco'
+        ],
     },
     icons: {
         icon: '/images/favicon.png',
