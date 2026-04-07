@@ -51,11 +51,7 @@ export default function RootLayout({
     return (
         <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
             <head>
-                {/* Google Analytics & Ads Tags */}
-                <script
-                    async
-                    src="https://www.googletagmanager.com/gtag/js?id=G-SW7ZNTQKEC"
-                />
+                {/* Google tag (gtag.js) */}
                 <script
                     async
                     src="https://www.googletagmanager.com/gtag/js?id=AW-18041209286"
@@ -66,8 +62,8 @@ export default function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-SW7ZNTQKEC');
               gtag('config', 'AW-18041209286');
+              gtag('config', 'G-SW7ZNTQKEC');
             `,
                     }}
                 />
