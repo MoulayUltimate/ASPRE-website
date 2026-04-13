@@ -69,11 +69,19 @@ export default function RootLayout({
               gtag('config', 'G-SW7ZNTQKEC');
 
               function gtag_report_conversion(url) {
+                var loaded = false;
                 var callback = function () {
-                  if (typeof(url) != 'undefined') {
-                    window.location = url;
+                  if (!loaded) {
+                    loaded = true;
+                    if (typeof(url) != 'undefined') {
+                      window.location = url;
+                    }
                   }
                 };
+
+                // Fallback timeout: redirect after 1 second if gtag callback doesn't fire
+                setTimeout(callback, 1000);
+
                 gtag('event', 'conversion', {
                     'send_to': 'AW-18041209286/9lB6CKrxwZccEMaD3JpD',
                     'value': 1.0,

@@ -16,11 +16,14 @@ export default function ProductSection() {
     const { addToCart } = useCart();
 
     const handleAddToCart = () => {
-        const checkoutUrl = 'https://buy.stripe.com/cNicN490LaCea5ef075wI02';
+        addToCart(PRODUCT);
+        
+        // Redirect to internal checkout page
+        const checkoutPage = '/checkout';
         if (typeof window !== 'undefined' && (window as any).gtag_report_conversion) {
-            (window as any).gtag_report_conversion(checkoutUrl);
+            (window as any).gtag_report_conversion(checkoutPage);
         } else {
-            window.location.href = checkoutUrl;
+            window.location.href = checkoutPage;
         }
     };
 
