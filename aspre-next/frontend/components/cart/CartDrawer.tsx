@@ -143,13 +143,20 @@ export default function CartDrawer() {
                             </div>
                         </div>
 
-                        <Link
-                            href="/checkout"
+                        <button
                             className={`btn btn-success btn-large ${styles.checkoutButton}`}
-                            onClick={closeCart}
+                            onClick={() => {
+                                closeCart();
+                                const checkoutUrl = 'https://buy.stripe.com/cNicN490LaCea5ef075wI02';
+                                if (typeof window !== 'undefined' && (window as any).gtag_report_conversion) {
+                                    (window as any).gtag_report_conversion(checkoutUrl);
+                                } else {
+                                    window.location.href = checkoutUrl;
+                                }
+                            }}
                         >
                             <i className="fas fa-lock" /> Proceed to Checkout
-                        </Link>
+                        </button>
 
                         <p className={styles.securityNote}>
                             <i className="fas fa-shield-alt" /> Secure checkout powered by Stripe
