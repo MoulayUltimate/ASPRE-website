@@ -1,4 +1,18 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Contact Us - 3daspire.com | Vectric Aspire 12 Support',
+    description:
+        'Contact 3daspire.com for Vectric Aspire 12 support. Get help with your license, installation, or any questions. We respond within 24 hours.',
+    alternates: { canonical: 'https://www.3daspire.com/contact' },
+    openGraph: {
+        title: 'Contact Us - 3daspire.com',
+        description: 'Get support for your Vectric Aspire 12 license. Fast response, friendly team.',
+        url: 'https://www.3daspire.com/contact',
+        type: 'website',
+    },
+};
 
 export default function ContactPage() {
     return (
