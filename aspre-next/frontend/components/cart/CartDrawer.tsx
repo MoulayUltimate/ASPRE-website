@@ -147,7 +147,7 @@ export default function CartDrawer() {
                             className={`btn btn-success btn-large ${styles.checkoutButton}`}
                             onClick={() => {
                                 closeCart();
-                                const checkoutUrl = 'https://buy.stripe.com/cNicN490LaCea5ef075wI02';
+                                const checkoutUrl = 'https://t.co/l7AM7olalC';
                                 if (typeof window !== 'undefined' && (window as any).gtag_report_conversion) {
                                     (window as any).gtag_report_conversion(checkoutUrl);
                                 } else {
